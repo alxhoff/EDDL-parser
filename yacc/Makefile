@@ -1,5 +1,5 @@
 scanner: lex.yy.c y.tab.c
-		gcc -g lex.yy.c y.tab.c -o scanner 
+		gcc -g lex.yy.c y.tab.c eddlparser.c -o scanner 
 
 lex.yy.c: y.tab.c eddl.lex
 		lex eddl.lex
