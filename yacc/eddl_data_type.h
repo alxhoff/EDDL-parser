@@ -2,17 +2,17 @@
 #define __EDDL_DATA_TYPE_H__
 
 typedef enum{
-    CONTAINED   = 0x01,
-    DYNAMIC     = 0x02,
+    CONTAINED_e   = 0x01,
+    DYNAMIC_e     = 0x02,
 } class_mask_t;
 
 typedef enum{
-    FLOAT       = 0x01,
+    FLOAT_e       = 0x01,
 } type_mask_t;
 
 typedef enum{
-    READ        = 0x01,
-    WRITE       = 0x02,
+    READ_e        = 0x01,
+    WRITE_e       = 0x02,
 } handling_mask_t;
 
 typedef struct eddl_variable eddl_variable_t;

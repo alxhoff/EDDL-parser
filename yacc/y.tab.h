@@ -90,7 +90,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 10 "eddl.y" /* yacc.c:1909  */
+#line 13 "eddl.y" /* yacc.c:1909  */
 
         float dec; 
         char* ptr;

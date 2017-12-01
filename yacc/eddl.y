@@ -3,8 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "eddlparser.h"
+
 int yylex(void);
 void yyerror (char *s);
+eddl_object_t* doc_object;
 %}
 
 %union {
@@ -55,7 +58,7 @@ hex_term    : HEX                {$$ = $1; printf("hex: %d\n", $1);}
 float_term  : FLOAT              {$$ = $1; printf("float: %d\n", $1);}
             ;
 
-set_term    : MANUFACTURER      { printf("set_term: MANUFACTURER\n");}  
+set_term    : MANUFACTURER      {doc_object = create_eddl_t(); printf("set_term: MANUFACTURER\n");}  
             | DEVICE_TYPE       { printf("set_term: DEVICE_TYPE\n");}
             | DEVICE_REVISION   { printf("set_term: DEVICE_REVISION\n");}
             | DD_REVISION       { printf("set_term: DD_REVISION\n");}

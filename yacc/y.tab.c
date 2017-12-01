@@ -68,10 +68,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "eddlparser.h"
+
 int yylex(void);
 void yyerror (char *s);
+eddl_object_t* doc_object;
 
-#line 75 "y.tab.c" /* yacc.c:339  */
+#line 78 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -151,7 +154,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 10 "eddl.y" /* yacc.c:355  */
+#line 13 "eddl.y" /* yacc.c:355  */
 
         float dec; 
         char* ptr;
@@ -159,7 +162,7 @@ union YYSTYPE
         char str[100];
         
 
-#line 163 "y.tab.c" /* yacc.c:355  */
+#line 166 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -176,7 +179,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 180 "y.tab.c" /* yacc.c:358  */
+#line 183 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -475,9 +478,9 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    43,    43,    44,    45,    46,    49,    52,    55,    58,
-      59,    60,    61,    62,    63,    64,    65,    66,    67,    68,
-      71
+       0,    46,    46,    47,    48,    49,    52,    55,    58,    61,
+      62,    63,    64,    65,    66,    67,    68,    69,    70,    71,
+      74
 };
 #endif
 
@@ -1260,121 +1263,121 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 43 "eddl.y" /* yacc.c:1646  */
+#line 46 "eddl.y" /* yacc.c:1646  */
     {printf("line1: %s %d\n", (yyvsp[-2].str), (yyvsp[0].str));}
-#line 1266 "y.tab.c" /* yacc.c:1646  */
+#line 1269 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 44 "eddl.y" /* yacc.c:1646  */
+#line 47 "eddl.y" /* yacc.c:1646  */
     {printf("line2: %s %d\n", (yyvsp[-2].str), (yyvsp[0].num));}
-#line 1272 "y.tab.c" /* yacc.c:1646  */
+#line 1275 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 45 "eddl.y" /* yacc.c:1646  */
+#line 48 "eddl.y" /* yacc.c:1646  */
     {printf("line3: %s %d\n", (yyvsp[-2].str), (yyvsp[0].num));}
-#line 1278 "y.tab.c" /* yacc.c:1646  */
+#line 1281 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 46 "eddl.y" /* yacc.c:1646  */
+#line 49 "eddl.y" /* yacc.c:1646  */
     {printf("line4: %s %f\n", (yyvsp[-2].str), (yyvsp[0].dec));}
-#line 1284 "y.tab.c" /* yacc.c:1646  */
+#line 1287 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 49 "eddl.y" /* yacc.c:1646  */
+#line 52 "eddl.y" /* yacc.c:1646  */
     {(yyval.num) = (yyvsp[0].num); printf("integer: %d\n", (yyvsp[0].num));}
-#line 1290 "y.tab.c" /* yacc.c:1646  */
+#line 1293 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 52 "eddl.y" /* yacc.c:1646  */
+#line 55 "eddl.y" /* yacc.c:1646  */
     {(yyval.num) = (yyvsp[0].num); printf("hex: %d\n", (yyvsp[0].num));}
-#line 1296 "y.tab.c" /* yacc.c:1646  */
+#line 1299 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 55 "eddl.y" /* yacc.c:1646  */
+#line 58 "eddl.y" /* yacc.c:1646  */
     {(yyval.dec) = (yyvsp[0].dec); printf("float: %d\n", (yyvsp[0].dec));}
-#line 1302 "y.tab.c" /* yacc.c:1646  */
+#line 1305 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 58 "eddl.y" /* yacc.c:1646  */
-    { printf("set_term: MANUFACTURER\n");}
-#line 1308 "y.tab.c" /* yacc.c:1646  */
+#line 61 "eddl.y" /* yacc.c:1646  */
+    {doc_object = create_eddl_t(); printf("set_term: MANUFACTURER\n");}
+#line 1311 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 59 "eddl.y" /* yacc.c:1646  */
+#line 62 "eddl.y" /* yacc.c:1646  */
     { printf("set_term: DEVICE_TYPE\n");}
-#line 1314 "y.tab.c" /* yacc.c:1646  */
+#line 1317 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 60 "eddl.y" /* yacc.c:1646  */
+#line 63 "eddl.y" /* yacc.c:1646  */
     { printf("set_term: DEVICE_REVISION\n");}
-#line 1320 "y.tab.c" /* yacc.c:1646  */
+#line 1323 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 61 "eddl.y" /* yacc.c:1646  */
+#line 64 "eddl.y" /* yacc.c:1646  */
     { printf("set_term: DD_REVISION\n");}
-#line 1326 "y.tab.c" /* yacc.c:1646  */
+#line 1329 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 62 "eddl.y" /* yacc.c:1646  */
+#line 65 "eddl.y" /* yacc.c:1646  */
     { printf("set_term: VARIABLE\n");}
-#line 1332 "y.tab.c" /* yacc.c:1646  */
+#line 1335 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 63 "eddl.y" /* yacc.c:1646  */
+#line 66 "eddl.y" /* yacc.c:1646  */
     { printf("set_term: LABEL\n");}
-#line 1338 "y.tab.c" /* yacc.c:1646  */
+#line 1341 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 64 "eddl.y" /* yacc.c:1646  */
+#line 67 "eddl.y" /* yacc.c:1646  */
     { printf("set_term: HELP\n");}
-#line 1344 "y.tab.c" /* yacc.c:1646  */
+#line 1347 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 65 "eddl.y" /* yacc.c:1646  */
+#line 68 "eddl.y" /* yacc.c:1646  */
     { printf("set_term: CLASS\n");}
-#line 1350 "y.tab.c" /* yacc.c:1646  */
+#line 1353 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 66 "eddl.y" /* yacc.c:1646  */
+#line 69 "eddl.y" /* yacc.c:1646  */
     { printf("set_term: TYPE\n");}
-#line 1356 "y.tab.c" /* yacc.c:1646  */
+#line 1359 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 67 "eddl.y" /* yacc.c:1646  */
+#line 70 "eddl.y" /* yacc.c:1646  */
     { printf("set_term: HANDLING\n");}
-#line 1362 "y.tab.c" /* yacc.c:1646  */
+#line 1365 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 68 "eddl.y" /* yacc.c:1646  */
+#line 71 "eddl.y" /* yacc.c:1646  */
     { printf("set_term: DEFAULT_VALUE\n");}
-#line 1368 "y.tab.c" /* yacc.c:1646  */
+#line 1371 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 71 "eddl.y" /* yacc.c:1646  */
+#line 74 "eddl.y" /* yacc.c:1646  */
     {printf("set_term: \n");}
-#line 1374 "y.tab.c" /* yacc.c:1646  */
+#line 1377 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1378 "y.tab.c" /* yacc.c:1646  */
+#line 1381 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1602,7 +1605,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 74 "eddl.y" /* yacc.c:1906  */
+#line 77 "eddl.y" /* yacc.c:1906  */
       /* C code */
 #include <stdio.h>
 #include <string.h>
