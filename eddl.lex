@@ -55,7 +55,7 @@
                                 printf("Hex detected\n");
                                 yylval.num = atoi(yytext + (2 * sizeof(char))); 
                                 return HEX;}
-<WORDS>[0-9]+"."[0-9]+          {BEGIN(INITIAL);
+<WORDS>[0-9]"."[0-9]+          {BEGIN(INITIAL);
                                 printf("Float detected\n");
                                 yylval.dec = atof(yytext);
                                 return FLOAT;}
