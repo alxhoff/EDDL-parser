@@ -31,18 +31,17 @@ void yyerror (char *s);
 %token <num> INTEGER
 %token <num> HEX
 %token <dec> FLOAT
+/*
 %type <num> line 
 %type <num> int_term hex_term
 %type <dec> float_term
 %type <str> str_term
-
+*/
 %%
 
-line        : str_term WHITESPACE float_term     {;}
-            | str_term WHITESPACE hex_term       {;}
-            | str_term WHITESPACE int_term       {;}
+line        : STRING WHITESPACE FLOAT     {printf("line yo\n");}
             ;
-
+/*
 int_term    : INTEGER            {$$ = $1; printf("yaac integer\n");}
             ;
 
@@ -54,18 +53,13 @@ float_term  : FLOAT              {$$ = $1; printf("yacc float\n");}
 
 str_term    : STRING             {$$ = $1; printf("yacc string\n");}
             ;
-
+*/
 %%
 #include<stdio.h>
-#include <iostream.h>
 #include <string.h>
-extern void yyerror(char* msg)
+int main (void) 
 {
-    noerror=0;
-    if(strcmp(msg,"syntax error"))
-    printf(" Syntax Error in Line : %d : %s\n",yylineno,msg);
-}
-int main (void) {
-
     return yyparse( );
 }
+
+void yyerror (char *s) {fprintf (stderr, "%s\n", s);} 

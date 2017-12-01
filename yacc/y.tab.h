@@ -91,9 +91,14 @@ extern int yydebug;
 union YYSTYPE
 {
 #line 9 "eddl.y" /* yacc.c:1909  */
-float dec; int num; char* str;
 
-#line 97 "y.tab.h" /* yacc.c:1909  */
+        float dec; 
+        char* ptr;
+        int num; 
+        char str[100];
+        
+
+#line 102 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
