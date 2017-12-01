@@ -4,43 +4,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+extern union YYSTYPE yylval;
 %}
 
 %x WHITE WORDS 
 %%
 
 "MANUFACTURER"                  {BEGIN(WHITE); 
-                                printf("Manufacturer detected\n");
+                                strcpy(yylval.str, yytext);
+                                printf("Manufacturer detected: %s : %s \n", yylval.str, yytext);
                                 return MANUFACTURER;}
 "DEVICE_TYPE"                   {BEGIN(WHITE); 
                                 printf("Device type detected\n");
+                                strcpy(yylval.str, yytext);
                                 return DEVICE_TYPE;}
 "DEVICE_REVISION"               {BEGIN(WHITE); 
                                 printf("Device revision detected\n");
+                                strcpy(yylval.str, yytext);
                                 return DEVICE_REVISION;}
 "DD_REVISION"                   {BEGIN(WHITE); 
                                 printf("DD revision detected\n");
+                                strcpy(yylval.str, yytext);
                                 return DD_REVISION;}
 "VARIABLE"                      {BEGIN(WHITE); 
                                 printf("Variable detected\n");
+                                strcpy(yylval.str, yytext);
                                 return VARIABLE;}
 "LABEL"                         {BEGIN(WHITE); 
                                 printf("Label detected\n");
+                                strcpy(yylval.str, yytext);
                                 return LABEL;}
 "HELP"                          {BEGIN(WHITE); 
                                 printf("Help detected\n");
+                                strcpy(yylval.str, yytext);
                                 return HELP;}
 "CLASS"                         {BEGIN(WHITE); 
                                 printf("Class detected\n");
+                                strcpy(yylval.str, yytext);
                                 return CLASS;}
 "TYPE"                          {BEGIN(WHITE); 
                                 printf("Type detected\n");
+                                strcpy(yylval.str, yytext);
                                 return TYPE;}
 "HANDLING"                      {BEGIN(WHITE); 
                                 printf("Handling detected\n");
+                                strcpy(yylval.str, yytext);
                                 return HANDLING;}
 "DEFAULT_VALUE"                 {BEGIN(WHITE); 
                                 printf("Default value detected\n");
+                                strcpy(yylval.str, yytext);
                                 return DEFAULT_VALUE;}
 
 "{"                             {BEGIN(INITIAL); return BRACKETS;}

@@ -548,8 +548,10 @@ char *yytext;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+extern union YYSTYPE yylval;
  
-#line 553 "lex.yy.c"
+#line 555 "lex.yy.c"
 
 #define INITIAL 0
 #define WHITE 1
@@ -769,10 +771,10 @@ YY_DECL
 		}
 
 	{
-#line 10 "eddl.lex"
+#line 12 "eddl.lex"
 
 
-#line 776 "lex.yy.c"
+#line 778 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -831,120 +833,131 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 12 "eddl.lex"
+#line 14 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Manufacturer detected\n");
+                                strcpy(yylval.str, yytext);
+                                printf("Manufacturer detected: %s : %s \n", yylval.str, yytext);
                                 return MANUFACTURER;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 15 "eddl.lex"
+#line 18 "eddl.lex"
 {BEGIN(WHITE); 
                                 printf("Device type detected\n");
+                                strcpy(yylval.str, yytext);
                                 return DEVICE_TYPE;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "eddl.lex"
+#line 22 "eddl.lex"
 {BEGIN(WHITE); 
                                 printf("Device revision detected\n");
+                                strcpy(yylval.str, yytext);
                                 return DEVICE_REVISION;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 21 "eddl.lex"
+#line 26 "eddl.lex"
 {BEGIN(WHITE); 
                                 printf("DD revision detected\n");
+                                strcpy(yylval.str, yytext);
                                 return DD_REVISION;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 24 "eddl.lex"
+#line 30 "eddl.lex"
 {BEGIN(WHITE); 
                                 printf("Variable detected\n");
+                                strcpy(yylval.str, yytext);
                                 return VARIABLE;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 27 "eddl.lex"
+#line 34 "eddl.lex"
 {BEGIN(WHITE); 
                                 printf("Label detected\n");
+                                strcpy(yylval.str, yytext);
                                 return LABEL;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 30 "eddl.lex"
+#line 38 "eddl.lex"
 {BEGIN(WHITE); 
                                 printf("Help detected\n");
+                                strcpy(yylval.str, yytext);
                                 return HELP;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 33 "eddl.lex"
+#line 42 "eddl.lex"
 {BEGIN(WHITE); 
                                 printf("Class detected\n");
+                                strcpy(yylval.str, yytext);
                                 return CLASS;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 36 "eddl.lex"
+#line 46 "eddl.lex"
 {BEGIN(WHITE); 
                                 printf("Type detected\n");
+                                strcpy(yylval.str, yytext);
                                 return TYPE;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 39 "eddl.lex"
+#line 50 "eddl.lex"
 {BEGIN(WHITE); 
                                 printf("Handling detected\n");
+                                strcpy(yylval.str, yytext);
                                 return HANDLING;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 42 "eddl.lex"
+#line 54 "eddl.lex"
 {BEGIN(WHITE); 
                                 printf("Default value detected\n");
+                                strcpy(yylval.str, yytext);
                                 return DEFAULT_VALUE;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 46 "eddl.lex"
+#line 59 "eddl.lex"
 {BEGIN(INITIAL); return BRACKETS;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 47 "eddl.lex"
+#line 60 "eddl.lex"
 {BEGIN(INITIAL); return END_BRACKETS;} 
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 48 "eddl.lex"
+#line 61 "eddl.lex"
 {;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 49 "eddl.lex"
+#line 62 "eddl.lex"
 {;} 
 	YY_BREAK
 case 16:
 /* rule 16 can match eol */
 YY_RULE_SETUP
-#line 51 "eddl.lex"
+#line 64 "eddl.lex"
 {BEGIN(INITIAL);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 52 "eddl.lex"
+#line 65 "eddl.lex"
 {BEGIN(WORDS); return WHITESPACE;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 53 "eddl.lex"
+#line 66 "eddl.lex"
 {;} 
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 54 "eddl.lex"
+#line 67 "eddl.lex"
 {BEGIN(INITIAL); 
                                 printf("Hex detected\n");
                                 yylval.num = atoi(yytext + (2 * sizeof(char))); 
@@ -952,7 +965,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 58 "eddl.lex"
+#line 71 "eddl.lex"
 {BEGIN(INITIAL);
                                 printf("Float detected\n");
                                 yylval.dec = atof(yytext);
@@ -960,7 +973,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 62 "eddl.lex"
+#line 75 "eddl.lex"
 {BEGIN(INITIAL); 
                                 printf("Integer detected\n");
                                 yylval.num = atoi(yytext);
@@ -968,7 +981,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 66 "eddl.lex"
+#line 79 "eddl.lex"
 {BEGIN(INITIAL); 
                                 printf("String detected\n");
                                 /*yylval.str = (char*)malloc(sizeof(char)*(strlen(yytext) + 1));*/
@@ -978,15 +991,15 @@ YY_RULE_SETUP
 case 23:
 /* rule 23 can match eol */
 YY_RULE_SETUP
-#line 71 "eddl.lex"
+#line 84 "eddl.lex"
 {BEGIN(INITIAL);}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 73 "eddl.lex"
+#line 86 "eddl.lex"
 ECHO;
 	YY_BREAK
-#line 990 "lex.yy.c"
+#line 1003 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(WHITE):
 case YY_STATE_EOF(WORDS):
@@ -1989,7 +2002,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 73 "eddl.lex"
+#line 86 "eddl.lex"
 
 
 
