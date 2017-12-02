@@ -7,7 +7,7 @@ extern char* yytext;
 
 char *eddl_tags[] = {
     NULL,
-    "IDENTIFIER",
+    "STRING",
     "INTEGER",
     "HEX",
     "FLOAT",
@@ -30,7 +30,7 @@ char *eddl_tags[] = {
 
 void get_identifier(void){
     int tmp = 0;
-    while(!(tmp == IDENTIFIER || tmp == INTEGER || tmp == HEX || tmp == FLOAT)) 
+    while(!(tmp == STRING || tmp == INTEGER || tmp == HEX || tmp == FLOAT)) 
         tmp = yylex();
     printf("%s found with value: %s\n", eddl_tags[tmp], yytext);
     return;
@@ -43,9 +43,9 @@ int main(int argc, char **argv)
     int tmp;
     name_token =  yylex();
     while(name_token){
-        printf("Token : %s with contents: %s\n", 
-                eddl_tags[name_token], yytext);
-         
+        printf("%s:\n", 
+                eddl_tags[name_token]);
+        /* 
         switch(name_token){
         case MANUFACTURER:
             get_identifier();
@@ -94,7 +94,7 @@ int main(int argc, char **argv)
         default:
             break;
         }
-        
+        */
         name_token = yylex();
     }
     return 0;

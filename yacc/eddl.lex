@@ -13,61 +13,57 @@ extern union YYSTYPE yylval;
 %%
 
 "MANUFACTURER"                  {BEGIN(WHITE); 
-                                strcpy(yylval.str, yytext);
-                                printf("Manufacturer detected: %s : %s \n", yylval.str, yytext);
+                                printf("Manufacturer detected \n");
                                 return MANUFACTURER;}
 "DEVICE_TYPE"                   {BEGIN(WHITE); 
                                 printf("Device type detected\n");
-                                strcpy(yylval.str, yytext);
                                 return DEVICE_TYPE;}
 "DEVICE_REVISION"               {BEGIN(WHITE); 
                                 printf("Device revision detected\n");
-                                strcpy(yylval.str, yytext);
                                 return DEVICE_REVISION;}
 "DD_REVISION"                   {BEGIN(WHITE); 
                                 printf("DD revision detected\n");
-                                strcpy(yylval.str, yytext);
                                 return DD_REVISION;}
 "VARIABLE"                      {BEGIN(WHITE); 
                                 printf("Variable detected\n");
-                                strcpy(yylval.str, yytext);
                                 return VARIABLE;}
 "LABEL"                         {BEGIN(WHITE); 
                                 printf("Label detected\n");
-                                strcpy(yylval.str, yytext);
                                 return LABEL;}
 "HELP"                          {BEGIN(WHITE); 
                                 printf("Help detected\n");
-                                strcpy(yylval.str, yytext);
                                 return HELP;}
 "CLASS"                         {BEGIN(WHITE); 
                                 printf("Class detected\n");
-                                strcpy(yylval.str, yytext);
                                 return CLASS;}
 "TYPE"                          {BEGIN(WHITE); 
                                 printf("Type detected\n");
-                                strcpy(yylval.str, yytext);
                                 return TYPE;}
 "HANDLING"                      {BEGIN(WHITE); 
                                 printf("Handling detected\n");
-                                strcpy(yylval.str, yytext);
                                 return HANDLING;}
 "DEFAULT_VALUE"                 {BEGIN(WHITE); 
                                 printf("Default value detected\n");
-                                strcpy(yylval.str, yytext);
                                 return DEFAULT_VALUE;}
 
-"{"                             {BEGIN(INITIAL); return BRACKETS;}
-"}"                             {BEGIN(INITIAL); return END_BRACKETS;} 
+"{"                             {BEGIN(INITIAL); 
+                                printf("Bracket detected\n");
+                                return BRACKETS;}
+"}"                             {BEGIN(INITIAL); 
+                                printf("Bracket detected\n");
+                                return END_BRACKETS;} 
 [ \t]+                          {;}
 .                               {;} 
 
 <WHITE>\n                       {BEGIN(INITIAL);}
-<WHITE>[ \t]+                   {BEGIN(WORDS); return WHITESPACE;}
+<WHITE>[ \t]+                   {BEGIN(WORDS); 
+                                printf("whitespace\n");
+                                return WHITESPACE;}
 <WHITE>.                        {;} 
 <WORDS>"0x"[0-9]+               {BEGIN(INITIAL); 
                                 printf("Hex detected\n");
-                                yylval.num = atoi(yytext + (2 * sizeof(char))); 
+                                yylval.num = strtol(yytext + (2 * sizeof(char)), NULL, 16);
+                                printf("Hex conversion: %d\n", yylval.num);
                                 return HEX;}
 <WORDS>[0-9]"."[0-9]+          {BEGIN(INITIAL);
                                 printf("Float detected\n");
@@ -77,9 +73,9 @@ extern union YYSTYPE yylval;
                                 printf("Integer detected\n");
                                 yylval.num = atoi(yytext);
                                 return INTEGER;}                 
-<WORDS>[a-zA-Z][ .&_a-zA-Z0-9]+ {BEGIN(INITIAL); 
-                                printf("String detected\n");
-                                strcpy(yylval.str, yytext);
+<WORDS>[a-zA-Z][ .&_a-zA-Z0-9]+ {BEGIN(INITIAL);
+                                yylval.str = strdup(yytext);
+                                printf("String detected: %sin", yylval.str);
                                 return STRING;} 
 <WORDS>\n                       {BEGIN(INITIAL);}
 

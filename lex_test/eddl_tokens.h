@@ -1,4 +1,4 @@
-#define IDENTIFIER          1
+#define STRING              1
 #define INTEGER             2
 #define HEX                 3
 #define FLOAT               4
