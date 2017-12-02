@@ -1,4 +1,5 @@
 %{
+#include "eddl_data_type.h"
 #include "y.tab.h"
 
 #include <stdio.h>
@@ -78,7 +79,6 @@ extern union YYSTYPE yylval;
                                 return INTEGER;}                 
 <WORDS>[a-zA-Z][ .&_a-zA-Z0-9]+ {BEGIN(INITIAL); 
                                 printf("String detected\n");
-                                /*yylval.str = (char*)malloc(sizeof(char)*(strlen(yytext) + 1));*/
                                 strcpy(yylval.str, yytext);
                                 return STRING;} 
 <WORDS>\n                       {BEGIN(INITIAL);}

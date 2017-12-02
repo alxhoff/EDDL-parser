@@ -122,6 +122,7 @@ EDDL_PARSE_ERR_t eddl_parser_set_handling(eddl_variable_t* var,
 int main (void) 
 {
     doc_object = eddl_parser_create_eddl_t();
+    printf("Starting\n");
     
     return yyparse( );
 }

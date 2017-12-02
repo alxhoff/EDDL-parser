@@ -68,7 +68,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "eddlparser.h"
+#include "eddl_data_type.h"
 
 int yylex(void);
 void yyerror (char *s);
