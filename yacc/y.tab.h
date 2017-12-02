@@ -90,15 +90,16 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 13 "eddl.y" /* yacc.c:1909  */
+#line 12 "eddl.y" /* yacc.c:1909  */
 
         float dec; 
         char* ptr;
         int num; 
         char str[100];
+        eddl_variable_t* var;
         
 
-#line 102 "y.tab.h" /* yacc.c:1909  */
+#line 103 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

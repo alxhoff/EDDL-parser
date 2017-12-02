@@ -1,18 +1,25 @@
 #ifndef __EDDL_DATA_TYPE_H__
 #define __EDDL_DATA_TYPE_H__
 
+typedef enum {
+   EDDL_PARSE_OK,
+   EDDL_PARSE_MEM,
+   EDDL_PARSE_INVAL,
+}EDDL_PARSE_ERR_t;
+
 typedef enum{
-    CONTAINED_e   = 0x01,
-    DYNAMIC_e     = 0x02,
+    CONTAINED_e = 0x01,
+    DYNAMIC_e   = 0x02,
 } class_mask_t;
 
 typedef enum{
-    FLOAT_e       = 0x01,
+    FLOAT_e     = 0x01,
+    INTEGER_e   = 0x02,
 } type_mask_t;
 
 typedef enum{
-    READ_e        = 0x01,
-    WRITE_e       = 0x02,
+    READ_e      = 0x01,
+    WRITE_e     = 0x02,
 } handling_mask_t;
 
 typedef struct eddl_variable eddl_variable_t;
@@ -23,7 +30,7 @@ struct eddl_variable{
     char*           __help;
     class_mask_t    __class;
     type_mask_t     __type;
-    float           __default_value;
+    void*           __default_value;
     handling_mask_t __handling; 
 
     eddl_variable_t* next;

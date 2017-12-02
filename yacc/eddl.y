@@ -7,7 +7,6 @@
 
 int yylex(void);
 void yyerror (char *s);
-eddl_object_t* doc_object;
 %}
 
 %union {
@@ -15,6 +14,7 @@ eddl_object_t* doc_object;
         char* ptr;
         int num; 
         char str[100];
+        eddl_variable_t* var;
         }
 %start line
 %token <num> WHITESPACE
@@ -36,42 +36,14 @@ eddl_object_t* doc_object;
 %token <num> HEX
 %token <dec> FLOAT
 %type <num> line 
-%type <num> int_term hex_term
 %type <dec> float_term
-%type <str> set_term
-%type <str> string_term
 
 %%
 
-line        : set_term WHITESPACE string_term {printf("line1: %s %d\n", $1, $3);}
-            | set_term WHITESPACE int_term {printf("line2: %s %d\n", $1, $3);}
-            | set_term WHITESPACE hex_term {printf("line3: %s %d\n", $1, $3);}
-            | set_term WHITESPACE float_term {printf("line4: %s %f\n", $1, $3);}
+line        : MANUFACTURER  WHITESPACE float_term        {printf("line1: %s %l\n", $1, $3);}
             ;
 
-int_term    : INTEGER            {$$ = $1; printf("integer: %d\n", $1);}
-            ;
-
-hex_term    : HEX                {$$ = $1; printf("hex: %d\n", $1);}
-            ;
-
-float_term  : FLOAT              {$$ = $1; printf("float: %d\n", $1);}
-            ;
-
-set_term    : MANUFACTURER      {doc_object = create_eddl_t(); printf("set_term: MANUFACTURER\n");}  
-            | DEVICE_TYPE       { printf("set_term: DEVICE_TYPE\n");}
-            | DEVICE_REVISION   { printf("set_term: DEVICE_REVISION\n");}
-            | DD_REVISION       { printf("set_term: DD_REVISION\n");}
-            | VARIABLE          { printf("set_term: VARIABLE\n");}
-            | LABEL             { printf("set_term: LABEL\n");}
-            | HELP              { printf("set_term: HELP\n");}
-            | CLASS             { printf("set_term: CLASS\n");}
-            | TYPE              { printf("set_term: TYPE\n");}
-            | HANDLING          { printf("set_term: HANDLING\n");}
-            | DEFAULT_VALUE     { printf("set_term: DEFAULT_VALUE\n");}
-            ;
-
-string_term : STRING            {printf("set_term: \n");}
+float_term  : FLOAT              {$$ = $1; printf("float: %f\n", $1);}
             ;
 
 %%      /* C code */
