@@ -44,8 +44,10 @@ void yyerror (char *s);
 
 line        : MANUFACTURER  WHITESPACE int_term          {printf("manufacturer: %d\n", $3);}
             | DEVICE_TYPE   WHITESPACE hex_term           {printf("device type: %d\n", $3);}
-/*            | DEVICE_REVISION WHITESPACE int_term       {printf("device revision: %d\n", $3);}
-            | DD_REVISION WHITESPACE int_term           {printf("DD revision: %d\n", $3);}
+            | DEVICE_REVISION WHITESPACE int_term       {printf("device revision: %d\n", $3);}
+            | line DEVICE_TYPE   WHITESPACE hex_term           {printf("device type: %d\n", $3);}
+            | line DEVICE_REVISION WHITESPACE int_term       {printf("device revision: %d\n", $3);}
+/*            | DD_REVISION WHITESPACE int_term           {printf("DD revision: %d\n", $3);}
             | HANDLING WHITESPACE str_term              {printf("Handling: %s", $3);}
             | var_term BRACKETS def_val                 {printf("var term\n");}*/
             ;
