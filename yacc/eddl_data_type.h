@@ -10,18 +10,21 @@ typedef enum {
 }EDDL_PARSE_ERR_t;
 
 typedef enum{
-    CONTAINED_e = 0x01,
-    DYNAMIC_e   = 0x02,
+    INVAL_CLASS_e   = 0x00,
+    CONTAINED_e     = 0x01,
+    DYNAMIC_e       = 0x02,
 } class_mask_t;
 
 typedef enum{
-    FLOAT_e     = 0x01,
-    INTEGER_e   = 0x02,
+    INVAL_TYPE_e    = 0x00,
+    FLOAT_e         = 0x01,
+    INTEGER_e       = 0x02,
 } type_mask_t;
 
 typedef enum{
-    READ_e      = 0x01,
-    WRITE_e     = 0x02,
+    INVAL_HANDLE_e  = 0x00,
+    READ_e          = 0x01,
+    WRITE_e         = 0x02,
 } handling_mask_t;
 
 typedef struct eddl_variable eddl_variable_t;

@@ -17,6 +17,9 @@ void yyerror (char *s);
         uint16_t uint;
         int num; 
         eddl_variable_t* var;
+        class_mask_t class;
+        type_mask_t type;
+        handling_mask_t hand;
         }
 /*%start line*/
 %token <num> WHITESPACE
@@ -39,7 +42,10 @@ void yyerror (char *s);
 %token <dec> FLOAT
 %type <num> line 
 %type <num> man_term dev_t_term dev_rev_term dd_rev_term 
-%type <str> var_term label_prop help_prop class_prop type_prop hand_prop
+%type <str> var_term label_prop help_prop 
+%type <class> class_prop 
+%type <type> type_prop 
+%type <hand> hand_prop
 %type <dec> def_val_line_f
 %type <dec> float_term
 %type <num> int_term
@@ -118,13 +124,13 @@ label_prop      : LABEL WHITESPACE str_term             {$$ = $3; printf("label:
 help_prop       : HELP WHITESPACE str_term              {$$ = $3; printf("help: %s\n", $3);}
                 ;
 
-class_prop      : CLASS WHITESPACE str_term             {$$ = $3; printf("class: %s\n", $3);}
+class_prop      : CLASS WHITESPACE str_term             {$$ = eddl_parser_get_class_mask($3); printf("class: %s\n", $3);}
                 ;
 
-type_prop       : TYPE WHITESPACE str_term              {$$ = $3; printf("type: %s\n", $3);}
+type_prop       : TYPE WHITESPACE str_term              {printf("type: %s\n", $3);}
                 ;
 
-hand_prop       : HANDLING WHITESPACE str_term          {$$ = $3; printf("Handling: %s\n", $3);}
+hand_prop       : HANDLING WHITESPACE str_term          {printf("Handling: %s\n", $3);}
                 ;
 
 def_val_line_f  : DEFAULT_VALUE WHITESPACE float_term   {$$ = $3; printf("def val f\n");}

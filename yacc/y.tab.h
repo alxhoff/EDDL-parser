@@ -97,9 +97,12 @@ union YYSTYPE
         uint16_t uint;
         int num; 
         eddl_variable_t* var;
+        class_mask_t class;
+        type_mask_t type;
+        handling_mask_t hand;
         
 
-#line 103 "y.tab.h" /* yacc.c:1909  */
+#line 106 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

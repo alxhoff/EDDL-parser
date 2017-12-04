@@ -119,6 +119,40 @@ EDDL_PARSE_ERR_t eddl_parser_set_handling(eddl_variable_t* var,
     return EDDL_PARSE_OK;
 }
 
+//compare
+char* remove_spaces(char* input)
+{
+    int i,j;
+    char *output=input;
+    for (i = 0, j = 0; i<(int)strlen(input); i++,j++){
+        if (input[i]!=' ')    
+            output[j]=input[i];    
+        else
+            j--;    
+    }   
+    output[j]=0;
+    return output;
+}
+
+
+class_mask_t eddl_parser_get_class_mask(char* class_string)
+{
+    class_mask_t ret = INVAL_CLASS_e;
+
+    char* tmp;
+    tmp = strtok(remove_spaces(class_string), "&");
+    while(tmp != NULL){
+        printf("class string: %s\n", tmp);
+        if(!strcmp(tmp, "CONTAINED")) ret |= CONTAINED_e;
+        if(!strcmp(tmp, "DYNAMIC")) ret |= DYNAMIC_e;
+        tmp = strtok(NULL, "&");
+    }
+
+    printf("Getting class mask: 0x%x\n", ret);
+
+    return ret;
+}
+
 //check
 
 EDDL_PARSE_ERR_t eddl_parser_print_doc(eddl_object_t* doc)

@@ -30,5 +30,6 @@ EDDL_PARSE_ERR_t eddl_parser_set_variable_default_value(
         eddl_variable_t* var, void* value);
 EDDL_PARSE_ERR_t eddl_parser_set_handling(eddl_variable_t* var,
         handling_mask_t val);
+class_mask_t eddl_parser_get_class_mask(char* class_string);
 
 #endif
