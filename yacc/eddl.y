@@ -61,7 +61,8 @@ line            : man_term                              {eddl_parser_set_manufac
                                                         printf("dev rev term prop\n");}
                 | dd_rev_term                           {eddl_parser_set_dd_revision(doc_object, $1);
                                                         printf("dd rev term prop\n");}
-                | var_term bracket_grp                  {printf("var term brackets\n");}
+                | var_term bracket_grp                  {eddl_parser_create_variable_t(doc_object);
+                                                        printf("var term brackets\n");}
                 | line man_term                         {eddl_parser_set_manufacturer(doc_object, $2);
                                                         printf("2 man term prop: %d\n", $2);}
                 | line dev_t_term                       {eddl_parser_set_device_type(doc_object, $2);
@@ -70,11 +71,11 @@ line            : man_term                              {eddl_parser_set_manufac
                                                         printf("2 dev rev term prop %d\n", $2);}
                 | line dd_rev_term                      {eddl_parser_set_dd_revision(doc_object, $2);
                                                         printf("2 dd rev term propi %d\n", $2);}
-                | line var_term bracket_grp             {printf("line var term brackets\n");}
+                | line var_term bracket_grp             {eddl_parser_create_variable_t(doc_object);
+                                                        printf("line var term brackets\n");}
                 ;
 
 bracket_grp     : BRACKETS var_property END_BRACKETS    {printf("bracket group\n");}
-                | 
                 ;
 
 /* variable properties */

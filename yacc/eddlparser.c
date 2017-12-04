@@ -9,6 +9,17 @@ eddl_object_t* doc_object;
 int yylex(void);
 int yyparse(void);
 
+
+//LL
+eddl_variable_t* eddl_parser_get_last_ll_var(eddl_object_t* object)
+{
+    if(object->variable_head == NULL) return NULL;
+    eddl_variable_t* var_head = object->variable_head;
+    while(var_head->next != NULL) var_head = var_head->next;
+    return var_head;
+}
+
+//CREATION
 eddl_object_t* eddl_parser_create_eddl_t(void)
 {
     eddl_object_t* ret = (eddl_object_t*)calloc(1, sizeof(eddl_object_t));
@@ -19,9 +30,21 @@ eddl_object_t* eddl_parser_create_eddl_t(void)
 
 EDDL_PARSE_ERR_t eddl_parser_create_variable_t(eddl_object_t* object)
 {
-    object->variable_head = (eddl_variable_t*)calloc(1, sizeof(eddl_variable_t));
-    if(object->variable_head == NULL) return EDDL_PARSE_MEM;
-    printf("variable created\n");
+    eddl_variable_t* ret = (eddl_variable_t*)calloc(1, sizeof(eddl_variable_t));
+    if(ret == NULL) return EDDL_PARSE_MEM;
+    
+    if(object->variable_head == NULL){
+        object->variable_head = ret;
+        object->current_var = ret;
+        printf("head variable created\n");
+        return EDDL_PARSE_OK;
+    }else{
+        //TODO can this line be removed VVVV
+        eddl_variable_t* tail_var = eddl_parser_get_last_ll_var(object);
+        tail_var->next = ret;
+        printf("tail variable created\n");
+    }
+
     return EDDL_PARSE_OK;
 }
 
@@ -92,7 +115,7 @@ EDDL_PARSE_ERR_t eddl_parser_set_variable_type_mask(
 EDDL_PARSE_ERR_t eddl_parser_set_variable_default_value(
         eddl_variable_t* var, void* value)
 {
-    if(var->__type == 0) return EDDL_PARSE_INVAL;
+    if(var->__type == INVAL_TYPE_e) return EDDL_PARSE_INVAL;
     switch(var->__type){
         case FLOAT_e:{
             var->__default_value = (float*)malloc(sizeof(float));

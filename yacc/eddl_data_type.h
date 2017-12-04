@@ -37,7 +37,7 @@ struct eddl_variable{
     type_mask_t     __type;
     void*           __default_value;
     handling_mask_t __handling; 
-
+    
     eddl_variable_t* next;
 };
 
@@ -49,6 +49,7 @@ struct eddl_object{
     int device_revision;
     int dd_revision;
 
+    eddl_variable_t* current_var;
     eddl_variable_t* variable_head;
 };
 
