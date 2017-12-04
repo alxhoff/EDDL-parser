@@ -63,24 +63,25 @@ var_property    : label_prop                            {printf("label prop\n");
                 | class_prop                            {printf("class prop\n");}
                 | type_prop                             {printf("type prop\n");}
                 | hand_prop                             {printf("hand prop\n");}
-                | def_val                               {printf("def val prop\n");} 
-                | var_property label_prop def_val       {printf("3 label prop\n");}
                 | var_property label_prop               {printf("2 label prop\n");}
-                | var_property help_prop def_val        {printf("3 help prop\n");}
                 | var_property help_prop                {printf("2 help prop\n");}
-                | var_property class_prop def_val       {printf("3 class prop\n");}
                 | var_property class_prop               {printf("2 class prop\n");}
-                | var_property type_prop def_val        {printf("3 type prop\n");}
+                | var_property type_prop def_val_f      {printf("3 type prop\n");}
                 | var_property type_prop                {printf("2 type prop\n");}
-                | var_property hand_prop def_val        {printf("3 hand prop\n");}
                 | var_property hand_prop                {printf("2 hand prop\n");}
                 ;
 
 /* default values */
 
-def_val         : BRACKETS def_val_line END_BRACKETS    {printf("var prop def\n");}
+def_val_f       : BRACKETS def_val_line_f END_BRACKETS  {printf("var prop def\n");}
+                ;
+/*
+def_val_i       : BRACKETS def_val_line_i END_BRACKETS  {printf("var prop def\n");}
                 ;
 
+def_val_h       : BRACKETS def_val_line_h END_BRACKETS  {printf("var prop def\n");}
+                ;
+*/
 /* Individual lines */
 man_term        : MANUFACTURER WHITESPACE int_term      {printf("manufacturer: %d\n", $3);}
                 ;
@@ -112,11 +113,15 @@ type_prop       : TYPE WHITESPACE str_term              {printf("type: %s\n", $3
 hand_prop       : HANDLING WHITESPACE str_term          {printf("Handling: %s\n", $3);}
                 ;
 
-def_val_line    : DEFAULT_VALUE WHITESPACE float_term         {printf("def val f\n");}
-                | DEFAULT_VALUE WHITESPACE int_term           {printf("def val i\n");}
-                | DEFAULT_VALUE WHITESPACE hex_term           {printf("def val h\n");}
+def_val_line_f  : DEFAULT_VALUE WHITESPACE float_term   {printf("def val f\n");}
+                ;
+/*
+def_val_line_i  : DEFAULT_VALUE WHITESPACE int_term     {printf("def val i\n");}
                 ;
 
+def_val_line_h  : DEFAULT_VALUE WHITESPACE hex_term     {printf("def val h\n");}
+                ;
+*/
 /* Fundemental values */
 
 float_term      : FLOAT                                 {$$ = $1; printf("float: %f\n", $1);}
