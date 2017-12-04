@@ -486,8 +486,8 @@ static const yytype_uint8 yyrline[] =
        0,    56,    56,    58,    60,    62,    64,    65,    67,    69,
       71,    73,    76,    77,    81,    82,    83,    84,    85,    86,
       87,    88,    89,    90,    91,    96,   106,   109,   112,   115,
-     118,   121,   124,   127,   130,   133,   136,   147,   150,   153,
-     156
+     118,   121,   124,   127,   131,   135,   139,   150,   153,   156,
+     159
 };
 #endif
 
@@ -1490,54 +1490,57 @@ yyreduce:
 
   case 33:
 #line 127 "eddl.y" /* yacc.c:1646  */
-    {(yyval.class) = eddl_parser_get_class_mask((yyvsp[0].str)); printf("class: %s\n", (yyvsp[0].str));}
-#line 1495 "y.tab.c" /* yacc.c:1646  */
+    {(yyval.class) = eddl_parser_get_class_mask((yyvsp[0].str)); 
+                                                        printf("class: %s\n", (yyvsp[0].str));}
+#line 1496 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 130 "eddl.y" /* yacc.c:1646  */
-    {printf("type: %s\n", (yyvsp[0].str));}
-#line 1501 "y.tab.c" /* yacc.c:1646  */
+#line 131 "eddl.y" /* yacc.c:1646  */
+    {(yyval.type) = eddl_parser_get_type_mask((yyvsp[0].str)); 
+                                                        printf("type: %s\n", (yyvsp[0].str));}
+#line 1503 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 133 "eddl.y" /* yacc.c:1646  */
-    {printf("Handling: %s\n", (yyvsp[0].str));}
-#line 1507 "y.tab.c" /* yacc.c:1646  */
+#line 135 "eddl.y" /* yacc.c:1646  */
+    {(yyval.hand) = eddl_parser_get_handling_mask((yyvsp[0].str));
+                                                        printf("Handling: %s\n", (yyvsp[0].str));}
+#line 1510 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 136 "eddl.y" /* yacc.c:1646  */
+#line 139 "eddl.y" /* yacc.c:1646  */
     {(yyval.dec) = (yyvsp[0].dec); printf("def val f\n");}
-#line 1513 "y.tab.c" /* yacc.c:1646  */
+#line 1516 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 147 "eddl.y" /* yacc.c:1646  */
+#line 150 "eddl.y" /* yacc.c:1646  */
     {(yyval.dec) = (yyvsp[0].dec); printf("float: %f\n", (yyvsp[0].dec));}
-#line 1519 "y.tab.c" /* yacc.c:1646  */
+#line 1522 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 150 "eddl.y" /* yacc.c:1646  */
+#line 153 "eddl.y" /* yacc.c:1646  */
     {(yyval.num) = (yyvsp[0].num); printf("integer: %d\n", (yyvsp[0].num));}
-#line 1525 "y.tab.c" /* yacc.c:1646  */
+#line 1528 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 153 "eddl.y" /* yacc.c:1646  */
+#line 156 "eddl.y" /* yacc.c:1646  */
     {(yyval.num) = (yyvsp[0].num); printf("hex: %d\n", (yyvsp[0].num));}
-#line 1531 "y.tab.c" /* yacc.c:1646  */
+#line 1534 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 156 "eddl.y" /* yacc.c:1646  */
+#line 159 "eddl.y" /* yacc.c:1646  */
     {(yyval.str) = (yyvsp[0].str); printf("string: %s\n", (yyvsp[0].str));}
-#line 1537 "y.tab.c" /* yacc.c:1646  */
+#line 1540 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1541 "y.tab.c" /* yacc.c:1646  */
+#line 1544 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1765,7 +1768,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 159 "eddl.y" /* yacc.c:1906  */
+#line 162 "eddl.y" /* yacc.c:1906  */
       /* C code */
 #include <stdio.h>
 #include <string.h>

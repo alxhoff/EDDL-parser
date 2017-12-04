@@ -124,13 +124,16 @@ label_prop      : LABEL WHITESPACE str_term             {$$ = $3; printf("label:
 help_prop       : HELP WHITESPACE str_term              {$$ = $3; printf("help: %s\n", $3);}
                 ;
 
-class_prop      : CLASS WHITESPACE str_term             {$$ = eddl_parser_get_class_mask($3); printf("class: %s\n", $3);}
+class_prop      : CLASS WHITESPACE str_term             {$$ = eddl_parser_get_class_mask($3); 
+                                                        printf("class: %s\n", $3);}
                 ;
 
-type_prop       : TYPE WHITESPACE str_term              {printf("type: %s\n", $3);}
+type_prop       : TYPE WHITESPACE str_term              {$$ = eddl_parser_get_type_mask($3); 
+                                                        printf("type: %s\n", $3);}
                 ;
 
-hand_prop       : HANDLING WHITESPACE str_term          {printf("Handling: %s\n", $3);}
+hand_prop       : HANDLING WHITESPACE str_term          {$$ = eddl_parser_get_handling_mask($3);
+                                                        printf("Handling: %s\n", $3);}
                 ;
 
 def_val_line_f  : DEFAULT_VALUE WHITESPACE float_term   {$$ = $3; printf("def val f\n");}

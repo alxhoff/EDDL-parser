@@ -134,7 +134,6 @@ char* remove_spaces(char* input)
     return output;
 }
 
-
 class_mask_t eddl_parser_get_class_mask(char* class_string)
 {
     class_mask_t ret = INVAL_CLASS_e;
@@ -149,6 +148,34 @@ class_mask_t eddl_parser_get_class_mask(char* class_string)
     }
 
     printf("Getting class mask: 0x%x\n", ret);
+
+    return ret;
+}
+
+type_mask_t eddl_parser_get_type_mask(char* type_string)
+{
+    type_mask_t ret = INVAL_TYPE_e;
+
+    if(!strcmp(type_string, "FLOAT")) return FLOAT_e;
+    if(!strcmp(type_string, "INTEGER")) return INTEGER_e;
+        
+    return ret;
+}
+
+handling_mask_t eddl_parser_get_handling_mask(char* handling_string)
+{
+    handling_mask_t ret = INVAL_HANDLE_e;
+    char* tmp;
+
+    tmp = strtok(remove_spaces(handling_string), "&");
+    while(tmp != NULL){
+        printf("handle string: %s\n", tmp);
+        if(!strcmp(tmp, "READ")) ret |= READ_e;
+        if(!strcmp(tmp, "WRITE")) ret |= WRITE_e;
+        tmp = strtok(NULL, "&");
+    }
+
+    printf("Getting handle mask: 0x%x\n", ret);
 
     return ret;
 }
