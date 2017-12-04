@@ -418,18 +418,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  8
+#define YYFINAL  17
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   15
+#define YYLAST   55
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  21
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  4
+#define YYNNTS  16
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  8
+#define YYNRULES  36
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  20
+#define YYNSTATES  60
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -477,7 +477,10 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    45,    45,    46,    47,    48,    49,    64,    67
+       0,    44,    44,    45,    46,    47,    48,    49,    50,    51,
+      52,    53,    54,    55,    60,    61,    62,    63,    64,    65,
+      66,    67,    68,    69,    72,    75,    78,    81,    84,    87,
+      90,    93,    96,    99,   112,   115,   118
 };
 #endif
 
@@ -490,7 +493,9 @@ static const char *const yytname[] =
   "MANUFACTURER", "DEVICE_TYPE", "DEVICE_REVISION", "DD_REVISION",
   "VARIABLE", "LABEL", "HELP", "CLASS", "TYPE", "HANDLING",
   "DEFAULT_VALUE", "STRING", "INTEGER", "HEX", "FLOAT", "$accept", "line",
-  "int_term", "hex_term", YY_NULLPTR
+  "var_property", "man_term", "dev_t_term", "dev_rev_term", "dd_rev_term",
+  "var_term", "label_prop", "help_prop", "class_prop", "type_prop",
+  "hand_prop", "int_term", "hex_term", "str_term", YY_NULLPTR
 };
 #endif
 
@@ -505,10 +510,10 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -9
+#define YYPACT_NINF -34
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-9)))
+  (!!((Yystate) == (-34)))
 
 #define YYTABLE_NINF -1
 
@@ -519,8 +524,12 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -4,     2,     3,     4,     1,    -6,    -8,    -6,    -9,    10,
-      11,    -9,    -9,    -9,    -9,    -9,    -8,    -6,    -9,    -9
+      16,     1,    13,    14,    24,    35,     0,   -34,   -34,   -34,
+     -34,    -1,    21,    22,    21,    21,    23,   -34,   -34,   -34,
+     -34,   -34,    38,    17,   -34,   -34,   -34,   -34,   -34,   -34,
+     -34,   -34,    17,    40,    41,    42,    43,    44,    17,   -34,
+     -34,   -34,   -34,   -34,    17,    23,    23,    23,    23,    23,
+     -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -528,20 +537,26 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     0,     0,     0,     0,     0,     1,     0,
-       0,     7,     2,     8,     3,     4,     0,     0,     5,     6
+       0,     0,     0,     0,     0,     0,     0,     2,     3,     4,
+       5,    10,     0,     0,     0,     0,     0,     1,     6,     7,
+       8,     9,    12,     0,    34,    24,    35,    25,    26,    27,
+      36,    28,     0,     0,     0,     0,     0,     0,    11,    14,
+      15,    16,    17,    18,    13,     0,     0,     0,     0,     0,
+      19,    20,    21,    22,    23,    29,    30,    31,    32,    33
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -9,    -9,    -7,    -1
+     -34,   -34,    18,    45,    46,    47,    48,    49,   -33,   -26,
+     -25,   -24,   -23,   -13,   -34,   -12
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     4,    12,    14
+      -1,     6,    38,     7,     8,     9,    10,    11,    39,    40,
+      41,    42,    43,    25,    27,    31
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -549,34 +564,52 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-      15,     8,     1,     2,     3,     5,     6,     7,     9,    10,
-      19,    13,    11,    16,    17,    18
+      17,    28,    29,    23,    12,    50,     1,     2,     3,     4,
+       5,    50,    51,    52,    53,    54,    13,    14,    51,    52,
+      53,    54,     1,     2,     3,     4,     5,    15,    33,    34,
+      35,    36,    37,    55,    56,    57,    58,    59,    16,    24,
+      30,    26,    32,    45,    46,    47,    48,    49,     0,     0,
+      44,    18,    19,    20,    21,    22
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       7,     0,     6,     7,     8,     3,     3,     3,     7,     8,
-      17,    19,    18,     3,     3,    16
+       0,    14,    15,     4,     3,    38,     6,     7,     8,     9,
+      10,    44,    38,    38,    38,    38,     3,     3,    44,    44,
+      44,    44,     6,     7,     8,     9,    10,     3,    11,    12,
+      13,    14,    15,    45,    46,    47,    48,    49,     3,    18,
+      17,    19,     4,     3,     3,     3,     3,     3,    -1,    -1,
+      32,     6,     6,     6,     6,     6
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     6,     7,     8,    22,     3,     3,     3,     0,     7,
-       8,    18,    23,    19,    24,    23,     3,     3,    24,    23
+       0,     6,     7,     8,     9,    10,    22,    24,    25,    26,
+      27,    28,     3,     3,     3,     3,     3,     0,    24,    25,
+      26,    27,    28,     4,    18,    34,    19,    35,    34,    34,
+      17,    36,     4,    11,    12,    13,    14,    15,    23,    29,
+      30,    31,    32,    33,    23,     3,     3,     3,     3,     3,
+      29,    30,    31,    32,    33,    36,    36,    36,    36,    36
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    21,    22,    22,    22,    22,    22,    23,    24
+       0,    21,    22,    22,    22,    22,    22,    22,    22,    22,
+      22,    22,    22,    22,    23,    23,    23,    23,    23,    23,
+      23,    23,    23,    23,    24,    25,    26,    27,    28,    29,
+      30,    31,    32,    33,    34,    35,    36
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     3,     3,     3,     4,     4,     1,     1
+       0,     2,     1,     1,     1,     1,     2,     2,     2,     2,
+       1,     3,     2,     4,     1,     1,     1,     1,     1,     2,
+       2,     2,     2,     2,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,     1,     1,     1
 };
 
 
@@ -1253,49 +1286,217 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 45 "eddl.y" /* yacc.c:1646  */
-    {printf("manufacturer: %d\n", (yyvsp[0].num));}
-#line 1259 "y.tab.c" /* yacc.c:1646  */
+#line 44 "eddl.y" /* yacc.c:1646  */
+    {printf("man term prop\n");}
+#line 1292 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 46 "eddl.y" /* yacc.c:1646  */
-    {printf("device type: %d\n", (yyvsp[0].num));}
-#line 1265 "y.tab.c" /* yacc.c:1646  */
+#line 45 "eddl.y" /* yacc.c:1646  */
+    {printf("dev t term prop\n");}
+#line 1298 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 47 "eddl.y" /* yacc.c:1646  */
-    {printf("device revision: %d\n", (yyvsp[0].num));}
-#line 1271 "y.tab.c" /* yacc.c:1646  */
+#line 46 "eddl.y" /* yacc.c:1646  */
+    {printf("dev rev term prop\n");}
+#line 1304 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 48 "eddl.y" /* yacc.c:1646  */
-    {printf("device type: %d\n", (yyvsp[-1].num));}
-#line 1277 "y.tab.c" /* yacc.c:1646  */
+#line 47 "eddl.y" /* yacc.c:1646  */
+    {printf("dd rev term prop\n");}
+#line 1310 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 49 "eddl.y" /* yacc.c:1646  */
-    {printf("device revision: %d\n", (yyvsp[-1].num));}
-#line 1283 "y.tab.c" /* yacc.c:1646  */
+#line 48 "eddl.y" /* yacc.c:1646  */
+    {printf("2 man term prop\n");}
+#line 1316 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 64 "eddl.y" /* yacc.c:1646  */
-    {(yyval.num) = (yyvsp[0].num); printf("integer: %d\n", (yyvsp[0].num));}
-#line 1289 "y.tab.c" /* yacc.c:1646  */
+#line 49 "eddl.y" /* yacc.c:1646  */
+    {printf("2 dev t term prop\n");}
+#line 1322 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
+#line 50 "eddl.y" /* yacc.c:1646  */
+    {printf("2 dev rev term prop\n");}
+#line 1328 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 9:
+#line 51 "eddl.y" /* yacc.c:1646  */
+    {printf("2 dd rev term prop\n");}
+#line 1334 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 10:
+#line 52 "eddl.y" /* yacc.c:1646  */
+    {printf("var term\n");}
+#line 1340 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 11:
+#line 53 "eddl.y" /* yacc.c:1646  */
+    {printf("var term brackets\n");}
+#line 1346 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 12:
+#line 54 "eddl.y" /* yacc.c:1646  */
+    {printf("line var term\n");}
+#line 1352 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 13:
+#line 55 "eddl.y" /* yacc.c:1646  */
+    {printf("line var term brackets\n");}
+#line 1358 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 14:
+#line 60 "eddl.y" /* yacc.c:1646  */
+    {printf("label prop\n");}
+#line 1364 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 15:
+#line 61 "eddl.y" /* yacc.c:1646  */
+    {printf("help prop\n");}
+#line 1370 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 16:
+#line 62 "eddl.y" /* yacc.c:1646  */
+    {printf("class prop\n");}
+#line 1376 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 17:
+#line 63 "eddl.y" /* yacc.c:1646  */
+    {printf("type prop\n");}
+#line 1382 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 18:
+#line 64 "eddl.y" /* yacc.c:1646  */
+    {printf("hand prop\n");}
+#line 1388 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 19:
+#line 65 "eddl.y" /* yacc.c:1646  */
+    {printf("2 label prop\n");}
+#line 1394 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 20:
+#line 66 "eddl.y" /* yacc.c:1646  */
+    {printf("2 help prop\n");}
+#line 1400 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 21:
 #line 67 "eddl.y" /* yacc.c:1646  */
+    {printf("2 class prop\n");}
+#line 1406 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 22:
+#line 68 "eddl.y" /* yacc.c:1646  */
+    {printf("2 type prop\n");}
+#line 1412 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 23:
+#line 69 "eddl.y" /* yacc.c:1646  */
+    {printf("2 hand prop\n");}
+#line 1418 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 72 "eddl.y" /* yacc.c:1646  */
+    {printf("manufacturer: %d\n", (yyvsp[0].num));}
+#line 1424 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 25:
+#line 75 "eddl.y" /* yacc.c:1646  */
+    {printf("device type: %d\n", (yyvsp[0].num));}
+#line 1430 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 26:
+#line 78 "eddl.y" /* yacc.c:1646  */
+    {printf("device revision: %d\n", (yyvsp[0].num));}
+#line 1436 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 27:
+#line 81 "eddl.y" /* yacc.c:1646  */
+    {printf("DD revision: %d\n", (yyvsp[0].num));}
+#line 1442 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 28:
+#line 84 "eddl.y" /* yacc.c:1646  */
+    {printf("variable: %s\n", (yyvsp[0].str));}
+#line 1448 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 29:
+#line 87 "eddl.y" /* yacc.c:1646  */
+    {printf("label: %s\n", (yyvsp[0].str));}
+#line 1454 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 30:
+#line 90 "eddl.y" /* yacc.c:1646  */
+    {printf("help: %s\n", (yyvsp[0].str));}
+#line 1460 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 31:
+#line 93 "eddl.y" /* yacc.c:1646  */
+    {printf("class: %s\n", (yyvsp[0].str));}
+#line 1466 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 32:
+#line 96 "eddl.y" /* yacc.c:1646  */
+    {printf("type: %s\n", (yyvsp[0].str));}
+#line 1472 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 33:
+#line 99 "eddl.y" /* yacc.c:1646  */
+    {printf("Handling: %s\n", (yyvsp[0].str));}
+#line 1478 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 34:
+#line 112 "eddl.y" /* yacc.c:1646  */
+    {(yyval.num) = (yyvsp[0].num); printf("integer: %d\n", (yyvsp[0].num));}
+#line 1484 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 35:
+#line 115 "eddl.y" /* yacc.c:1646  */
     {(yyval.num) = (yyvsp[0].num); printf("hex: %d\n", (yyvsp[0].num));}
-#line 1295 "y.tab.c" /* yacc.c:1646  */
+#line 1490 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 36:
+#line 118 "eddl.y" /* yacc.c:1646  */
+    {(yyval.str) = (yyvsp[0].str); printf("string: %s\n", (yyvsp[0].str));}
+#line 1496 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1299 "y.tab.c" /* yacc.c:1646  */
+#line 1500 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1523,7 +1724,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 74 "eddl.y" /* yacc.c:1906  */
+#line 121 "eddl.y" /* yacc.c:1906  */
       /* C code */
 #include <stdio.h>
 #include <string.h>

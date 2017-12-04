@@ -75,7 +75,7 @@ extern union YYSTYPE yylval;
                                 return INTEGER;}                 
 <WORDS>[a-zA-Z][ .&_a-zA-Z0-9]+ {BEGIN(INITIAL);
                                 yylval.str = strdup(yytext);
-                                printf("String detected: %sin", yylval.str);
+                                printf("String detected: %s\n", yylval.str);
                                 return STRING;} 
 <WORDS>\n                       {BEGIN(INITIAL);}
 
