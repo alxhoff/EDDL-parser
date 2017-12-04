@@ -46,7 +46,7 @@ void yyerror (char *s);
 %type <class> class_prop 
 %type <type> type_prop 
 %type <hand> hand_prop
-%type <dec> def_val_line_f
+%type <dec> def_val_f def_val_line_f
 %type <dec> float_term
 %type <num> int_term
 %type <num> hex_term
@@ -61,9 +61,9 @@ line            : man_term                              {eddl_parser_set_manufac
                                                         printf("dev rev term prop\n");}
                 | dd_rev_term                           {eddl_parser_set_dd_revision(doc_object, $1);
                                                         printf("dd rev term prop\n");}
-                | var_term bracket_grp                  {eddl_parser_create_variable_t(doc_object);
+                /*| var_term bracket_grp                  {eddl_parser_create_variable_t(doc_object);
                                                         printf("var term brackets\n");}
-                | line man_term                         {eddl_parser_set_manufacturer(doc_object, $2);
+              */| line man_term                         {eddl_parser_set_manufacturer(doc_object, $2);
                                                         printf("2 man term prop: %d\n", $2);}
                 | line dev_t_term                       {eddl_parser_set_device_type(doc_object, $2);
                                                         printf("2 dev t term prop %d\n", $2);}
@@ -71,7 +71,9 @@ line            : man_term                              {eddl_parser_set_manufac
                                                         printf("2 dev rev term prop %d\n", $2);}
                 | line dd_rev_term                      {eddl_parser_set_dd_revision(doc_object, $2);
                                                         printf("2 dd rev term propi %d\n", $2);}
-                | line var_term bracket_grp             {eddl_parser_create_variable_t(doc_object);
+                | line var_term bracket_grp             {/*eddl_parser_create_variable_t(doc_object);*/
+                                                        eddl_parser_set_variable_name(doc_object->current_var, $2);
+                                                        eddl_parser_print_var(doc_object->current_var);
                                                         printf("line var term brackets\n");}
                 ;
 
@@ -79,22 +81,35 @@ bracket_grp     : BRACKETS var_property END_BRACKETS    {printf("bracket group\n
                 ;
 
 /* variable properties */
-var_property    : label_prop                            {printf("label prop\n");}
-                | help_prop                             {printf("help prop\n");}
-                | class_prop                            {printf("class prop\n");}
-                | type_prop                             {printf("type prop\n");}
-                | hand_prop                             {printf("hand prop\n");}
-                | var_property label_prop               {printf("2 label prop\n");}
-                | var_property help_prop                {printf("2 help prop\n");}
-                | var_property class_prop               {printf("2 class prop\n");}
-                | var_property type_prop def_val_f      {printf("3 type prop\n");}
-                | var_property type_prop                {printf("2 type prop\n");}
-                | var_property hand_prop                {printf("2 hand prop\n");}
+var_property    : label_prop                            {eddl_parser_set_variable_label(doc_object->current_var, $1);
+                                                        printf("label prop\n");}
+                | help_prop                             {eddl_parser_set_variable_help(doc_object->current_var, $1);
+                                                        printf("help prop\n");}
+                | class_prop                            {eddl_parser_set_variable_class_mask(doc_object->current_var, $1);
+                                                        printf("class prop\n");}
+                | type_prop def_val_f                   {eddl_parser_set_variable_default_value(doc_object->current_var, &$2);
+                                                        printf("3 type prop\n");}
+                | type_prop                             {eddl_parser_set_variable_type_mask(doc_object->current_var, $1);
+                                                        printf("type prop\n");}
+                | hand_prop                             {eddl_parser_set_variable_handling(doc_object->current_var, $1);
+                                                        printf("hand prop\n");}
+                | var_property label_prop               {eddl_parser_set_variable_label(doc_object->current_var, $2);
+                                                        printf("2 label prop\n");}
+                | var_property help_prop                {eddl_parser_set_variable_help(doc_object->current_var, $2);
+                                                        printf("2 help prop\n");}
+                | var_property class_prop               {eddl_parser_set_variable_class_mask(doc_object->current_var, $2);
+                                                        printf("2 class prop\n");}
+                | var_property type_prop def_val_f      {eddl_parser_set_variable_default_value(doc_object->current_var, &$3);
+                                                        printf("3 type prop\n");}
+                | var_property type_prop                {eddl_parser_set_variable_type_mask(doc_object->current_var, $2);
+                                                        printf("2 type prop\n");}
+                | var_property hand_prop                {eddl_parser_set_variable_handling(doc_object->current_var, $2);
+                                                        printf("2 hand prop\n");}
                 ;
 
 /* default values */
 
-def_val_f       : BRACKETS def_val_line_f END_BRACKETS  {printf("var prop def\n");}
+def_val_f       : BRACKETS def_val_line_f END_BRACKETS  {$$ = $1; printf("var prop def\n");}
                 ;
 /*
 def_val_i       : BRACKETS def_val_line_i END_BRACKETS  {printf("var prop def\n");}
@@ -116,7 +131,9 @@ dev_rev_term    : DEVICE_REVISION WHITESPACE int_term   {$$ = $3; printf("device
 dd_rev_term     : DD_REVISION WHITESPACE int_term       {$$ = $3; printf("DD revision: %d\n", $3);}
                 ;
 
-var_term        : VARIABLE WHITESPACE str_term          {$$ = $3; printf("variable: %s\n", $3);}
+var_term        : VARIABLE WHITESPACE str_term          {$$ = $3; 
+                                                        eddl_parser_create_variable_t(doc_object);
+                                                        printf("variable: %s\n", $3);}
                 ;
 
 label_prop      : LABEL WHITESPACE str_term             {$$ = $3; printf("label: %s\n", $3);}

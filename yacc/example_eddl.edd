@@ -25,7 +25,7 @@ VARIABLE        NIKI_Current_Sensor
 VARIABLE      NIKI_Temperature_Sensor
 {
     LABEL       NIKI_Temperature_Sensor
-    HELP        measures_actrual_temperature;
+    HELP        measures_actual_temperature;
     CLASS       CONTAINED;
     TYPE        FLOAT;
     {

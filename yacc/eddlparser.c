@@ -135,7 +135,7 @@ EDDL_PARSE_ERR_t eddl_parser_set_variable_default_value(
     return EDDL_PARSE_OK;
 }
 
-EDDL_PARSE_ERR_t eddl_parser_set_handling(eddl_variable_t* var,
+EDDL_PARSE_ERR_t eddl_parser_set_variable_handling(eddl_variable_t* var,
         handling_mask_t val)
 {
     var->__handling = val;
@@ -216,6 +216,125 @@ EDDL_PARSE_ERR_t eddl_parser_print_doc(eddl_object_t* doc)
     printf("!!=================================!!\n");
     printf(" \n");
     return EDDL_PARSE_OK;
+}
+
+char* eddl_parser_get_class_string(class_mask_t mask)
+{
+    char* ret = NULL;
+    //contained
+    if((uint8_t)mask & 0x01){
+         ret = (char*)malloc(sizeof(char) * 5);
+         strcpy(ret, "CONTAINED");
+    }
+   
+    //dynamic
+    if(((uint8_t)mask >> 1) & 0x01){
+        if(ret == NULL){
+            ret = (char*)malloc(sizeof(char) * 5);
+            strcpy(ret, "DYNAMIC");
+            
+        }else{ 
+            ret = (char*)realloc(ret, sizeof(char)* (strlen(ret) + 11));
+            strcat(ret, " & DYNAMIC");
+        }
+    }
+    
+    return ret;
+}
+
+char* eddl_parser_get_type_string(type_mask_t mask)
+{
+    switch((uint8_t)mask){
+    case INVAL_TYPE_e:{
+        static char inval[] = "INVAL";
+        return inval;
+        }
+        break;
+    case FLOAT_e:{
+        static char float_str[] = "FLOAT";
+        return float_str;
+        }
+        break;
+    case INTEGER_e:{
+        static char int_str[] = "INTEGER";
+        return int_str;
+        }
+        break;
+    default:
+        break;
+    }
+    return NULL;
+}
+
+char* eddl_parser_get_handling_string(handling_mask_t mask)
+{
+    char* ret = NULL;
+    //read
+    if((uint8_t)mask & 0x01){
+         ret = (char*)malloc(sizeof(char) * 5);
+         strcpy(ret, "READ");
+    }
+   
+    //write
+    if(((uint8_t)mask >> 1) & 0x01){
+        if(ret == NULL){
+            ret = (char*)malloc(sizeof(char) * 5);
+            strcpy(ret, "WRITE");
+            
+        }else{ 
+            ret = (char*)realloc(ret, sizeof(char)* 13);
+            strcpy(ret, "READ & WRITE");
+        }
+    }
+   
+    return ret;
+}
+
+char* eddl_parser_get_default_val_string(eddl_variable_t* var)
+{
+    char buffer[12];
+    switch((uint8_t)var->__type){
+    case INVAL_HANDLE_e:{
+        static char inval[] = "NULL";
+        return inval;
+        }
+        break;
+    case FLOAT_e:{
+        sprintf(buffer, "%f",(float*)var->__default_value);
+        }
+        break;
+    case INTEGER_e:{
+        sprintf(buffer, "%d",(int*)var->__default_value);
+        }
+        break;
+    default:
+        return NULL;
+    }
+
+    char* ret = (char*)malloc(sizeof(char) * (strlen(buffer) + 1));
+    strcpy(ret, buffer);
+    return ret;
+}
+
+EDDL_PARSE_ERR_t eddl_parser_print_var(eddl_variable_t* var)
+{
+    char* tmp = NULL;
+    printf("!!=============VARIABLE============!!\n");
+    printf("  Variable: %s\n", (var->__name != NULL) ? var->__name : "NULL");
+    printf("  Label   : %s\n", (var->__label != NULL) ? var->__label : "NULL");
+    printf("  Help    : %s\n", (var->__help != NULL) ? var->__help : "NULL");
+    tmp = eddl_parser_get_class_string(var->__class);
+    printf("  Class   : %s\n", (tmp != NULL) ? tmp : "NULL");
+    tmp = eddl_parser_get_type_string(var->__type);
+    printf("  Type    : %s\n", (tmp != NULL) ? tmp : "NULL");
+    tmp = eddl_parser_get_handling_string(var->__handling);
+    printf("  Handling: %s\n", (tmp != NULL) ? tmp : "NULL");
+    tmp = eddl_parser_get_default_val_string(var);
+    printf("  Default\n");
+    printf("  value   : %s\n", (tmp != NULL) ? tmp : "NULL");
+    printf("!!=================================!!\n");
+    printf(" \n");
+
 }
 
 int main (void) 
