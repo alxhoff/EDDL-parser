@@ -64,12 +64,16 @@ var_property    : label_prop                            {printf("label prop\n");
                 | type_prop                             {printf("type prop\n");}
                 | hand_prop                             {printf("hand prop\n");}
                 | def_val                               {printf("def val prop\n");} 
+                | var_property label_prop def_val       {printf("3 label prop\n");}
                 | var_property label_prop               {printf("2 label prop\n");}
+                | var_property help_prop def_val        {printf("3 help prop\n");}
                 | var_property help_prop                {printf("2 help prop\n");}
+                | var_property class_prop def_val       {printf("3 class prop\n");}
                 | var_property class_prop               {printf("2 class prop\n");}
+                | var_property type_prop def_val        {printf("3 type prop\n");}
                 | var_property type_prop                {printf("2 type prop\n");}
+                | var_property hand_prop def_val        {printf("3 hand prop\n");}
                 | var_property hand_prop                {printf("2 hand prop\n");}
-                | var_property def_val                  {printf("2 def val prop\n");} 
                 ;
 
 /* default values */
