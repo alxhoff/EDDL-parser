@@ -119,10 +119,25 @@ EDDL_PARSE_ERR_t eddl_parser_set_handling(eddl_variable_t* var,
     return EDDL_PARSE_OK;
 }
 
+//check
+
+EDDL_PARSE_ERR_t eddl_parser_print_doc(eddl_object_t* doc)
+{
+    //doc properties
+    printf("!!=======EDDL DOC PROPERTIES=======!!\n");
+    printf("  Manufacturer: %d\n", doc->manufacturer);
+    printf("  Device type: %d\n", doc->device_type);
+    printf("  Device revision: %d\n", doc->device_revision);
+    printf("  DD revision: %d\n", doc->dd_revision);
+    printf("!!=================================!!\n");
+    printf(" \n");
+    return EDDL_PARSE_OK;
+}
+
 int main (void) 
 {
     doc_object = eddl_parser_create_eddl_t();
-    printf("Starting\n");
-    
-    return yyparse( );
+    int ret = yyparse(); 
+    eddl_parser_print_doc(doc_object);
+    return ret;
 }

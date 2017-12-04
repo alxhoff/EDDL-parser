@@ -1,6 +1,8 @@
 #ifndef __EDDL_DATA_TYPE_H__
 #define __EDDL_DATA_TYPE_H__
 
+#include "stdint.h"
+
 typedef enum {
    EDDL_PARSE_OK,
    EDDL_PARSE_MEM,
@@ -40,7 +42,7 @@ typedef struct eddl_object eddl_object_t;
 
 struct eddl_object{
     int manufacturer;
-    long device_type;
+    uint16_t device_type;
     int device_revision;
     int dd_revision;
 

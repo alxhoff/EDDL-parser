@@ -3,8 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "eddl_data_type.h"
+//#include "eddl_data_type.h"
+#include "eddlparser.h"
 
+extern eddl_object_t* doc_object;
 int yylex(void);
 void yyerror (char *s);
 %}
@@ -12,6 +14,7 @@ void yyerror (char *s);
 %union {
         float dec; 
         char* str;
+        uint16_t uint;
         int num; 
         eddl_variable_t* var;
         }
@@ -35,21 +38,32 @@ void yyerror (char *s);
 %token <num> HEX
 %token <dec> FLOAT
 %type <num> line 
+%type <num> man_term dev_t_term dev_rev_term dd_rev_term 
+%type <str> var_term label_prop help_prop class_prop type_prop hand_prop
+%type <dec> def_val_line_f
 %type <dec> float_term
 %type <num> int_term
 %type <num> hex_term
 %type <str> str_term
 %%
 
-line            : man_term                              {printf("man term prop\n");}
-                | dev_t_term                            {printf("dev t term prop\n");}
-                | dev_rev_term                          {printf("dev rev term prop\n");}
-                | dd_rev_term                           {printf("dd rev term prop\n");}
+line            : man_term                              {eddl_parser_set_manufacturer(doc_object, $1);
+                                                        printf("man term prop: %d\n", $1);}
+                | dev_t_term                            {eddl_parser_set_device_type(doc_object, $1);
+                                                        printf("dev t term prop: %d\n", $1);}
+                | dev_rev_term                          {eddl_parser_set_device_revision(doc_object, $1);
+                                                        printf("dev rev term prop\n");}
+                | dd_rev_term                           {eddl_parser_set_dd_revision(doc_object, $1);
+                                                        printf("dd rev term prop\n");}
                 | var_term bracket_grp                  {printf("var term brackets\n");}
-                | line man_term                         {printf("2 man term prop\n");}
-                | line dev_t_term                       {printf("2 dev t term prop\n");}
-                | line dev_rev_term                     {printf("2 dev rev term prop\n");}
-                | line dd_rev_term                      {printf("2 dd rev term prop\n");}
+                | line man_term                         {eddl_parser_set_manufacturer(doc_object, $2);
+                                                        printf("2 man term prop: %d\n", $2);}
+                | line dev_t_term                       {eddl_parser_set_device_type(doc_object, $2);
+                                                        printf("2 dev t term prop %d\n", $2);}
+                | line dev_rev_term                     {eddl_parser_set_device_revision(doc_object, $2);
+                                                        printf("2 dev rev term prop %d\n", $2);}
+                | line dd_rev_term                      {eddl_parser_set_dd_revision(doc_object, $2);
+                                                        printf("2 dd rev term propi %d\n", $2);}
                 | line var_term bracket_grp             {printf("line var term brackets\n");}
                 ;
 
@@ -83,37 +97,37 @@ def_val_h       : BRACKETS def_val_line_h END_BRACKETS  {printf("var prop def\n"
                 ;
 */
 /* Individual lines */
-man_term        : MANUFACTURER WHITESPACE int_term      {printf("manufacturer: %d\n", $3);}
+man_term        : MANUFACTURER WHITESPACE int_term      {$$ = $3; printf("manufacturer: %d\n", $3);}
                 ;
 
-dev_t_term      : DEVICE_TYPE WHITESPACE hex_term       {printf("device type: %d\n", $3);}
+dev_t_term      : DEVICE_TYPE WHITESPACE hex_term       {$$ = $3; printf("device type: %d\n", $3);}
                 ;
 
-dev_rev_term    : DEVICE_REVISION WHITESPACE int_term   {printf("device revision: %d\n", $3);}
+dev_rev_term    : DEVICE_REVISION WHITESPACE int_term   {$$ = $3; printf("device revision: %d\n", $3);}
                 ;
 
-dd_rev_term     : DD_REVISION WHITESPACE int_term       {printf("DD revision: %d\n", $3);}
+dd_rev_term     : DD_REVISION WHITESPACE int_term       {$$ = $3; printf("DD revision: %d\n", $3);}
                 ;
 
-var_term        : VARIABLE WHITESPACE str_term          {printf("variable: %s\n", $3);}
+var_term        : VARIABLE WHITESPACE str_term          {$$ = $3; printf("variable: %s\n", $3);}
                 ;
 
-label_prop      : LABEL WHITESPACE str_term             {printf("label: %s\n", $3);}
+label_prop      : LABEL WHITESPACE str_term             {$$ = $3; printf("label: %s\n", $3);}
                 ;
 
-help_prop       : HELP WHITESPACE str_term              {printf("help: %s\n", $3);}
+help_prop       : HELP WHITESPACE str_term              {$$ = $3; printf("help: %s\n", $3);}
                 ;
 
-class_prop      : CLASS WHITESPACE str_term             {printf("class: %s\n", $3);}
+class_prop      : CLASS WHITESPACE str_term             {$$ = $3; printf("class: %s\n", $3);}
                 ;
 
-type_prop       : TYPE WHITESPACE str_term              {printf("type: %s\n", $3);}
+type_prop       : TYPE WHITESPACE str_term              {$$ = $3; printf("type: %s\n", $3);}
                 ;
 
-hand_prop       : HANDLING WHITESPACE str_term          {printf("Handling: %s\n", $3);}
+hand_prop       : HANDLING WHITESPACE str_term          {$$ = $3; printf("Handling: %s\n", $3);}
                 ;
 
-def_val_line_f  : DEFAULT_VALUE WHITESPACE float_term   {printf("def val f\n");}
+def_val_line_f  : DEFAULT_VALUE WHITESPACE float_term   {$$ = $3; printf("def val f\n");}
                 ;
 /*
 def_val_line_i  : DEFAULT_VALUE WHITESPACE int_term     {printf("def val i\n");}
@@ -139,5 +153,6 @@ str_term        : STRING                                {$$ = $1; printf("string
 %%      /* C code */
 #include <stdio.h>
 #include <string.h>
+
 
 void yyerror (char *s) {fprintf (stderr, "%s\n", s);} 

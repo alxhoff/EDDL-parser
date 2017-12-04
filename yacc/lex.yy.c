@@ -959,8 +959,8 @@ YY_RULE_SETUP
 #line 66 "eddl.lex"
 {BEGIN(INITIAL); 
                                 printf("Hex detected\n");
-                                yylval.num = strtol(yytext + (2 * sizeof(char)), NULL, 16);
-                                printf("Hex conversion: %d\n", yylval.num);
+                                yylval.uint = strtol(yytext + (2 * sizeof(char)), NULL, 16);
+                                printf("Hex conversion of \"%s\" to decimal: %d\n", yytext+(2*sizeof(char)), yylval.num);
                                 return HEX;}
 	YY_BREAK
 case 20:

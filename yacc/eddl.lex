@@ -65,8 +65,8 @@ int yydebug=1;
 <WHITE>.                        {;} 
 <WORDS>"0x"[0-9]+               {BEGIN(INITIAL); 
                                 printf("Hex detected\n");
-                                yylval.num = strtol(yytext + (2 * sizeof(char)), NULL, 16);
-                                printf("Hex conversion: %d\n", yylval.num);
+                                yylval.uint = strtol(yytext + (2 * sizeof(char)), NULL, 16);
+                                printf("Hex conversion of \"%s\" to decimal: %d\n", yytext+(2*sizeof(char)), yylval.num);
                                 return HEX;}
 <WORDS>[0-9]"."[0-9]+          {BEGIN(INITIAL);
                                 printf("Float detected\n");
