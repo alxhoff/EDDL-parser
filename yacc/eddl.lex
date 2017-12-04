@@ -6,7 +6,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define YYDEBUG     1
+
 extern union YYSTYPE yylval;
+int yydebug=1;
 %}
 
 %x WHITE WORDS 
@@ -50,7 +53,7 @@ extern union YYSTYPE yylval;
                                 printf("Bracket detected\n");
                                 return BRACKETS;}
 "}"                             {BEGIN(INITIAL); 
-                                printf("Bracket detected\n");
+                                printf("End bracket detected\n");
                                 return END_BRACKETS;} 
 [ \t]+                          {;}
 .                               {;} 

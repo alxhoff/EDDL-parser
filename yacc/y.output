@@ -1,0 +1,627 @@
+Terminals unused in grammar
+
+   DEFAULT_VALUE
+   FLOAT
+
+
+Grammar
+
+    0 $accept: line $end
+
+    1 line: man_term
+    2     | dev_t_term
+    3     | dev_rev_term
+    4     | dd_rev_term
+    5     | var_term bracket_grp
+    6     | line man_term
+    7     | line dev_t_term
+    8     | line dev_rev_term
+    9     | line dd_rev_term
+   10     | line var_term bracket_grp
+
+   11 bracket_grp: BRACKETS var_property END_BRACKETS
+
+   12 var_property: label_prop
+   13             | help_prop
+   14             | class_prop
+   15             | type_prop
+   16             | hand_prop
+   17             | var_property label_prop
+   18             | var_property help_prop
+   19             | var_property class_prop
+   20             | var_property type_prop
+   21             | var_property hand_prop
+
+   22 man_term: MANUFACTURER WHITESPACE int_term
+
+   23 dev_t_term: DEVICE_TYPE WHITESPACE hex_term
+
+   24 dev_rev_term: DEVICE_REVISION WHITESPACE int_term
+
+   25 dd_rev_term: DD_REVISION WHITESPACE int_term
+
+   26 var_term: VARIABLE WHITESPACE str_term
+
+   27 label_prop: LABEL WHITESPACE str_term
+
+   28 help_prop: HELP WHITESPACE str_term
+
+   29 class_prop: CLASS WHITESPACE str_term
+
+   30 type_prop: TYPE WHITESPACE str_term
+
+   31 hand_prop: HANDLING WHITESPACE str_term
+
+   32 int_term: INTEGER
+
+   33 hex_term: HEX
+
+   34 str_term: STRING
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+WHITESPACE (258) 22 23 24 25 26 27 28 29 30 31
+BRACKETS (259) 11
+END_BRACKETS (260) 11
+MANUFACTURER (261) 22
+DEVICE_TYPE (262) 23
+DEVICE_REVISION (263) 24
+DD_REVISION (264) 25
+VARIABLE (265) 26
+LABEL (266) 27
+HELP (267) 28
+CLASS (268) 29
+TYPE (269) 30
+HANDLING (270) 31
+DEFAULT_VALUE (271)
+STRING (272) 34
+INTEGER (273) 32
+HEX (274) 33
+FLOAT (275)
+
+
+Nonterminals, with rules where they appear
+
+$accept (21)
+    on left: 0
+line (22)
+    on left: 1 2 3 4 5 6 7 8 9 10, on right: 0 6 7 8 9 10
+bracket_grp (23)
+    on left: 11, on right: 5 10
+var_property (24)
+    on left: 12 13 14 15 16 17 18 19 20 21, on right: 11 17 18 19 20
+    21
+man_term (25)
+    on left: 22, on right: 1 6
+dev_t_term (26)
+    on left: 23, on right: 2 7
+dev_rev_term (27)
+    on left: 24, on right: 3 8
+dd_rev_term (28)
+    on left: 25, on right: 4 9
+var_term (29)
+    on left: 26, on right: 5 10
+label_prop (30)
+    on left: 27, on right: 12 17
+help_prop (31)
+    on left: 28, on right: 13 18
+class_prop (32)
+    on left: 29, on right: 14 19
+type_prop (33)
+    on left: 30, on right: 15 20
+hand_prop (34)
+    on left: 31, on right: 16 21
+int_term (35)
+    on left: 32, on right: 22 24 25
+hex_term (36)
+    on left: 33, on right: 23
+str_term (37)
+    on left: 34, on right: 26 27 28 29 30 31
+
+
+State 0
+
+    0 $accept: . line $end
+
+    MANUFACTURER     shift, and go to state 1
+    DEVICE_TYPE      shift, and go to state 2
+    DEVICE_REVISION  shift, and go to state 3
+    DD_REVISION      shift, and go to state 4
+    VARIABLE         shift, and go to state 5
+
+    line          go to state 6
+    man_term      go to state 7
+    dev_t_term    go to state 8
+    dev_rev_term  go to state 9
+    dd_rev_term   go to state 10
+    var_term      go to state 11
+
+
+State 1
+
+   22 man_term: MANUFACTURER . WHITESPACE int_term
+
+    WHITESPACE  shift, and go to state 12
+
+
+State 2
+
+   23 dev_t_term: DEVICE_TYPE . WHITESPACE hex_term
+
+    WHITESPACE  shift, and go to state 13
+
+
+State 3
+
+   24 dev_rev_term: DEVICE_REVISION . WHITESPACE int_term
+
+    WHITESPACE  shift, and go to state 14
+
+
+State 4
+
+   25 dd_rev_term: DD_REVISION . WHITESPACE int_term
+
+    WHITESPACE  shift, and go to state 15
+
+
+State 5
+
+   26 var_term: VARIABLE . WHITESPACE str_term
+
+    WHITESPACE  shift, and go to state 16
+
+
+State 6
+
+    0 $accept: line . $end
+    6 line: line . man_term
+    7     | line . dev_t_term
+    8     | line . dev_rev_term
+    9     | line . dd_rev_term
+   10     | line . var_term bracket_grp
+
+    $end             shift, and go to state 17
+    MANUFACTURER     shift, and go to state 1
+    DEVICE_TYPE      shift, and go to state 2
+    DEVICE_REVISION  shift, and go to state 3
+    DD_REVISION      shift, and go to state 4
+    VARIABLE         shift, and go to state 5
+
+    man_term      go to state 18
+    dev_t_term    go to state 19
+    dev_rev_term  go to state 20
+    dd_rev_term   go to state 21
+    var_term      go to state 22
+
+
+State 7
+
+    1 line: man_term .
+
+    $default  reduce using rule 1 (line)
+
+
+State 8
+
+    2 line: dev_t_term .
+
+    $default  reduce using rule 2 (line)
+
+
+State 9
+
+    3 line: dev_rev_term .
+
+    $default  reduce using rule 3 (line)
+
+
+State 10
+
+    4 line: dd_rev_term .
+
+    $default  reduce using rule 4 (line)
+
+
+State 11
+
+    5 line: var_term . bracket_grp
+
+    BRACKETS  shift, and go to state 23
+
+    bracket_grp  go to state 24
+
+
+State 12
+
+   22 man_term: MANUFACTURER WHITESPACE . int_term
+
+    INTEGER  shift, and go to state 25
+
+    int_term  go to state 26
+
+
+State 13
+
+   23 dev_t_term: DEVICE_TYPE WHITESPACE . hex_term
+
+    HEX  shift, and go to state 27
+
+    hex_term  go to state 28
+
+
+State 14
+
+   24 dev_rev_term: DEVICE_REVISION WHITESPACE . int_term
+
+    INTEGER  shift, and go to state 25
+
+    int_term  go to state 29
+
+
+State 15
+
+   25 dd_rev_term: DD_REVISION WHITESPACE . int_term
+
+    INTEGER  shift, and go to state 25
+
+    int_term  go to state 30
+
+
+State 16
+
+   26 var_term: VARIABLE WHITESPACE . str_term
+
+    STRING  shift, and go to state 31
+
+    str_term  go to state 32
+
+
+State 17
+
+    0 $accept: line $end .
+
+    $default  accept
+
+
+State 18
+
+    6 line: line man_term .
+
+    $default  reduce using rule 6 (line)
+
+
+State 19
+
+    7 line: line dev_t_term .
+
+    $default  reduce using rule 7 (line)
+
+
+State 20
+
+    8 line: line dev_rev_term .
+
+    $default  reduce using rule 8 (line)
+
+
+State 21
+
+    9 line: line dd_rev_term .
+
+    $default  reduce using rule 9 (line)
+
+
+State 22
+
+   10 line: line var_term . bracket_grp
+
+    BRACKETS  shift, and go to state 23
+
+    bracket_grp  go to state 33
+
+
+State 23
+
+   11 bracket_grp: BRACKETS . var_property END_BRACKETS
+
+    LABEL     shift, and go to state 34
+    HELP      shift, and go to state 35
+    CLASS     shift, and go to state 36
+    TYPE      shift, and go to state 37
+    HANDLING  shift, and go to state 38
+
+    var_property  go to state 39
+    label_prop    go to state 40
+    help_prop     go to state 41
+    class_prop    go to state 42
+    type_prop     go to state 43
+    hand_prop     go to state 44
+
+
+State 24
+
+    5 line: var_term bracket_grp .
+
+    $default  reduce using rule 5 (line)
+
+
+State 25
+
+   32 int_term: INTEGER .
+
+    $default  reduce using rule 32 (int_term)
+
+
+State 26
+
+   22 man_term: MANUFACTURER WHITESPACE int_term .
+
+    $default  reduce using rule 22 (man_term)
+
+
+State 27
+
+   33 hex_term: HEX .
+
+    $default  reduce using rule 33 (hex_term)
+
+
+State 28
+
+   23 dev_t_term: DEVICE_TYPE WHITESPACE hex_term .
+
+    $default  reduce using rule 23 (dev_t_term)
+
+
+State 29
+
+   24 dev_rev_term: DEVICE_REVISION WHITESPACE int_term .
+
+    $default  reduce using rule 24 (dev_rev_term)
+
+
+State 30
+
+   25 dd_rev_term: DD_REVISION WHITESPACE int_term .
+
+    $default  reduce using rule 25 (dd_rev_term)
+
+
+State 31
+
+   34 str_term: STRING .
+
+    $default  reduce using rule 34 (str_term)
+
+
+State 32
+
+   26 var_term: VARIABLE WHITESPACE str_term .
+
+    $default  reduce using rule 26 (var_term)
+
+
+State 33
+
+   10 line: line var_term bracket_grp .
+
+    $default  reduce using rule 10 (line)
+
+
+State 34
+
+   27 label_prop: LABEL . WHITESPACE str_term
+
+    WHITESPACE  shift, and go to state 45
+
+
+State 35
+
+   28 help_prop: HELP . WHITESPACE str_term
+
+    WHITESPACE  shift, and go to state 46
+
+
+State 36
+
+   29 class_prop: CLASS . WHITESPACE str_term
+
+    WHITESPACE  shift, and go to state 47
+
+
+State 37
+
+   30 type_prop: TYPE . WHITESPACE str_term
+
+    WHITESPACE  shift, and go to state 48
+
+
+State 38
+
+   31 hand_prop: HANDLING . WHITESPACE str_term
+
+    WHITESPACE  shift, and go to state 49
+
+
+State 39
+
+   11 bracket_grp: BRACKETS var_property . END_BRACKETS
+   17 var_property: var_property . label_prop
+   18             | var_property . help_prop
+   19             | var_property . class_prop
+   20             | var_property . type_prop
+   21             | var_property . hand_prop
+
+    END_BRACKETS  shift, and go to state 50
+    LABEL         shift, and go to state 34
+    HELP          shift, and go to state 35
+    CLASS         shift, and go to state 36
+    TYPE          shift, and go to state 37
+    HANDLING      shift, and go to state 38
+
+    label_prop  go to state 51
+    help_prop   go to state 52
+    class_prop  go to state 53
+    type_prop   go to state 54
+    hand_prop   go to state 55
+
+
+State 40
+
+   12 var_property: label_prop .
+
+    $default  reduce using rule 12 (var_property)
+
+
+State 41
+
+   13 var_property: help_prop .
+
+    $default  reduce using rule 13 (var_property)
+
+
+State 42
+
+   14 var_property: class_prop .
+
+    $default  reduce using rule 14 (var_property)
+
+
+State 43
+
+   15 var_property: type_prop .
+
+    $default  reduce using rule 15 (var_property)
+
+
+State 44
+
+   16 var_property: hand_prop .
+
+    $default  reduce using rule 16 (var_property)
+
+
+State 45
+
+   27 label_prop: LABEL WHITESPACE . str_term
+
+    STRING  shift, and go to state 31
+
+    str_term  go to state 56
+
+
+State 46
+
+   28 help_prop: HELP WHITESPACE . str_term
+
+    STRING  shift, and go to state 31
+
+    str_term  go to state 57
+
+
+State 47
+
+   29 class_prop: CLASS WHITESPACE . str_term
+
+    STRING  shift, and go to state 31
+
+    str_term  go to state 58
+
+
+State 48
+
+   30 type_prop: TYPE WHITESPACE . str_term
+
+    STRING  shift, and go to state 31
+
+    str_term  go to state 59
+
+
+State 49
+
+   31 hand_prop: HANDLING WHITESPACE . str_term
+
+    STRING  shift, and go to state 31
+
+    str_term  go to state 60
+
+
+State 50
+
+   11 bracket_grp: BRACKETS var_property END_BRACKETS .
+
+    $default  reduce using rule 11 (bracket_grp)
+
+
+State 51
+
+   17 var_property: var_property label_prop .
+
+    $default  reduce using rule 17 (var_property)
+
+
+State 52
+
+   18 var_property: var_property help_prop .
+
+    $default  reduce using rule 18 (var_property)
+
+
+State 53
+
+   19 var_property: var_property class_prop .
+
+    $default  reduce using rule 19 (var_property)
+
+
+State 54
+
+   20 var_property: var_property type_prop .
+
+    $default  reduce using rule 20 (var_property)
+
+
+State 55
+
+   21 var_property: var_property hand_prop .
+
+    $default  reduce using rule 21 (var_property)
+
+
+State 56
+
+   27 label_prop: LABEL WHITESPACE str_term .
+
+    $default  reduce using rule 27 (label_prop)
+
+
+State 57
+
+   28 help_prop: HELP WHITESPACE str_term .
+
+    $default  reduce using rule 28 (help_prop)
+
+
+State 58
+
+   29 class_prop: CLASS WHITESPACE str_term .
+
+    $default  reduce using rule 29 (class_prop)
+
+
+State 59
+
+   30 type_prop: TYPE WHITESPACE str_term .
+
+    $default  reduce using rule 30 (type_prop)
+
+
+State 60
+
+   31 hand_prop: HANDLING WHITESPACE str_term .
+
+    $default  reduce using rule 31 (hand_prop)

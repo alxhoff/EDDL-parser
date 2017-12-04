@@ -35,7 +35,7 @@ void yyerror (char *s);
 %token <num> HEX
 %token <dec> FLOAT
 %type <num> line 
-/*%type <dec> float_term*/
+%type <dec> float_term
 %type <num> int_term
 %type <num> hex_term
 %type <str> str_term
@@ -45,29 +45,38 @@ line            : man_term                              {printf("man term prop\n
                 | dev_t_term                            {printf("dev t term prop\n");}
                 | dev_rev_term                          {printf("dev rev term prop\n");}
                 | dd_rev_term                           {printf("dd rev term prop\n");}
+                | var_term bracket_grp                  {printf("var term brackets\n");}
                 | line man_term                         {printf("2 man term prop\n");}
                 | line dev_t_term                       {printf("2 dev t term prop\n");}
                 | line dev_rev_term                     {printf("2 dev rev term prop\n");}
                 | line dd_rev_term                      {printf("2 dd rev term prop\n");}
-                | var_term                              {printf("var term\n");}
-                | var_term BRACKETS var_property        {printf("var term brackets\n");}
-                | line var_term                         {printf("line var term\n");}
-                | line var_term BRACKETS var_property   {printf("line var term brackets\n");}
+                | line var_term bracket_grp             {printf("line var term brackets\n");}
                 ;
 
+bracket_grp     : BRACKETS var_property END_BRACKETS    {printf("bracket group\n");}
+                | 
+                ;
 
-
+/* variable properties */
 var_property    : label_prop                            {printf("label prop\n");}
                 | help_prop                             {printf("help prop\n");}
                 | class_prop                            {printf("class prop\n");}
                 | type_prop                             {printf("type prop\n");}
                 | hand_prop                             {printf("hand prop\n");}
+                | def_val                               {printf("def val prop\n");} 
                 | var_property label_prop               {printf("2 label prop\n");}
                 | var_property help_prop                {printf("2 help prop\n");}
                 | var_property class_prop               {printf("2 class prop\n");}
                 | var_property type_prop                {printf("2 type prop\n");}
                 | var_property hand_prop                {printf("2 hand prop\n");}
+                | var_property def_val                  {printf("2 def val prop\n");} 
                 ;
+
+/* default values */
+
+def_val         : BRACKETS def_val_line END_BRACKETS    {printf("var prop def\n");}
+                ;
+
 /* Individual lines */
 man_term        : MANUFACTURER WHITESPACE int_term      {printf("manufacturer: %d\n", $3);}
                 ;
@@ -98,17 +107,17 @@ type_prop       : TYPE WHITESPACE str_term              {printf("type: %s\n", $3
 
 hand_prop       : HANDLING WHITESPACE str_term          {printf("Handling: %s\n", $3);}
                 ;
-/*
+
 def_val_line    : DEFAULT_VALUE WHITESPACE float_term         {printf("def val f\n");}
                 | DEFAULT_VALUE WHITESPACE int_term           {printf("def val i\n");}
                 | DEFAULT_VALUE WHITESPACE hex_term           {printf("def val h\n");}
                 ;
-*/
+
 /* Fundemental values */
-/*
+
 float_term      : FLOAT                                 {$$ = $1; printf("float: %f\n", $1);}
                 ;
-*/
+
 int_term        : INTEGER                               {$$ = $1; printf("integer: %d\n", $1);}
                 ;
 
