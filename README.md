@@ -11,6 +11,7 @@ This demo can be used to see how the file is tokenized to get a feel for what gr
 ```make
 make
 ```
+In either the yacc or lex_test directories.
 
 ## Running
 
