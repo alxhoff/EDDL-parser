@@ -1,0 +1,277 @@
+\hypertarget{eddlparser_8h}{}\section{/home/alxhoff/git/\+E\+D\+D\+L-\/parser/\+E\+D\+D\+L-\/\+Parser/eddlparser.h File Reference}
+\label{eddlparser_8h}\index{/home/alxhoff/git/\+E\+D\+D\+L-\/parser/\+E\+D\+D\+L-\/\+Parser/eddlparser.\+h@{/home/alxhoff/git/\+E\+D\+D\+L-\/parser/\+E\+D\+D\+L-\/\+Parser/eddlparser.\+h}}
+
+
+Text parser to extract information from E\+DD files.  
+
+
+{\ttfamily \#include \char`\"{}eddl\+\_\+data\+\_\+type.\+h\char`\"{}}\\*
+Include dependency graph for eddlparser.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{eddlparser_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structeddl__object}{eddl\+\_\+object\+\_\+t} $\ast$ {\bfseries eddl\+\_\+parser\+\_\+create\+\_\+eddl\+\_\+t} (void)\hypertarget{eddlparser_8h_ab2aa5a789a88dd7feb93e9e250924cf1}{}\label{eddlparser_8h_ab2aa5a789a88dd7feb93e9e250924cf1}
+
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_a6d13be0325fb446b19aecbed87d23e45}{eddl\+\_\+parser\+\_\+create\+\_\+variable\+\_\+t} (\hyperlink{structeddl__object}{eddl\+\_\+object\+\_\+t} $\ast$)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_a1cb28ff72b1c6d147aa30c715bd2fd1f}{eddl\+\_\+parser\+\_\+set\+\_\+manufacturer} (\hyperlink{structeddl__object}{eddl\+\_\+object\+\_\+t} $\ast$object, int val)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_addcca1c1db4becd183a0801a437fa26a}{eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+type} (\hyperlink{structeddl__object}{eddl\+\_\+object\+\_\+t} $\ast$object, long val)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_abddbe8f65af10fb75404d63efe4199be}{eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+revision} (\hyperlink{structeddl__object}{eddl\+\_\+object\+\_\+t} $\ast$object, int val)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_a6e47ee2ed39de45a84fc73d3122145cf}{eddl\+\_\+parser\+\_\+set\+\_\+dd\+\_\+revision} (\hyperlink{structeddl__object}{eddl\+\_\+object\+\_\+t} $\ast$object, int val)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_a34f2d73b4c545417c800892a680387cd}{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+name} (\hyperlink{structeddl__variable}{eddl\+\_\+variable\+\_\+t} $\ast$var, char $\ast$name)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_a4c6aca45070704667068f092dabf8fe2}{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+label} (\hyperlink{structeddl__variable}{eddl\+\_\+variable\+\_\+t} $\ast$var, char $\ast$label)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_aeb2728ab7d133eefa681203719e83113}{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+help} (\hyperlink{structeddl__variable}{eddl\+\_\+variable\+\_\+t} $\ast$var, char $\ast$help)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_a070f05bd34b6ec3f64c03bdbc9d6f04f}{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+class\+\_\+mask} (\hyperlink{structeddl__variable}{eddl\+\_\+variable\+\_\+t} $\ast$var, class\+\_\+mask\+\_\+t mask)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_a47d3e75c715447c056816fb3331287df}{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+type\+\_\+mask} (\hyperlink{structeddl__variable}{eddl\+\_\+variable\+\_\+t} $\ast$var, type\+\_\+mask\+\_\+t mask)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_a287b2a82ab939daeb8ff764fbb835419}{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+default\+\_\+value} (\hyperlink{structeddl__variable}{eddl\+\_\+variable\+\_\+t} $\ast$var, void $\ast$value)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_a0e0ec91ab7ac52eadb50e23cbd2b58bf}{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+handling} (\hyperlink{structeddl__variable}{eddl\+\_\+variable\+\_\+t} $\ast$var, handling\+\_\+mask\+\_\+t val)
+\item 
+class\+\_\+mask\+\_\+t \hyperlink{eddlparser_8h_a1ebd02936cb13804c88fcb828f34e3cd}{eddl\+\_\+parser\+\_\+get\+\_\+class\+\_\+mask} (char $\ast$class\+\_\+string)
+\item 
+type\+\_\+mask\+\_\+t \hyperlink{eddlparser_8h_a744b6d8e0e4c939d6148b4a01d14e275}{eddl\+\_\+parser\+\_\+get\+\_\+type\+\_\+mask} (char $\ast$type\+\_\+string)
+\item 
+handling\+\_\+mask\+\_\+t \hyperlink{eddlparser_8h_a9d1bea223f0f62e90c5aa8e626b68ebd}{eddl\+\_\+parser\+\_\+get\+\_\+handling\+\_\+mask} (char $\ast$handling\+\_\+string)
+\item 
+E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t \hyperlink{eddlparser_8h_a254d61aa68d2fa4a0a664690f41e8b80}{eddl\+\_\+parser\+\_\+print\+\_\+var} (\hyperlink{structeddl__variable}{eddl\+\_\+variable\+\_\+t} $\ast$var)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structeddl__object}{eddl\+\_\+object\+\_\+t} $\ast$ {\bfseries doc\+\_\+object}\hypertarget{eddlparser_8h_ac32947cef301170b86bf2471f20b1117}{}\label{eddlparser_8h_ac32947cef301170b86bf2471f20b1117}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Text parser to extract information from E\+DD files. 
+
+\begin{DoxyAuthor}{Author}
+Alex Hoffman 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+22 December 2017 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+create\+\_\+variable\+\_\+t@{eddl\+\_\+parser\+\_\+create\+\_\+variable\+\_\+t}}
+\index{eddl\+\_\+parser\+\_\+create\+\_\+variable\+\_\+t@{eddl\+\_\+parser\+\_\+create\+\_\+variable\+\_\+t}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+create\+\_\+variable\+\_\+t(eddl\+\_\+object\+\_\+t $\ast$)}{eddl_parser_create_variable_t(eddl_object_t *)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+create\+\_\+variable\+\_\+t (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+object\+\_\+t} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a6d13be0325fb446b19aecbed87d23e45}{}\label{eddlparser_8h_a6d13be0325fb446b19aecbed87d23e45}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+get\+\_\+class\+\_\+mask@{eddl\+\_\+parser\+\_\+get\+\_\+class\+\_\+mask}}
+\index{eddl\+\_\+parser\+\_\+get\+\_\+class\+\_\+mask@{eddl\+\_\+parser\+\_\+get\+\_\+class\+\_\+mask}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+get\+\_\+class\+\_\+mask(char $\ast$class\+\_\+string)}{eddl_parser_get_class_mask(char *class_string)}}]{\setlength{\rightskip}{0pt plus 5cm}class\+\_\+mask\+\_\+t eddl\+\_\+parser\+\_\+get\+\_\+class\+\_\+mask (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{class\+\_\+string}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a1ebd02936cb13804c88fcb828f34e3cd}{}\label{eddlparser_8h_a1ebd02936cb13804c88fcb828f34e3cd}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+get\+\_\+handling\+\_\+mask@{eddl\+\_\+parser\+\_\+get\+\_\+handling\+\_\+mask}}
+\index{eddl\+\_\+parser\+\_\+get\+\_\+handling\+\_\+mask@{eddl\+\_\+parser\+\_\+get\+\_\+handling\+\_\+mask}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+get\+\_\+handling\+\_\+mask(char $\ast$handling\+\_\+string)}{eddl_parser_get_handling_mask(char *handling_string)}}]{\setlength{\rightskip}{0pt plus 5cm}handling\+\_\+mask\+\_\+t eddl\+\_\+parser\+\_\+get\+\_\+handling\+\_\+mask (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{handling\+\_\+string}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a9d1bea223f0f62e90c5aa8e626b68ebd}{}\label{eddlparser_8h_a9d1bea223f0f62e90c5aa8e626b68ebd}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+get\+\_\+type\+\_\+mask@{eddl\+\_\+parser\+\_\+get\+\_\+type\+\_\+mask}}
+\index{eddl\+\_\+parser\+\_\+get\+\_\+type\+\_\+mask@{eddl\+\_\+parser\+\_\+get\+\_\+type\+\_\+mask}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+get\+\_\+type\+\_\+mask(char $\ast$type\+\_\+string)}{eddl_parser_get_type_mask(char *type_string)}}]{\setlength{\rightskip}{0pt plus 5cm}type\+\_\+mask\+\_\+t eddl\+\_\+parser\+\_\+get\+\_\+type\+\_\+mask (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{type\+\_\+string}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a744b6d8e0e4c939d6148b4a01d14e275}{}\label{eddlparser_8h_a744b6d8e0e4c939d6148b4a01d14e275}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+print\+\_\+var@{eddl\+\_\+parser\+\_\+print\+\_\+var}}
+\index{eddl\+\_\+parser\+\_\+print\+\_\+var@{eddl\+\_\+parser\+\_\+print\+\_\+var}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+print\+\_\+var(eddl\+\_\+variable\+\_\+t $\ast$var)}{eddl_parser_print_var(eddl_variable_t *var)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+print\+\_\+var (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+variable\+\_\+t} $\ast$}]{var}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a254d61aa68d2fa4a0a664690f41e8b80}{}\label{eddlparser_8h_a254d61aa68d2fa4a0a664690f41e8b80}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+dd\+\_\+revision@{eddl\+\_\+parser\+\_\+set\+\_\+dd\+\_\+revision}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+dd\+\_\+revision@{eddl\+\_\+parser\+\_\+set\+\_\+dd\+\_\+revision}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+dd\+\_\+revision(eddl\+\_\+object\+\_\+t $\ast$object, int val)}{eddl_parser_set_dd_revision(eddl_object_t *object, int val)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+dd\+\_\+revision (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+object\+\_\+t} $\ast$}]{object, }
+\item[{int}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a6e47ee2ed39de45a84fc73d3122145cf}{}\label{eddlparser_8h_a6e47ee2ed39de45a84fc73d3122145cf}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+revision@{eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+revision}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+revision@{eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+revision}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+revision(eddl\+\_\+object\+\_\+t $\ast$object, int val)}{eddl_parser_set_device_revision(eddl_object_t *object, int val)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+revision (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+object\+\_\+t} $\ast$}]{object, }
+\item[{int}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_abddbe8f65af10fb75404d63efe4199be}{}\label{eddlparser_8h_abddbe8f65af10fb75404d63efe4199be}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+type@{eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+type}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+type@{eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+type}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+type(eddl\+\_\+object\+\_\+t $\ast$object, long val)}{eddl_parser_set_device_type(eddl_object_t *object, long val)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+device\+\_\+type (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+object\+\_\+t} $\ast$}]{object, }
+\item[{long}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_addcca1c1db4becd183a0801a437fa26a}{}\label{eddlparser_8h_addcca1c1db4becd183a0801a437fa26a}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+manufacturer@{eddl\+\_\+parser\+\_\+set\+\_\+manufacturer}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+manufacturer@{eddl\+\_\+parser\+\_\+set\+\_\+manufacturer}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+manufacturer(eddl\+\_\+object\+\_\+t $\ast$object, int val)}{eddl_parser_set_manufacturer(eddl_object_t *object, int val)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+manufacturer (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+object\+\_\+t} $\ast$}]{object, }
+\item[{int}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a1cb28ff72b1c6d147aa30c715bd2fd1f}{}\label{eddlparser_8h_a1cb28ff72b1c6d147aa30c715bd2fd1f}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+class\+\_\+mask@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+class\+\_\+mask}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+class\+\_\+mask@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+class\+\_\+mask}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+class\+\_\+mask(eddl\+\_\+variable\+\_\+t $\ast$var, class\+\_\+mask\+\_\+t mask)}{eddl_parser_set_variable_class_mask(eddl_variable_t *var, class_mask_t mask)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+class\+\_\+mask (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+variable\+\_\+t} $\ast$}]{var, }
+\item[{class\+\_\+mask\+\_\+t}]{mask}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a070f05bd34b6ec3f64c03bdbc9d6f04f}{}\label{eddlparser_8h_a070f05bd34b6ec3f64c03bdbc9d6f04f}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+default\+\_\+value@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+default\+\_\+value}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+default\+\_\+value@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+default\+\_\+value}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+default\+\_\+value(eddl\+\_\+variable\+\_\+t $\ast$var, void $\ast$value)}{eddl_parser_set_variable_default_value(eddl_variable_t *var, void *value)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+default\+\_\+value (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+variable\+\_\+t} $\ast$}]{var, }
+\item[{void $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a287b2a82ab939daeb8ff764fbb835419}{}\label{eddlparser_8h_a287b2a82ab939daeb8ff764fbb835419}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+handling@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+handling}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+handling@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+handling}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+handling(eddl\+\_\+variable\+\_\+t $\ast$var, handling\+\_\+mask\+\_\+t val)}{eddl_parser_set_variable_handling(eddl_variable_t *var, handling_mask_t val)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+handling (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+variable\+\_\+t} $\ast$}]{var, }
+\item[{handling\+\_\+mask\+\_\+t}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a0e0ec91ab7ac52eadb50e23cbd2b58bf}{}\label{eddlparser_8h_a0e0ec91ab7ac52eadb50e23cbd2b58bf}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+help@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+help}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+help@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+help}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+help(eddl\+\_\+variable\+\_\+t $\ast$var, char $\ast$help)}{eddl_parser_set_variable_help(eddl_variable_t *var, char *help)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+help (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+variable\+\_\+t} $\ast$}]{var, }
+\item[{char $\ast$}]{help}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_aeb2728ab7d133eefa681203719e83113}{}\label{eddlparser_8h_aeb2728ab7d133eefa681203719e83113}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+label@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+label}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+label@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+label}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+label(eddl\+\_\+variable\+\_\+t $\ast$var, char $\ast$label)}{eddl_parser_set_variable_label(eddl_variable_t *var, char *label)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+label (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+variable\+\_\+t} $\ast$}]{var, }
+\item[{char $\ast$}]{label}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a4c6aca45070704667068f092dabf8fe2}{}\label{eddlparser_8h_a4c6aca45070704667068f092dabf8fe2}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+name@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+name}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+name@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+name}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+name(eddl\+\_\+variable\+\_\+t $\ast$var, char $\ast$name)}{eddl_parser_set_variable_name(eddl_variable_t *var, char *name)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+variable\+\_\+t} $\ast$}]{var, }
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a34f2d73b4c545417c800892a680387cd}{}\label{eddlparser_8h_a34f2d73b4c545417c800892a680387cd}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{eddlparser.\+h@{eddlparser.\+h}!eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+type\+\_\+mask@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+type\+\_\+mask}}
+\index{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+type\+\_\+mask@{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+type\+\_\+mask}!eddlparser.\+h@{eddlparser.\+h}}
+\subsubsection[{\texorpdfstring{eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+type\+\_\+mask(eddl\+\_\+variable\+\_\+t $\ast$var, type\+\_\+mask\+\_\+t mask)}{eddl_parser_set_variable_type_mask(eddl_variable_t *var, type_mask_t mask)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+D\+D\+L\+\_\+\+P\+A\+R\+S\+E\+\_\+\+E\+R\+R\+\_\+t eddl\+\_\+parser\+\_\+set\+\_\+variable\+\_\+type\+\_\+mask (
+\begin{DoxyParamCaption}
+\item[{{\bf eddl\+\_\+variable\+\_\+t} $\ast$}]{var, }
+\item[{type\+\_\+mask\+\_\+t}]{mask}
+\end{DoxyParamCaption}
+)}\hypertarget{eddlparser_8h_a47d3e75c715447c056816fb3331287df}{}\label{eddlparser_8h_a47d3e75c715447c056816fb3331287df}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
