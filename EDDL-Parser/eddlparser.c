@@ -260,19 +260,10 @@ char* eddl_parser_get_class_string(class_mask_t mask)
     return ret;
 }
 
-#define GET_TYPE_STRING(foo)            \
-    case foo##_TYPE_e:{                 \
-        static char foo[] = #foo;       \
-        return foo;}                    \
-        break;
-
 char* eddl_parser_get_type_string(type_mask_t mask)
 {
-    switch((uint8_t)mask){
-        TYPE_MASKS(GET_TYPE_STRING)
-    default:
-        break;
-    }
+    if(edd_type_strings[mask] != NULL)
+        return edd_type_strings[mask];
     return NULL;
 }
 
