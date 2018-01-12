@@ -260,24 +260,16 @@ char* eddl_parser_get_class_string(class_mask_t mask)
     return ret;
 }
 
+#define GET_TYPE_STRING(foo)            \
+    case foo##_TYPE_e:{                 \
+        static char foo[] = #foo;       \
+        return foo;}                    \
+        break;
+
 char* eddl_parser_get_type_string(type_mask_t mask)
 {
     switch((uint8_t)mask){
-    case INVAL_TYPE_e:{
-        static char inval[] = "INVAL";
-        return inval;
-        }
-        break;
-    case FLOAT_TYPE_e:{
-        static char float_str[] = "FLOAT";
-        return float_str;
-        }
-        break;
-    case INTEGER_TYPE_e:{
-        static char int_str[] = "INTEGER";
-        return int_str;
-        }
-        break;
+        TYPE_MASKS(GET_TYPE_STRING)
     default:
         break;
     }
