@@ -9,6 +9,9 @@ eddl_object_t* doc_object;
 int yylex(void);
 int yyparse(void);
 
+const char* edd_type_strings[] = {TYPE_MASKS(TYPE_STRING)};
+const char* edd_handling_strings[] = {HANDLING_MASKS(HANDLING_STRING)};
+
 
 //LL
 eddl_variable_t* eddl_parser_get_last_ll_var(eddl_object_t* object)
@@ -301,11 +304,11 @@ char* eddl_parser_get_default_val_string(eddl_variable_t* var)
         }
         break;
     case FLOAT_TYPE_e:{
-        sprintf(buffer, "%f",(float*)var->default_value);
+        sprintf(buffer, "%f",*(float*)var->default_value);
         }
         break;
     case INTEGER_TYPE_e:{
-        sprintf(buffer, "%d",(int*)var->default_value);
+        sprintf(buffer, "%d",*(int*)var->default_value);
         }
         break;
     default:

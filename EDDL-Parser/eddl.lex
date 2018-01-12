@@ -1,5 +1,6 @@
 %{
 #include "eddl_data_type.h"
+#define MACROS_DONE
 #include "y.tab.h"
 
 #include <stdio.h>
