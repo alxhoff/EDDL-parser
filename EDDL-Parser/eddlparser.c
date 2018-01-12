@@ -182,15 +182,23 @@ class_mask_t eddl_parser_get_class_mask(char* class_string)
     return ret;
 }
 
+#define GET_TYPE_MASK(foo) \
+            if(!strcmp(type_string, #foo)) ret = foo##_TYPE_e;
+
 type_mask_t eddl_parser_get_type_mask(char* type_string)
 {
     type_mask_t ret = INVAL_TYPE_e;
 
-    if(!strcmp(type_string, "FLOAT")) return FLOAT_TYPE_e;
-    if(!strcmp(type_string, "INTEGER")) return INTEGER_TYPE_e;
-        
+    //if(!strcmp(type_string, "FLOAT")) return FLOAT_TYPE_e;
+    //if(!strcmp(type_string, "INTEGER")) return INTEGER_TYPE_e;
+      
+    TYPE_MASKS(GET_TYPE_MASK)
+
     return ret;
 }
+
+#define GET_HANDLING_MASK(foo) \
+            if(!strcmp(tmp, #foo)) ret |= foo##_HANDLING_e;
 
 handling_mask_t eddl_parser_get_handling_mask(char* handling_string)
 {
@@ -200,9 +208,11 @@ handling_mask_t eddl_parser_get_handling_mask(char* handling_string)
     tmp = strtok(remove_spaces(handling_string), "&");
     while(tmp != NULL){
         printf("handle string: %s\n", tmp);
+        /*
         if(!strcmp(tmp, "READ")) ret |= READ_HANDLING_e;
         if(!strcmp(tmp, "READ_WRITE")) ret |= READ_WRITE_HANDLING_e;
-        if(!strcmp(tmp, "WRITE")) ret |= WRITE_HANDLING_e;
+        if(!strcmp(tmp, "WRITE")) ret |= WRITE_HANDLING_e;*/
+        HANDLING_MASKS(GET_HANDLING_MASK)
         tmp = strtok(NULL, "&");
     }
 

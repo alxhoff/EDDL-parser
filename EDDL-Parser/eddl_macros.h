@@ -2,36 +2,36 @@
 #define __EDDL_MACROS_H__
 
 #define TYPE_MASKS(FUNC)            \
-            FUNC(INVAL),            \
-            FUNC(DOUBLE),           \
-            FUNC(FLOAT),            \
-            FUNC(INTEGER),          \
-            FUNC(UNSIGNED_INTEGER), \
-            FUNC(DATE_TYPE),        \
-            FUNC(DATE_AND_TIME),    \
-            FUNC(DURATION),         \
-            FUNC(TIME),             \
-            FUNC(TIME_VALUE_4),     \
-            FUNC(TIME_VALUE_8),     \
-            FUNC(BIT_ENUMERATED),   \
-            FUNC(ENUMERATED),       \
-            FUNC(INDEX),            \
-            FUNC(OBJECT_REFERENCE), \
-            FUNC(ASCII),            \
-            FUNC(BITSTRING),        \
-            FUNC(EUC),              \
-            FUNC(OCTET),            \
-            FUNC(PACKED_ASCII),     \
-            FUNC(PASSWORD),         \
-            FUNC(VISIBLE),          \
+            FUNC(INVAL)             \
+            FUNC(DOUBLE)            \
+            FUNC(FLOAT)             \
+            FUNC(INTEGER)           \
+            FUNC(UNSIGNED_INTEGER)  \
+            FUNC(DATE_TYPE)         \
+            FUNC(DATE_AND_TIME)     \
+            FUNC(DURATION)          \
+            FUNC(TIME)              \
+            FUNC(TIME_VALUE_4)      \
+            FUNC(TIME_VALUE_8)      \
+            FUNC(BIT_ENUMERATED)    \
+            FUNC(ENUMERATED)        \
+            FUNC(INDEX)             \
+            FUNC(OBJECT_REFERENCE)  \
+            FUNC(ASCII)             \
+            FUNC(BITSTRING)         \
+            FUNC(EUC)               \
+            FUNC(OCTET)             \
+            FUNC(PACKED_ASCII)      \
+            FUNC(PASSWORD)          \
+            FUNC(VISIBLE)           \
 
 /**
  * @enum
  * @brief
  * */
-#define TYPE_ENUM(foo) foo##_TYPE_e 
+#define TYPE_ENUM(foo) foo##_TYPE_e ,
 
-#define TYPE_STRING(foo) #foo 
+#define TYPE_STRING(foo) #foo ,
 
 typedef enum {TYPE_MASKS(TYPE_ENUM)} type_mask_t;
 
@@ -74,18 +74,18 @@ typedef enum {TYPE_MASKS(TYPE_ENUM)} type_mask_t;
 typedef enum {CLASS_MASKS(CLASS_ENUM)} class_mask_t;
 
 #define HANDLING_MASKS(FUNC)    \
-            FUNC(INVAL),        \
-            FUNC(READ),         \
-            FUNC(READ_WRITE),   \
+            FUNC(INVAL)         \
+            FUNC(READ)          \
+            FUNC(READ_WRITE)    \
             FUNC(WRITE)         \
 
 /**
  * @enum
  * @brief
  * */
-#define HANDLING_ENUM(foo) foo##_HANDLING_e
+#define HANDLING_ENUM(foo) foo##_HANDLING_e ,
 
-#define HANDLING_STRING(foo) #foo 
+#define HANDLING_STRING(foo) #foo ,
 
 typedef enum {HANDLING_MASKS(HANDLING_ENUM)} handling_mask_t;
 
