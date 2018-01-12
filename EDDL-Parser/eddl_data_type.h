@@ -13,6 +13,16 @@
 
 #include "stdint.h"
 
+#ifndef bool
+#define bool unsigned char
+#endif
+#ifndef true
+#define true 1
+#endif
+#ifndef false
+#define false 0
+#endif
+
 /**
  * @enum
  * @brief
@@ -21,6 +31,7 @@ typedef enum {
    EDDL_PARSE_OK,
    EDDL_PARSE_MEM,
    EDDL_PARSE_INVAL,
+   EDDL_PARSE_ASSERT,
 }EDDL_PARSE_ERR_t;
 
 /**
@@ -29,8 +40,31 @@ typedef enum {
  * */
 typedef enum{
     INVAL_CLASS_e   = 0x00,
-    CONTAINED_e     = 0x01,
-    DYNAMIC_e       = 0x02,
+    ALARM_CLASS_e,
+    ANALOG_INPUT_CLASS_e,
+    ANALOG_OUTPUT_CLASS_e,
+    COMPUTATION_CLASS_e,
+    CONTAINED_CLASS_e,
+    CORRECTION_CLASS_e,
+    DEVICE_CLASS_e,
+    DIAGNOSTIC_CLASS_e,
+    DIGITAL_INPUT_CLASS_e,
+    DIGITAL_OUTPUT_CLASS_e,
+    DISCRETE_INPUT_CLASS_e,
+    DISCRETE_OUTPUT_CLASS_e,
+    DYNAMIC_CLASS_e,
+    FREQUENCY_INPUT_CLASS_e,
+    FREQUENCY_OUTPUT_CLASS_e,
+    HART_CLASS_e,
+    INPUT_CLASS_e,
+    LOCAL_CLASS_e,
+    LOCAL_DISPLAY_CLASS_e,
+    OPERATE_CLASS_e,
+    OPTIONAL_CLASS_e,
+    OUTPUT_CLASS_e,
+    SERVICE_CLASS_e,
+    TEMPORARY_CLASS_e,
+    TUNE_CLASS_e
 } class_mask_t;
 
 /**
@@ -39,8 +73,27 @@ typedef enum{
  * */
 typedef enum{
     INVAL_TYPE_e    = 0x00,
-    FLOAT_e         = 0x01,
-    INTEGER_e       = 0x02,
+    DOUBLE_TYPE_e,  
+    FLOAT_TYPE_e,
+    INTEGER_TYPE_e,
+    UNSIGNED_INTEGER_TYPE_e,
+    DATE_TYPE_e,
+    DATE_AND_TIME_TYPE_e,
+    DURATION_TYPE_e,
+    TIME_TYPE_e,
+    TIME_VALUE_4_TYPE_e,
+    TIME_VALUE_8_TYPE_e,
+    BIT_ENUMERATED_TYPE_e,
+    ENUMERATED_TYPE_e,
+    INDEX_TYPE_e,
+    OBJECT_REFERENCE_TYPE_e,
+    ASCII_TYPE_e,
+    BITSTRING_TYPE_e,
+    EUC_TYPE_e,
+    OCTET_TYPE_e,
+    PACKED_ASCII_TYPE_e,
+    PASSWORD_TYPE_e,
+    VISIBLE_TYPE_e
 } type_mask_t;
 
 /**
@@ -48,9 +101,10 @@ typedef enum{
  * @brief
  * */
 typedef enum{
-    INVAL_HANDLE_e  = 0x00,
-    READ_e          = 0x01,
-    WRITE_e         = 0x02,
+    INVAL_HANDLING_e  = 0x00,
+    READ_HANDLING_e,
+    READ_WRITE_HANDLING_e,
+    WRITE_HANDLING_e
 } handling_mask_t;
 
 /**
@@ -60,18 +114,31 @@ typedef enum{
 typedef struct eddl_variable eddl_variable_t;
  
 /**
- * @struct
- * @brief
+ * @struct eddl_variable
+ * @brief Structure that represents a EDD variable object
  * */
 struct eddl_variable{
-    char*           __name;
-    char*           __label;
-    char*           __help;
-    class_mask_t    __class;
-    type_mask_t     __type;
-    void*           __default_value;
-    handling_mask_t __handling; 
-    
+    char*           name;
+    class_mask_t    _class;
+    char*           label;
+    type_mask_t     type;
+    char*           constant_unit;
+    void*           default_value;
+    handling_mask_t handling; 
+    char*           help;
+    void*           initial_value;
+    void*           post_edit_actions;
+    void*           post_read_actions;
+    void*           post_write_actions;
+    void*           pre_edit_actions;
+    void*           pre_read_actions;
+    void*           pre_write_actions;
+    int             read_timeout;
+    void*           refresh_actions;
+    char*           response_code;
+    char*           style;
+    bool            validity;
+    int             write_timeout;
     eddl_variable_t* next;
 };
 

@@ -80,53 +80,53 @@ EDDL_PARSE_ERR_t eddl_parser_set_dd_revision(eddl_object_t* object,
 EDDL_PARSE_ERR_t eddl_parser_set_variable_name(eddl_variable_t* var,
         char* name)
 {
-    var->__name = name;
+    var->name = name;
     return EDDL_PARSE_OK;
 }
 
 EDDL_PARSE_ERR_t eddl_parser_set_variable_label(eddl_variable_t* var,
         char* label)
 {
-    var->__label = label;
+    var->label = label;
     return EDDL_PARSE_OK;
 }
 
 EDDL_PARSE_ERR_t eddl_parser_set_variable_help(eddl_variable_t* var,
         char* help)
 {
-    var->__help = help;
+    var->help = help;
     return EDDL_PARSE_OK;
 }
 
 EDDL_PARSE_ERR_t eddl_parser_set_variable_class_mask(
         eddl_variable_t* var, class_mask_t mask)
 {
-    var->__class = mask;
+    var->_class = mask;
     return EDDL_PARSE_OK;
 }
 
 EDDL_PARSE_ERR_t eddl_parser_set_variable_type_mask(
         eddl_variable_t* var, type_mask_t mask)
 {
-    var->__type = mask;
+    var->type = mask;
     return EDDL_PARSE_OK;
 }
 
 EDDL_PARSE_ERR_t eddl_parser_set_variable_default_value(
         eddl_variable_t* var, void* value)
 {
-    if(var->__type == INVAL_TYPE_e) return EDDL_PARSE_INVAL;
-    switch(var->__type){
-        case FLOAT_e:{
-            var->__default_value = (float*)malloc(sizeof(float));
+    if(var->type == INVAL_TYPE_e) return EDDL_PARSE_INVAL;
+    switch(var->type){
+        case FLOAT_TYPE_e:{
+            var->default_value = (float*)malloc(sizeof(float));
             float tmp = *((float*)value);
-            memcpy(var->__default_value, &tmp, sizeof(float));
+            memcpy(var->default_value, &tmp, sizeof(float));
             }
             break;
-        case INTEGER_e:{
-            var->__default_value = (int*)malloc(sizeof(int));
+        case INTEGER_TYPE_e:{
+            var->default_value = (int*)malloc(sizeof(int));
             int tmp = *((int*)value);
-            memcpy(var->__default_value, &tmp, sizeof(int));
+            memcpy(var->default_value, &tmp, sizeof(int));
             }
             break; 
         default:
@@ -138,7 +138,7 @@ EDDL_PARSE_ERR_t eddl_parser_set_variable_default_value(
 EDDL_PARSE_ERR_t eddl_parser_set_variable_handling(eddl_variable_t* var,
         handling_mask_t val)
 {
-    var->__handling = val;
+    var->handling = val;
     return EDDL_PARSE_OK;
 }
 
@@ -165,8 +165,8 @@ class_mask_t eddl_parser_get_class_mask(char* class_string)
     tmp = strtok(remove_spaces(class_string), "&");
     while(tmp != NULL){
         printf("class string: %s\n", tmp);
-        if(!strcmp(tmp, "CONTAINED")) ret |= CONTAINED_e;
-        if(!strcmp(tmp, "DYNAMIC")) ret |= DYNAMIC_e;
+        if(!strcmp(tmp, "CONTAINED")) ret |= CONTAINED_CLASS_e;
+        if(!strcmp(tmp, "DYNAMIC")) ret |= DYNAMIC_CLASS_e;
         tmp = strtok(NULL, "&");
     }
 
@@ -179,22 +179,23 @@ type_mask_t eddl_parser_get_type_mask(char* type_string)
 {
     type_mask_t ret = INVAL_TYPE_e;
 
-    if(!strcmp(type_string, "FLOAT")) return FLOAT_e;
-    if(!strcmp(type_string, "INTEGER")) return INTEGER_e;
+    if(!strcmp(type_string, "FLOAT")) return FLOAT_TYPE_e;
+    if(!strcmp(type_string, "INTEGER")) return INTEGER_TYPE_e;
         
     return ret;
 }
 
 handling_mask_t eddl_parser_get_handling_mask(char* handling_string)
 {
-    handling_mask_t ret = INVAL_HANDLE_e;
+    handling_mask_t ret = INVAL_HANDLING_e;
     char* tmp;
 
     tmp = strtok(remove_spaces(handling_string), "&");
     while(tmp != NULL){
         printf("handle string: %s\n", tmp);
-        if(!strcmp(tmp, "READ")) ret |= READ_e;
-        if(!strcmp(tmp, "WRITE")) ret |= WRITE_e;
+        if(!strcmp(tmp, "READ")) ret |= READ_HANDLING_e;
+        if(!strcmp(tmp, "READ_WRITE")) ret |= READ_WRITE_HANDLING_e;
+        if(!strcmp(tmp, "WRITE")) ret |= WRITE_HANDLING_e;
         tmp = strtok(NULL, "&");
     }
 
@@ -250,12 +251,12 @@ char* eddl_parser_get_type_string(type_mask_t mask)
         return inval;
         }
         break;
-    case FLOAT_e:{
+    case FLOAT_TYPE_e:{
         static char float_str[] = "FLOAT";
         return float_str;
         }
         break;
-    case INTEGER_e:{
+    case INTEGER_TYPE_e:{
         static char int_str[] = "INTEGER";
         return int_str;
         }
@@ -293,18 +294,18 @@ char* eddl_parser_get_handling_string(handling_mask_t mask)
 char* eddl_parser_get_default_val_string(eddl_variable_t* var)
 {
     char buffer[12];
-    switch((uint8_t)var->__type){
-    case INVAL_HANDLE_e:{
+    switch((uint8_t)var->type){
+    case INVAL_HANDLING_e:{
         static char inval[] = "NULL";
         return inval;
         }
         break;
-    case FLOAT_e:{
-        sprintf(buffer, "%f",(float*)var->__default_value);
+    case FLOAT_TYPE_e:{
+        sprintf(buffer, "%f",(float*)var->default_value);
         }
         break;
-    case INTEGER_e:{
-        sprintf(buffer, "%d",(int*)var->__default_value);
+    case INTEGER_TYPE_e:{
+        sprintf(buffer, "%d",(int*)var->default_value);
         }
         break;
     default:
@@ -320,14 +321,14 @@ EDDL_PARSE_ERR_t eddl_parser_print_var(eddl_variable_t* var)
 {
     char* tmp = NULL;
     printf("!!=============VARIABLE============!!\n");
-    printf("  Variable: %s\n", (var->__name != NULL) ? var->__name : "NULL");
-    printf("  Label   : %s\n", (var->__label != NULL) ? var->__label : "NULL");
-    printf("  Help    : %s\n", (var->__help != NULL) ? var->__help : "NULL");
-    tmp = eddl_parser_get_class_string(var->__class);
+    printf("  Variable: %s\n", (var->name != NULL) ? var->name : "NULL");
+    printf("  Label   : %s\n", (var->label != NULL) ? var->label : "NULL");
+    printf("  Help    : %s\n", (var->help != NULL) ? var->help : "NULL");
+    tmp = eddl_parser_get_class_string(var->_class);
     printf("  Class   : %s\n", (tmp != NULL) ? tmp : "NULL");
-    tmp = eddl_parser_get_type_string(var->__type);
+    tmp = eddl_parser_get_type_string(var->type);
     printf("  Type    : %s\n", (tmp != NULL) ? tmp : "NULL");
-    tmp = eddl_parser_get_handling_string(var->__handling);
+    tmp = eddl_parser_get_handling_string(var->handling);
     printf("  Handling: %s\n", (tmp != NULL) ? tmp : "NULL");
     tmp = eddl_parser_get_default_val_string(var);
     printf("  Default\n");
