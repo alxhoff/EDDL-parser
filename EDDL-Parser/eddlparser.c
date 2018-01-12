@@ -11,7 +11,7 @@ int yyparse(void);
 
 const char* edd_type_strings[] = {TYPE_MASKS(TYPE_STRING)};
 const char* edd_handling_strings[] = {HANDLING_MASKS(HANDLING_STRING)};
-
+const char* edd_class_strings[] = {CLASS_MASKS(CLASS_STRING)};
 
 //LL
 eddl_variable_t* eddl_parser_get_last_ll_var(eddl_object_t* object)
@@ -160,6 +160,9 @@ char* remove_spaces(char* input)
     return output;
 }
 
+#define GET_CLASS_MASK(foo) \
+            if(!strcmp(tmp, #foo)) ret |= foo##_CLASS_e;
+
 class_mask_t eddl_parser_get_class_mask(char* class_string)
 {
     class_mask_t ret = INVAL_CLASS_e;
@@ -168,8 +171,9 @@ class_mask_t eddl_parser_get_class_mask(char* class_string)
     tmp = strtok(remove_spaces(class_string), "&");
     while(tmp != NULL){
         printf("class string: %s\n", tmp);
-        if(!strcmp(tmp, "CONTAINED")) ret |= CONTAINED_CLASS_e;
-        if(!strcmp(tmp, "DYNAMIC")) ret |= DYNAMIC_CLASS_e;
+//        if(!strcmp(tmp, "CONTAINED")) ret |= CONTAINED_CLASS_e;
+//       if(!strcmp(tmp, "DYNAMIC")) ret |= DYNAMIC_CLASS_e;
+        CLASS_MASKS(GET_CLASS_MASK)
         tmp = strtok(NULL, "&");
     }
 
@@ -296,6 +300,7 @@ char* eddl_parser_get_handling_string(handling_mask_t mask)
 
 char* eddl_parser_get_default_val_string(eddl_variable_t* var)
 {
+    //TODO VOID POINTER DEF VARS
     char buffer[12];
     switch((uint8_t)var->type){
     case INVAL_HANDLING_e:{
@@ -304,11 +309,11 @@ char* eddl_parser_get_default_val_string(eddl_variable_t* var)
         }
         break;
     case FLOAT_TYPE_e:{
-        sprintf(buffer, "%f",*(float*)var->default_value);
+        sprintf(buffer, "%f",(float*)var->default_value);
         }
         break;
     case INTEGER_TYPE_e:{
-        sprintf(buffer, "%d",*(int*)var->default_value);
+        sprintf(buffer, "%d",(int*)var->default_value);
         }
         break;
     default:

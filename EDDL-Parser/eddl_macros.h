@@ -36,40 +36,40 @@
 typedef enum {TYPE_MASKS(TYPE_ENUM)} type_mask_t;
 
 #define CLASS_MASKS(FUNC)           \
-            FUNC(INVAL), \
-            FUNC(ALARM), \
-            FUNC(ANALOG_INPUT), \
-            FUNC(ANALOG_OUTPUT), \
-            FUNC(COMPUTATION), \
-            FUNC(CONTAINED), \
-            FUNC(CORRECTION), \
-            FUNC(DEVICE), \
-            FUNC(DIAGNOSTIC), \
-            FUNC(DIGITAL_INPUT), \
-            FUNC(DIGITAL_OUTPUT), \
-            FUNC(DISCRETE_INPUT), \
-            FUNC(DISCRETE_OUTPUT), \
-            FUNC(DYNAMIC), \
-            FUNC(FREQUENCY_INPUT), \
-            FUNC(FREQUENCY_OUTPUT), \
-            FUNC(HART), \
-            FUNC(INPUT), \
-            FUNC(LOCAL), \
-            FUNC(LOCAL_DISPLAY), \
-            FUNC(OPERATE), \
-            FUNC(OPERATIONAL), \
-            FUNC(OUTPUT), \
-            FUNC(SERVICE), \
-            FUNC(TEMPORARY), \
-            FUNC(TUNE), \
+            FUNC(INVAL)             \
+            FUNC(ALARM)             \
+            FUNC(ANALOG_INPUT)      \
+            FUNC(ANALOG_OUTPUT)     \
+            FUNC(COMPUTATION)       \
+            FUNC(CONTAINED)         \
+            FUNC(CORRECTION)        \
+            FUNC(DEVICE)            \
+            FUNC(DIAGNOSTIC)        \
+            FUNC(DIGITAL_INPUT)     \
+            FUNC(DIGITAL_OUTPUT)    \
+            FUNC(DISCRETE_INPUT)    \
+            FUNC(DISCRETE_OUTPUT)   \
+            FUNC(DYNAMIC)           \
+            FUNC(FREQUENCY_INPUT)   \
+            FUNC(FREQUENCY_OUTPUT)  \
+            FUNC(HART)              \
+            FUNC(INPUT)             \
+            FUNC(LOCAL)             \
+            FUNC(LOCAL_DISPLAY)     \
+            FUNC(OPERATE)           \
+            FUNC(OPERATIONAL)       \
+            FUNC(OUTPUT)            \
+            FUNC(SERVICE)           \
+            FUNC(TEMPORARY)         \
+            FUNC(TUNE)              \
 
 /**
  * @enum
  * @brief
  * */
-#define CLASS_ENUM(foo) foo##_CLASS_e 
+#define CLASS_ENUM(foo) foo##_CLASS_e , 
 
-#define CLASS_STRING(foo) #foo 
+#define CLASS_STRING(foo) #foo ,
 
 typedef enum {CLASS_MASKS(CLASS_ENUM)} class_mask_t;
 
