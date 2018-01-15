@@ -162,4 +162,6 @@ handling_mask_t eddl_parser_get_handling_mask(char* handling_string);
  * */
 EDDL_PARSE_ERR_t eddl_parser_print_var(eddl_variable_t* var);
 
+
+
 #endif
