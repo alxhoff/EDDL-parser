@@ -82,7 +82,7 @@ line            : man_term                              {eddl_parser_set_manufac
                 | line var_term bracket_grp             {/*eddl_parser_create_variable_t(doc_object);*/
                                                         eddl_parser_set_variable_name(doc_object->current_var, $2);
                                                         //eddl_parser_print_var(doc_object->current_var);
-                                                        //printf("line var term brackets\n");
+                                                        printf("line var term brackets: %s\n", $2);
                                                         }
                 ;
 
@@ -101,7 +101,10 @@ var_property    : label_prop                            {eddl_parser_set_variabl
                 | class_prop                            {eddl_parser_set_variable_class_mask(doc_object->current_var, $1);
                                                         //printf("class prop\n");
                                                         }
-                | type_prop def_val_f                   {eddl_parser_set_variable_default_value(doc_object->current_var, &$2);
+                | type_prop def_val_f                   {
+                                                        if(doc_object->current_var->type == INVAL_TYPE_e)
+                                                            eddl_parser_set_variable_type_mask(doc_object->current_var, $1);
+                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &$2);
                                                         printf("def val %f\n", $2);
                                                         //printf("3 type prop\n");
                                                         }
@@ -120,7 +123,10 @@ var_property    : label_prop                            {eddl_parser_set_variabl
                 | var_property class_prop               {eddl_parser_set_variable_class_mask(doc_object->current_var, $2);
                                                         //printf("2 class prop\n");
                                                         }
-                | var_property type_prop def_val_f      {eddl_parser_set_variable_default_value(doc_object->current_var, &$3);
+                | var_property type_prop def_val_f      {
+                                                        if(doc_object->current_var->type == INVAL_TYPE_e)
+                                                            eddl_parser_set_variable_type_mask(doc_object->current_var, $2);
+                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &$3);
                                                         printf("def val %f\n", $2);
                                                         }
                 | var_property type_prop                {eddl_parser_set_variable_type_mask(doc_object->current_var, $2);
@@ -167,7 +173,7 @@ dd_rev_term     : DD_REVISION WHITESPACE int_term       {$$ = $3;
 
 var_term        : VARIABLE WHITESPACE str_term          {$$ = $3; 
                                                         eddl_parser_create_variable_t(doc_object);
-                                                        //printf("variable: %s\n", $3);
+                                                        printf("variable: %s\n", $3);
                                                         }
                 ;
 

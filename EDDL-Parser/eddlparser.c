@@ -44,6 +44,7 @@ EDDL_PARSE_ERR_t eddl_parser_create_variable_t(eddl_object_t* object)
         //TODO can this line be removed VVVV
         eddl_variable_t* tail_var = eddl_parser_get_last_ll_var(object);
         tail_var->next = ret;
+        object->current_var = ret;
     }
 
     return EDDL_PARSE_OK;
@@ -282,22 +283,27 @@ char* eddl_parser_get_default_val_string(eddl_variable_t* var)
 {
     //TODO VOID POINTER DEF VARS
     char buffer[12];
-    switch(var->type){
-    case INVAL_HANDLING_e:{
-        static char inval[] = "NULL";
-        return inval;
+    if(var->default_value != NULL)
+        switch(var->type){
+        case INVAL_HANDLING_e:{
+            static char inval[] = "NULL";
+            return inval;
+            }
+            break;
+        case FLOAT_TYPE_e:{
+            sprintf(buffer, "%f", *(float*)var->default_value);
+            }
+            break;
+        case INTEGER_TYPE_e:{
+            sprintf(buffer, "%d", *(int*)var->default_value);
+            }
+            break;
+        default:
+            return NULL;
         }
-        break;
-    case FLOAT_TYPE_e:{
-        sprintf(buffer, "%f", *(float*)var->default_value);
-        }
-        break;
-    case INTEGER_TYPE_e:{
-        sprintf(buffer, "%d", *(int*)var->default_value);
-        }
-        break;
-    default:
-        return NULL;
+    else{
+        static char return_val[] = "NULL";
+        return return_val;
     }
 
     char* ret = (char*)malloc(sizeof(char) * (strlen(buffer) + 1));
