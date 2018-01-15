@@ -27,7 +27,6 @@ eddl_object_t* eddl_parser_create_eddl_t(void)
 {
     eddl_object_t* ret = (eddl_object_t*)calloc(1, sizeof(eddl_object_t));
     if(ret == NULL) return NULL;
-    printf("object created\n");
     return ret;
 }
 
@@ -39,13 +38,11 @@ EDDL_PARSE_ERR_t eddl_parser_create_variable_t(eddl_object_t* object)
     if(object->variable_head == NULL){
         object->variable_head = ret;
         object->current_var = ret;
-        printf("head variable created\n");
         return EDDL_PARSE_OK;
     }else{
         //TODO can this line be removed VVVV
         eddl_variable_t* tail_var = eddl_parser_get_last_ll_var(object);
         tail_var->next = ret;
-        printf("tail variable created\n");
     }
 
     return EDDL_PARSE_OK;
@@ -170,15 +167,9 @@ class_mask_t eddl_parser_get_class_mask(char* class_string)
     char* tmp;
     tmp = strtok(remove_spaces(class_string), "&");
     while(tmp != NULL){
-        printf("class string: %s\n", tmp);
-//        if(!strcmp(tmp, "CONTAINED")) ret |= CONTAINED_CLASS_e;
-//       if(!strcmp(tmp, "DYNAMIC")) ret |= DYNAMIC_CLASS_e;
         CLASS_MASKS(GET_CLASS_MASK)
         tmp = strtok(NULL, "&");
     }
-
-    printf("Getting class mask: 0x%x\n", ret);
-
     return ret;
 }
 
@@ -189,9 +180,6 @@ type_mask_t eddl_parser_get_type_mask(char* type_string)
 {
     type_mask_t ret = INVAL_TYPE_e;
 
-    //if(!strcmp(type_string, "FLOAT")) return FLOAT_TYPE_e;
-    //if(!strcmp(type_string, "INTEGER")) return INTEGER_TYPE_e;
-      
     TYPE_MASKS(GET_TYPE_MASK)
 
     return ret;
@@ -207,17 +195,9 @@ handling_mask_t eddl_parser_get_handling_mask(char* handling_string)
 
     tmp = strtok(remove_spaces(handling_string), "&");
     while(tmp != NULL){
-        printf("handle string: %s\n", tmp);
-        /*
-        if(!strcmp(tmp, "READ")) ret |= READ_HANDLING_e;
-        if(!strcmp(tmp, "READ_WRITE")) ret |= READ_WRITE_HANDLING_e;
-        if(!strcmp(tmp, "WRITE")) ret |= WRITE_HANDLING_e;*/
         HANDLING_MASKS(GET_HANDLING_MASK)
         tmp = strtok(NULL, "&");
     }
-
-    printf("Getting handle mask: 0x%x\n", ret);
-
     return ret;
 }
 
@@ -244,39 +224,16 @@ char* eddl_parser_get_class_string(class_mask_t mask)
 
     for(int i = 0; i < 26; i++){
         if((mask >> i) & 0x01){
-            if(ret != NULL) 
-                ret_len = strlen(ret);
-            else 
-                ret_len = 0;
+            if(ret != NULL) ret_len = strlen(ret);
+            else ret_len = 0;
             tmp_len = strlen(edd_class_strings[i+1]);
-            if(ret == NULL)
-                ret = (char*)realloc(ret, sizeof(char) * (tmp_len + 1));
-            else
-                ret = (char*)realloc(ret, sizeof(char) * (tmp_len + ret_len + 4));
+            if(ret == NULL) ret = (char*)realloc(ret, sizeof(char) * (tmp_len + 1));
+            else ret = (char*)realloc(ret, sizeof(char) * (tmp_len + ret_len + 4));
             if(ret == NULL) return EDDL_PARSE_MEM;
             if(ret_len > 1) strcat(ret, " & ");
             strcat(ret, edd_class_strings[i+1]);
         }
     }
-   /* 
-    //contained
-    if((uint8_t)mask & 0x01){
-         ret = (char*)malloc(sizeof(char) * 5);
-         strcpy(ret, "CONTAINED");
-    }
-   
-    //dynamic
-    if(((uint8_t)mask >> 1) & 0x01){
-        if(ret == NULL){
-            ret = (char*)malloc(sizeof(char) * 5);
-            strcpy(ret, "DYNAMIC");
-            
-        }else{ 
-            ret = (char*)realloc(ret, sizeof(char)* (strlen(ret) + 11));
-            strcat(ret, " & DYNAMIC");
-        }
-    }
-    */
     return ret;
 }
 

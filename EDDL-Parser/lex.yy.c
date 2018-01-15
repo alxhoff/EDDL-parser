@@ -840,91 +840,91 @@ case 1:
 YY_RULE_SETUP
 #line 19 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Manufacturer detected \n");
+                                //printf("Manufacturer detected \n");
                                 return MANUFACTURER;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 22 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Device type detected\n");
+                                //printf("Device type detected\n");
                                 return DEVICE_TYPE;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 25 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Device revision detected\n");
+                                //printf("Device revision detected\n");
                                 return DEVICE_REVISION;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 28 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("DD revision detected\n");
+                                //printf("DD revision detected\n");
                                 return DD_REVISION;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 31 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Variable detected\n");
+                                //printf("Variable detected\n");
                                 return VARIABLE;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 34 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Label detected\n");
+                                //printf("Label detected\n");
                                 return LABEL;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 37 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Help detected\n");
+                                //printf("Help detected\n");
                                 return HELP;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 40 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Class detected\n");
+                                //printf("Class detected\n");
                                 return CLASS;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 43 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Type detected\n");
+                                //printf("Type detected\n");
                                 return TYPE;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 46 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Handling detected\n");
+                                //printf("Handling detected\n");
                                 return HANDLING;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 49 "eddl.lex"
 {BEGIN(WHITE); 
-                                printf("Default value detected\n");
+                                //printf("Default value detected\n");
                                 return DEFAULT_VALUE;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 53 "eddl.lex"
 {BEGIN(INITIAL); 
-                                printf("Bracket detected\n");
+                                //printf("Bracket detected\n");
                                 return BRACKETS;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 56 "eddl.lex"
 {BEGIN(INITIAL); 
-                                printf("End bracket detected\n");
+                                //printf("End bracket detected\n");
                                 return END_BRACKETS;} 
 	YY_BREAK
 case 14:
@@ -947,7 +947,7 @@ case 17:
 YY_RULE_SETUP
 #line 63 "eddl.lex"
 {BEGIN(WORDS); 
-                                printf("whitespace\n");
+                                //printf("whitespace\n");
                                 return WHITESPACE;}
 	YY_BREAK
 case 18:
@@ -959,16 +959,16 @@ case 19:
 YY_RULE_SETUP
 #line 67 "eddl.lex"
 {BEGIN(INITIAL); 
-                                printf("Hex detected\n");
+                                //printf("Hex detected\n");
                                 yylval.uint = strtol(yytext + (2 * sizeof(char)), NULL, 16);
-                                printf("Hex conversion of \"%s\" to decimal: %d\n", yytext+(2*sizeof(char)), yylval.num);
+                                //printf("Hex conversion of \"%s\" to decimal: %d\n", yytext+(2*sizeof(char)), yylval.num);
                                 return HEX;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 72 "eddl.lex"
 {BEGIN(INITIAL);
-                                printf("Float detected\n");
+                                //printf("Float detected\n");
                                 yylval.dec = atof(yytext);
                                 return FLOAT;}
 	YY_BREAK
@@ -976,7 +976,7 @@ case 21:
 YY_RULE_SETUP
 #line 76 "eddl.lex"
 {BEGIN(INITIAL); 
-                                printf("Integer detected\n");
+                                //printf("Integer detected\n");
                                 yylval.num = atoi(yytext);
                                 return INTEGER;}                 
 	YY_BREAK
@@ -985,7 +985,7 @@ YY_RULE_SETUP
 #line 80 "eddl.lex"
 {BEGIN(INITIAL);
                                 yylval.str = strdup(yytext);
-                                printf("String detected: %s\n", yylval.str);
+                                //printf("String detected: %s\n", yylval.str);
                                 return STRING;} 
 	YY_BREAK
 case 23:
