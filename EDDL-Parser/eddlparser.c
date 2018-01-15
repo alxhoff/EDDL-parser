@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "eddlparser.h"
 #include "eddl_data_type.h"
 
 eddl_object_t* doc_object;
@@ -213,6 +214,15 @@ EDDL_PARSE_ERR_t eddl_parser_print_doc(eddl_object_t* doc)
     printf("  DD revision: %d\n", doc->dd_revision);
     printf("!!=================================!!\n");
     printf(" \n");
+
+    eddl_variable_t* var_head;
+    if(doc->variable_head != NULL){
+        var_head = doc->variable_head;
+        while(var_head != NULL){
+            eddl_parser_print_var(var_head);
+            var_head = var_head->next;
+        }
+    }
     return EDDL_PARSE_OK;
 }
 
@@ -272,18 +282,18 @@ char* eddl_parser_get_default_val_string(eddl_variable_t* var)
 {
     //TODO VOID POINTER DEF VARS
     char buffer[12];
-    switch((uint8_t)var->type){
+    switch(var->type){
     case INVAL_HANDLING_e:{
         static char inval[] = "NULL";
         return inval;
         }
         break;
     case FLOAT_TYPE_e:{
-        sprintf(buffer, "%f",(float*)var->default_value);
+        sprintf(buffer, "%f", *(float*)var->default_value);
         }
         break;
     case INTEGER_TYPE_e:{
-        sprintf(buffer, "%d",(int*)var->default_value);
+        sprintf(buffer, "%d", *(int*)var->default_value);
         }
         break;
     default:
@@ -337,5 +347,6 @@ int main (void)
     doc_object = eddl_parser_create_eddl_t();
     int ret = yyparse(); 
     eddl_parser_print_doc(doc_object);
+    
     return ret;
 }

@@ -81,7 +81,7 @@ line            : man_term                              {eddl_parser_set_manufac
                                                         }
                 | line var_term bracket_grp             {/*eddl_parser_create_variable_t(doc_object);*/
                                                         eddl_parser_set_variable_name(doc_object->current_var, $2);
-                                                        eddl_parser_print_var(doc_object->current_var);
+                                                        //eddl_parser_print_var(doc_object->current_var);
                                                         //printf("line var term brackets\n");
                                                         }
                 ;
@@ -102,6 +102,7 @@ var_property    : label_prop                            {eddl_parser_set_variabl
                                                         //printf("class prop\n");
                                                         }
                 | type_prop def_val_f                   {eddl_parser_set_variable_default_value(doc_object->current_var, &$2);
+                                                        printf("def val %f\n", $2);
                                                         //printf("3 type prop\n");
                                                         }
                 | type_prop                             {eddl_parser_set_variable_type_mask(doc_object->current_var, $1);
@@ -120,7 +121,7 @@ var_property    : label_prop                            {eddl_parser_set_variabl
                                                         //printf("2 class prop\n");
                                                         }
                 | var_property type_prop def_val_f      {eddl_parser_set_variable_default_value(doc_object->current_var, &$3);
-                                                        //printf("3 type prop\n");
+                                                        printf("def val %f\n", $2);
                                                         }
                 | var_property type_prop                {eddl_parser_set_variable_type_mask(doc_object->current_var, $2);
                                                         //printf("2 type prop\n");
@@ -132,8 +133,8 @@ var_property    : label_prop                            {eddl_parser_set_variabl
 
 /* default values */
 
-def_val_f       : BRACKETS def_val_line_f END_BRACKETS  {$$ = $1; 
-                                                        //printf("var prop def\n");
+def_val_f       : BRACKETS def_val_line_f END_BRACKETS  {$$ = $2; 
+                                                        printf("var prop def %f\n", $$);
                                                         }
                 ;
 /*
@@ -196,7 +197,7 @@ hand_prop       : HANDLING WHITESPACE str_term          {$$ = eddl_parser_get_ha
                 ;
 
 def_val_line_f  : DEFAULT_VALUE WHITESPACE float_term   {$$ = $3; 
-                                                        //printf("def val f\n");
+                                                        printf("def val f %f\n", $3);
                                                         }
                 ;
 /*
@@ -209,7 +210,7 @@ def_val_line_h  : DEFAULT_VALUE WHITESPACE hex_term     {printf("def val h\n");}
 /* Fundemental values */
 
 float_term      : FLOAT                                 {$$ = $1; 
-                                                        //printf("float: %f\n", $1);
+                                                        printf("float: %f\n", $$);
                                                         }
                 ;
 

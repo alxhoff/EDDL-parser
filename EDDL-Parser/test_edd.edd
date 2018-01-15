@@ -29,7 +29,7 @@ VARIABLE      NIKI_Temperature_Sensor
     CLASS       CONTAINED;
     TYPE        FLOAT;
     {
-        DEFAULT_VALUE   0.0;
+        DEFAULT_VALUE   1.45;
     }
     HANDLING    READ & WRITE;
 }
