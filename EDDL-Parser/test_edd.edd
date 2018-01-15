@@ -15,7 +15,10 @@ VARIABLE        NIKI_Current_Sensor
     LABEL       NIKI_Current_Sensor;
     HELP        measures_actual_current;
     CLASS       CONTAINED & DYNAMIC;
-    TYPE        FLOAT;
+    TYPE        INTEGER;
+    {
+        DEFAULT_VALUE   5;
+    }
     HANDLING    READ;
 }
 
