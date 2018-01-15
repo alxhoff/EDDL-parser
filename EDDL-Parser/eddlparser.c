@@ -119,6 +119,11 @@ EDDL_PARSE_ERR_t eddl_parser_set_variable_default_value(
 {
     if(var->type == INVAL_TYPE_e) return EDDL_PARSE_INVAL;
     switch(var->type){
+        case DOUBLE_TYPE_e:{
+            var->default_value = (double*)malloc(sizeof(double));
+            double tmp = (double)*((double*)value);
+            memcpy(var->default_value, &tmp, sizeof(double));
+            }
         case FLOAT_TYPE_e:{
             var->default_value = (float*)malloc(sizeof(float));
             float tmp = (float)*((double*)value);
@@ -129,6 +134,12 @@ EDDL_PARSE_ERR_t eddl_parser_set_variable_default_value(
             var->default_value = (int*)malloc(sizeof(int));
             int tmp = *((int*)value);
             memcpy(var->default_value, &tmp, sizeof(int));
+            }
+            break; 
+        case UNSIGNED_INTEGER_TYPE_e:{
+            var->default_value = (unsigned int*)malloc(sizeof(unsigned int));
+            unsigned int tmp = *((unsigned int*)value);
+            memcpy(var->default_value, &tmp, sizeof(unsigned int));
             }
             break; 
         default:
@@ -290,12 +301,20 @@ char* eddl_parser_get_default_val_string(eddl_variable_t* var)
             return inval;
             }
             break;
+        case DOUBLE_TYPE_e:{
+            sprintf(buffer, "%lf", *(double*)var->default_value);
+            }
+            break;
         case FLOAT_TYPE_e:{
             sprintf(buffer, "%f", *(float*)var->default_value);
             }
             break;
         case INTEGER_TYPE_e:{
-            sprintf(buffer, "%d", *(int*)var->default_value);
+            sprintf(buffer, "%i", *(int*)var->default_value);
+            }
+            break;
+        case UNSIGNED_INTEGER_TYPE_e:{
+            sprintf(buffer, "%u", *(unsigned int*)var->default_value);
             }
             break;
         default:

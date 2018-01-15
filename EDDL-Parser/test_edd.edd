@@ -15,7 +15,7 @@ VARIABLE        NIKI_Current_Sensor
     LABEL       NIKI_Current_Sensor;
     HELP        measures_actual_current;
     CLASS       CONTAINED & DYNAMIC;
-    TYPE        INTEGER;
+    TYPE        UNSIGNED_INTEGER;
     {
         DEFAULT_VALUE   5;
     }
@@ -30,7 +30,7 @@ VARIABLE      NIKI_Temperature_Sensor
     LABEL       NIKI_Temperature_Sensor
     HELP        measures_actual_temperature;
     CLASS       CONTAINED;
-    TYPE        FLOAT;
+    TYPE        DOUBLE;
     {
         DEFAULT_VALUE   1.45;
     }
