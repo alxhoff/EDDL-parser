@@ -238,17 +238,24 @@ EDDL_PARSE_ERR_t eddl_parser_print_doc(eddl_object_t* doc)
 
 char* eddl_parser_get_class_string(class_mask_t mask)
 {
-    char* ret = (char*)malloc(sizeof(char) * 1);
+    char* ret = NULL;
     size_t ret_len = 0;
     size_t tmp_len = 0;
 
-    for(int i = 1; i < 26; i++){
+    for(int i = 0; i < 26; i++){
         if((mask >> i) & 0x01){
-            ret_len = strlen(ret);
-            tmp_len = strlen(edd_class_strings[i]);
-            ret = (char*)realloc(ret, sizeof(char) * ret_len + tmp_len + 1);
+            if(ret != NULL) 
+                ret_len = strlen(ret);
+            else 
+                ret_len = 0;
+            tmp_len = strlen(edd_class_strings[i+1]);
+            if(ret == NULL)
+                ret = (char*)realloc(ret, sizeof(char) * (tmp_len + 1));
+            else
+                ret = (char*)realloc(ret, sizeof(char) * (tmp_len + ret_len + 4));
+            if(ret == NULL) return EDDL_PARSE_MEM;
             if(ret_len > 1) strcat(ret, " & ");
-            strcat(ret, edd_class_strings[mask]);
+            strcat(ret, edd_class_strings[i+1]);
         }
     }
    /* 
