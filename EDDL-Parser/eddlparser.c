@@ -124,6 +124,7 @@ EDDL_PARSE_ERR_t eddl_parser_set_variable_default_value(
             double tmp = (double)*((double*)value);
             memcpy(var->default_value, &tmp, sizeof(double));
             }
+            break;
         case FLOAT_TYPE_e:{
             var->default_value = (float*)malloc(sizeof(float));
             float tmp = (float)*((double*)value);
@@ -132,13 +133,13 @@ EDDL_PARSE_ERR_t eddl_parser_set_variable_default_value(
             break;
         case INTEGER_TYPE_e:{
             var->default_value = (int*)malloc(sizeof(int));
-            int tmp = *((int*)value);
+            int tmp = (int)*((int*)value);
             memcpy(var->default_value, &tmp, sizeof(int));
             }
             break; 
         case UNSIGNED_INTEGER_TYPE_e:{
             var->default_value = (unsigned int*)malloc(sizeof(unsigned int));
-            unsigned int tmp = *((unsigned int*)value);
+            unsigned int tmp = (unsigned int)*((unsigned int*)value);
             memcpy(var->default_value, &tmp, sizeof(unsigned int));
             }
             break; 
