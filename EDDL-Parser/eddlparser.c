@@ -250,7 +250,7 @@ char* eddl_parser_get_class_string(class_mask_t mask)
             if(ret != NULL) ret_len = strlen(ret);
             else ret_len = 0;
             tmp_len = strlen(edd_class_strings[i+1]);
-            if(ret == NULL) ret = (char*)realloc(ret, sizeof(char) * (tmp_len + 1));
+            if(ret == NULL) ret = (char*)calloc(tmp_len + 1, sizeof(char));
             else ret = (char*)realloc(ret, sizeof(char) * (tmp_len + ret_len + 4));
             if(ret == NULL) return EDDL_PARSE_MEM;
             if(ret_len > 1) strcat(ret, " & ");
