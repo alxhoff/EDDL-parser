@@ -66,20 +66,21 @@ int yydebug=1;
 <WHITE>.                        {;} 
 <WORDS>"0x"[0-9]+               {BEGIN(INITIAL); 
                                 //printf("Hex detected\n");
-                                yylval.uint = strtol(yytext + (2 * sizeof(char)), NULL, 16);
-                                //printf("Hex conversion of \"%s\" to decimal: %d\n", yytext+(2*sizeof(char)), yylval.num);
+                                yylval.uint_t = strtol(yytext + (2 * sizeof(char)), NULL, 16);
+                                //printf("Hex conversion of \"%s\" to decimal: %d\n", yytext+(2*sizeof(char)), yylval.int_t);
                                 return HEX;}
-<WORDS>[0-9]"."[0-9]+          {BEGIN(INITIAL);
-                                //printf("Float detected\n");
-                                yylval.dec = atof(yytext);
-                                return FLOAT;}
+<WORDS>[0-9]"."[0-9]+           {BEGIN(INITIAL);
+                                printf("Float detected\n");
+                                yylval.double_t = atof(yytext);
+                                printf("val: %lf\n", yylval.double_t);
+                                return DOUBLE;}
 <WORDS>[1-9][0-9]*              {BEGIN(INITIAL); 
                                 //printf("Integer detected\n");
-                                yylval.num = atoi(yytext);
+                                yylval.int_t = atoi(yytext);
                                 return INTEGER;}                 
 <WORDS>[a-zA-Z][ .&_a-zA-Z0-9]+ {BEGIN(INITIAL);
-                                yylval.str = strdup(yytext);
-                                //printf("String detected: %s\n", yylval.str);
+                                yylval.string_t = strdup(yytext);
+                                //printf("String detected: %s\n", yylval.string_t);
                                 return STRING;} 
 <WORDS>\n                       {BEGIN(INITIAL);}
 

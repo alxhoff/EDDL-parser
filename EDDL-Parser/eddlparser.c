@@ -121,7 +121,7 @@ EDDL_PARSE_ERR_t eddl_parser_set_variable_default_value(
     switch(var->type){
         case FLOAT_TYPE_e:{
             var->default_value = (float*)malloc(sizeof(float));
-            float tmp = *((float*)value);
+            float tmp = (float)*((double*)value);
             memcpy(var->default_value, &tmp, sizeof(float));
             }
             break;

@@ -64,7 +64,7 @@
 /* Copy the first part of user declarations.  */
 #line 1 "eddl.y" /* yacc.c:339  */
 
-#include <stdio.h>     /* C declarations used in actions */
+#include <stdio.h>     /* C float_tlarations used in actions */
 #include <stdlib.h>
 #include <string.h>
 
@@ -127,7 +127,7 @@ extern int yydebug;
     STRING = 272,
     INTEGER = 273,
     HEX = 274,
-    FLOAT = 275
+    DOUBLE = 275
   };
 #endif
 /* Tokens.  */
@@ -148,7 +148,7 @@ extern int yydebug;
 #define STRING 272
 #define INTEGER 273
 #define HEX 274
-#define FLOAT 275
+#define DOUBLE 275
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -157,17 +157,18 @@ union YYSTYPE
 {
 #line 14 "eddl.y" /* yacc.c:355  */
 
-        float dec; 
-        char* str;
-        uint16_t uint;
-        int num; 
-        eddl_variable_t* var;
-        class_mask_t class;
-        type_mask_t type;
-        handling_mask_t hand;
+        float               float_t; 
+        double              double_t;
+        char*               string_t;
+        unsigned int        uint_t;
+        int                 int_t; 
+        eddl_variable_t*    var;
+        class_mask_t        class;
+        type_mask_t         type;
+        handling_mask_t     hand;
         
 
-#line 171 "y.tab.c" /* yacc.c:355  */
+#line 172 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -184,7 +185,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 188 "y.tab.c" /* yacc.c:358  */
+#line 189 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -426,16 +427,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  14
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   64
+#define YYLAST   62
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  21
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  24
+#define YYNNTS  22
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  47
+#define YYNRULES  44
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  78
+#define YYNSTATES  74
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -483,11 +484,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    59,    59,    62,    65,    68,    73,    76,    79,    82,
-      85,    92,    98,   101,   104,   107,   114,   121,   128,   131,
-     134,   137,   140,   143,   149,   155,   161,   164,   174,   180,
-     186,   193,   198,   203,   208,   213,   219,   224,   229,   234,
-     239,   244,   250,   255,   262,   267,   272,   277
+       0,    64,    64,    67,    70,    73,    78,    81,    84,    87,
+      90,    97,   103,   106,   109,   112,   119,   126,   130,   134,
+     138,   142,   146,   152,   158,   161,   171,   177,   183,   189,
+     195,   201,   207,   214,   220,   226,   232,   238,   244,   250,
+     254,   262,   268,   274,   280
 };
 #endif
 
@@ -499,12 +500,12 @@ static const char *const yytname[] =
   "$end", "error", "$undefined", "WHITESPACE", "BRACKETS", "END_BRACKETS",
   "MANUFACTURER", "DEVICE_TYPE", "DEVICE_REVISION", "DD_REVISION",
   "VARIABLE", "LABEL", "HELP", "CLASS", "TYPE", "HANDLING",
-  "DEFAULT_VALUE", "STRING", "INTEGER", "HEX", "FLOAT", "$accept", "line",
-  "bracket_grp", "var_property", "def_val_f", "def_val_i", "def_val_h",
+  "DEFAULT_VALUE", "STRING", "INTEGER", "HEX", "DOUBLE", "$accept", "line",
+  "bracket_grp", "var_property", "def_val_double", "def_val_integer",
   "man_term", "dev_t_term", "dev_rev_term", "dd_rev_term", "var_term",
   "label_prop", "help_prop", "class_prop", "type_prop", "hand_prop",
-  "def_val_line_f", "def_val_line_i", "def_val_line_h", "float_term",
-  "int_term", "hex_term", "str_term", YY_NULLPTR
+  "def_val_line_double", "def_val_line_integer", "double_term", "int_term",
+  "hex_term", "str_term", YY_NULLPTR
 };
 #endif
 
@@ -539,8 +540,8 @@ static const yytype_int8 yypact[] =
      -30,   -30,    37,    38,    39,    40,    41,     8,   -30,   -30,
      -30,    42,   -30,    20,    20,    20,    20,    20,   -30,   -30,
      -30,   -30,    42,   -30,    32,   -30,   -30,   -30,   -30,   -30,
-     -30,   -30,   -30,   -30,   -30,   -30,    44,    45,    46,    47,
-      10,   -30,   -30,   -30,   -30,   -30,   -30,   -30
+     -30,   -30,   -30,   -30,    44,    45,    46,    10,   -30,   -30,
+     -30,   -30,   -30,   -30
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -550,28 +551,28 @@ static const yytype_uint8 yydefact[] =
 {
        0,     0,     0,     0,     0,     0,     2,     3,     4,     5,
        0,     0,     0,     0,     1,     0,     6,     7,     8,     9,
-       0,    45,    31,    46,    32,    33,    34,     0,     0,    10,
-      47,    35,     0,     0,     0,     0,     0,     0,    12,    13,
-      14,    18,    19,     0,     0,     0,     0,     0,    11,    20,
-      21,    22,    26,    27,     0,    15,    16,    17,    36,    37,
-      38,    39,    40,    23,    24,    25,     0,     0,     0,     0,
-       0,    28,    29,    30,    44,    41,    42,    43
+       0,    42,    28,    43,    29,    30,    31,     0,     0,    10,
+      44,    32,     0,     0,     0,     0,     0,     0,    12,    13,
+      14,    17,    18,     0,     0,     0,     0,     0,    11,    19,
+      20,    21,    24,    25,     0,    15,    16,    33,    34,    35,
+      36,    37,    22,    23,     0,     0,     0,     0,    26,    27,
+      41,    38,    39,    40
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -30,   -30,   -30,   -30,    -7,    -3,     1,    49,    50,    51,
-      52,   -30,    22,    23,    24,    25,    26,   -30,   -30,   -30,
-     -30,   -12,    -6,   -29
+     -30,   -30,   -30,   -30,    -7,    -3,    47,    48,    49,    51,
+     -30,    21,    22,    23,    24,    25,   -30,   -30,   -30,   -12,
+     -10,   -29
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     5,    29,    37,    55,    56,    57,     6,     7,     8,
-       9,    20,    38,    39,    40,    41,    42,    67,    68,    69,
-      75,    22,    24,    31
+      -1,     5,    29,    37,    55,    56,     6,     7,     8,     9,
+      20,    38,    39,    40,    41,    42,    65,    66,    71,    22,
+      24,    31
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -580,12 +581,12 @@ static const yytype_int8 yydefgoto[] =
 static const yytype_uint8 yytable[] =
 {
       25,    26,    14,    32,    33,    34,    35,    36,     1,     2,
-       3,     4,    15,    48,    58,    59,    60,    61,    62,    32,
+       3,     4,    15,    48,    57,    58,    59,    60,    61,    32,
       33,    34,    35,    36,     1,     2,     3,     4,    21,    23,
-      74,    10,    11,    12,    13,    21,    27,    30,    23,    28,
-      43,    44,    45,    46,    47,    63,    54,    70,    66,    64,
-      71,    72,    73,    65,    16,    17,    18,    19,    76,    49,
-      50,    51,    52,    53,    77
+      70,    10,    11,    12,    13,    21,    27,    30,    23,    28,
+      43,    44,    45,    46,    47,    62,    54,    67,    64,    63,
+      68,    69,    16,    17,    18,    72,    19,    73,    49,    50,
+      51,    52,    53
 };
 
 static const yytype_uint8 yycheck[] =
@@ -595,22 +596,22 @@ static const yytype_uint8 yycheck[] =
       12,    13,    14,    15,     6,     7,     8,     9,    18,    19,
       20,     3,     3,     3,     3,    18,     3,    17,    19,     4,
        3,     3,     3,     3,     3,    52,     4,     3,    16,    52,
-       5,     5,     5,    52,     5,     5,     5,     5,    70,    37,
-      37,    37,    37,    37,    70
+       5,     5,     5,     5,     5,    67,     5,    67,    37,    37,
+      37,    37,    37
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     6,     7,     8,     9,    22,    28,    29,    30,    31,
-       3,     3,     3,     3,     0,    10,    28,    29,    30,    31,
-      32,    18,    42,    19,    43,    42,    42,     3,     4,    23,
-      17,    44,    11,    12,    13,    14,    15,    24,    33,    34,
-      35,    36,    37,     3,     3,     3,     3,     3,     5,    33,
-      34,    35,    36,    37,     4,    25,    26,    27,    44,    44,
-      44,    44,    44,    25,    26,    27,    16,    38,    39,    40,
-       3,     5,     5,     5,    20,    41,    42,    43
+       0,     6,     7,     8,     9,    22,    27,    28,    29,    30,
+       3,     3,     3,     3,     0,    10,    27,    28,    29,    30,
+      31,    18,    40,    19,    41,    40,    40,     3,     4,    23,
+      17,    42,    11,    12,    13,    14,    15,    24,    32,    33,
+      34,    35,    36,     3,     3,     3,     3,     3,     5,    32,
+      33,    34,    35,    36,     4,    25,    26,    42,    42,    42,
+      42,    42,    25,    26,    16,    37,    38,     3,     5,     5,
+      20,    39,    40,    41
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
@@ -618,19 +619,19 @@ static const yytype_uint8 yyr1[] =
 {
        0,    21,    22,    22,    22,    22,    22,    22,    22,    22,
       22,    23,    24,    24,    24,    24,    24,    24,    24,    24,
-      24,    24,    24,    24,    24,    24,    24,    24,    25,    26,
-      27,    28,    29,    30,    31,    32,    33,    34,    35,    36,
-      37,    38,    39,    40,    41,    42,    43,    44
+      24,    24,    24,    24,    24,    24,    25,    26,    27,    28,
+      29,    30,    31,    32,    33,    34,    35,    36,    37,    38,
+      38,    39,    40,    41,    42
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     1,     1,     1,     2,     2,     2,     2,
-       3,     3,     1,     1,     1,     2,     2,     2,     1,     1,
-       2,     2,     2,     3,     3,     3,     2,     2,     3,     3,
+       3,     3,     1,     1,     1,     2,     2,     1,     1,     2,
+       2,     2,     3,     3,     2,     2,     3,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     1,     1,     1,     1
+       3,     1,     1,     1,     1
 };
 
 
@@ -1307,403 +1308,391 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 59 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_manufacturer(doc_object, (yyvsp[0].num));
+#line 64 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_manufacturer(doc_object, (yyvsp[0].int_t));
                                                         //printf("man term prop: %d\n", $1);
                                                         }
-#line 1315 "y.tab.c" /* yacc.c:1646  */
+#line 1316 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 62 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_device_type(doc_object, (yyvsp[0].num));
+#line 67 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_device_type(doc_object, (yyvsp[0].int_t));
                                                         //printf("dev t term prop: %d\n", $1);
                                                         }
-#line 1323 "y.tab.c" /* yacc.c:1646  */
+#line 1324 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 65 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_device_revision(doc_object, (yyvsp[0].num));
+#line 70 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_device_revision(doc_object, (yyvsp[0].int_t));
                                                         //printf("dev rev term prop\n");
                                                         }
-#line 1331 "y.tab.c" /* yacc.c:1646  */
+#line 1332 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 68 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_dd_revision(doc_object, (yyvsp[0].num));
+#line 73 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_dd_revision(doc_object, (yyvsp[0].int_t));
                                                         //printf("dd rev term prop\n");
                                                         }
-#line 1339 "y.tab.c" /* yacc.c:1646  */
+#line 1340 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 73 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_manufacturer(doc_object, (yyvsp[0].num));
+#line 78 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_manufacturer(doc_object, (yyvsp[0].int_t));
                                                         //printf("2 man term prop: %d\n", $2);
                                                         }
-#line 1347 "y.tab.c" /* yacc.c:1646  */
+#line 1348 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 76 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_device_type(doc_object, (yyvsp[0].num));
+#line 81 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_device_type(doc_object, (yyvsp[0].int_t));
                                                         //printf("2 dev t term prop %d\n", $2);
                                                         }
-#line 1355 "y.tab.c" /* yacc.c:1646  */
+#line 1356 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 79 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_device_revision(doc_object, (yyvsp[0].num));
+#line 84 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_device_revision(doc_object, (yyvsp[0].int_t));
                                                         //printf("2 dev rev term prop %d\n", $2);
                                                         }
-#line 1363 "y.tab.c" /* yacc.c:1646  */
+#line 1364 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 82 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_dd_revision(doc_object, (yyvsp[0].num));
+#line 87 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_dd_revision(doc_object, (yyvsp[0].int_t));
                                                         //printf("2 dd rev term propi %d\n", $2);
                                                         }
-#line 1371 "y.tab.c" /* yacc.c:1646  */
+#line 1372 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 85 "eddl.y" /* yacc.c:1646  */
+#line 90 "eddl.y" /* yacc.c:1646  */
     {/*eddl_parser_create_variable_t(doc_object);*/
-                                                        eddl_parser_set_variable_name(doc_object->current_var, (yyvsp[-1].str));
+                                                        eddl_parser_set_variable_name(doc_object->current_var, (yyvsp[-1].string_t));
                                                         //eddl_parser_print_var(doc_object->current_var);
-                                                        printf("line var term brackets: %s\n", (yyvsp[-1].str));
+                                                        printf("line var term brackets: %s\n", (yyvsp[-1].string_t));
                                                         }
-#line 1381 "y.tab.c" /* yacc.c:1646  */
+#line 1382 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 92 "eddl.y" /* yacc.c:1646  */
+#line 97 "eddl.y" /* yacc.c:1646  */
     {
                                                         //printf("bracket group\n");
                                                         }
-#line 1389 "y.tab.c" /* yacc.c:1646  */
+#line 1390 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 98 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_variable_label(doc_object->current_var, (yyvsp[0].str));
+#line 103 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_variable_label(doc_object->current_var, (yyvsp[0].string_t));
                                                         //printf("label prop\n");
                                                         }
-#line 1397 "y.tab.c" /* yacc.c:1646  */
+#line 1398 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 101 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_variable_help(doc_object->current_var, (yyvsp[0].str));
+#line 106 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_variable_help(doc_object->current_var, (yyvsp[0].string_t));
                                                         //printf("help prop\n");
                                                         }
-#line 1405 "y.tab.c" /* yacc.c:1646  */
+#line 1406 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 104 "eddl.y" /* yacc.c:1646  */
+#line 109 "eddl.y" /* yacc.c:1646  */
     {eddl_parser_set_variable_class_mask(doc_object->current_var, (yyvsp[0].class));
                                                         //printf("class prop\n");
                                                         }
-#line 1413 "y.tab.c" /* yacc.c:1646  */
+#line 1414 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 107 "eddl.y" /* yacc.c:1646  */
+#line 112 "eddl.y" /* yacc.c:1646  */
     {
                                                         if(doc_object->current_var->type == INVAL_TYPE_e)
                                                             eddl_parser_set_variable_type_mask(doc_object->current_var, (yyvsp[-1].type));
-                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &(yyvsp[0].dec));
-                                                        printf("def val %f\n", (yyvsp[0].dec));
+                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &(yyvsp[0].double_t));
+                                                        printf("def val %f\n", (yyvsp[0].double_t));
                                                         //printf("3 type prop\n");
                                                         }
-#line 1425 "y.tab.c" /* yacc.c:1646  */
+#line 1426 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 114 "eddl.y" /* yacc.c:1646  */
+#line 119 "eddl.y" /* yacc.c:1646  */
     {
                                                         if(doc_object->current_var->type == INVAL_TYPE_e)
                                                             eddl_parser_set_variable_type_mask(doc_object->current_var, (yyvsp[-1].type));
-                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &(yyvsp[0].num));
-                                                        printf("def val %d\n", (yyvsp[0].num));
+                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &(yyvsp[0].int_t));
+                                                        printf("def val %d\n", (yyvsp[0].int_t));
                                                         //printf("3 type prop\n");
                                                         }
-#line 1437 "y.tab.c" /* yacc.c:1646  */
+#line 1438 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 121 "eddl.y" /* yacc.c:1646  */
+#line 126 "eddl.y" /* yacc.c:1646  */
     {
-                                                        if(doc_object->current_var->type == INVAL_TYPE_e)
-                                                            eddl_parser_set_variable_type_mask(doc_object->current_var, (yyvsp[-1].type));
-                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &(yyvsp[0].num));
-                                                        printf("def val 0x%x\n", (yyvsp[0].num));
-                                                        //printf("3 type prop\n");
+                                                        eddl_parser_set_variable_type_mask(doc_object->current_var, (yyvsp[0].type));
+                                                        //printf("type prop\n");
                                                         }
-#line 1449 "y.tab.c" /* yacc.c:1646  */
+#line 1447 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 128 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_variable_type_mask(doc_object->current_var, (yyvsp[0].type));
-                                                        //printf("type prop\n");
+#line 130 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        eddl_parser_set_variable_handling(doc_object->current_var, (yyvsp[0].hand));
+                                                        //printf("hand prop\n");
                                                         }
-#line 1457 "y.tab.c" /* yacc.c:1646  */
+#line 1456 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 131 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_variable_handling(doc_object->current_var, (yyvsp[0].hand));
-                                                        //printf("hand prop\n");
+#line 134 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        eddl_parser_set_variable_label(doc_object->current_var, (yyvsp[0].string_t));
+                                                        //printf("2 label prop\n");
                                                         }
 #line 1465 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 134 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_variable_label(doc_object->current_var, (yyvsp[0].str));
-                                                        //printf("2 label prop\n");
+#line 138 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        eddl_parser_set_variable_help(doc_object->current_var, (yyvsp[0].string_t));
+                                                        //printf("2 help prop\n");
                                                         }
-#line 1473 "y.tab.c" /* yacc.c:1646  */
+#line 1474 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 137 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_variable_help(doc_object->current_var, (yyvsp[0].str));
-                                                        //printf("2 help prop\n");
+#line 142 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        eddl_parser_set_variable_class_mask(doc_object->current_var, (yyvsp[0].class));
+                                                        //printf("2 class prop\n");
                                                         }
-#line 1481 "y.tab.c" /* yacc.c:1646  */
+#line 1483 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 140 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_variable_class_mask(doc_object->current_var, (yyvsp[0].class));
-                                                        //printf("2 class prop\n");
+#line 146 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        if(doc_object->current_var->type == INVAL_TYPE_e)
+                                                            eddl_parser_set_variable_type_mask(doc_object->current_var, (yyvsp[-1].type));
+                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &(yyvsp[0].double_t));
+                                                        printf("def val %f\n", (yyvsp[0].double_t));
                                                         }
-#line 1489 "y.tab.c" /* yacc.c:1646  */
+#line 1494 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 143 "eddl.y" /* yacc.c:1646  */
+#line 152 "eddl.y" /* yacc.c:1646  */
     {
                                                         if(doc_object->current_var->type == INVAL_TYPE_e)
                                                             eddl_parser_set_variable_type_mask(doc_object->current_var, (yyvsp[-1].type));
-                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &(yyvsp[0].dec));
-                                                        printf("def val %f\n", (yyvsp[0].dec));
+                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &(yyvsp[0].int_t));
+                                                        printf("def val %d\n", (yyvsp[0].int_t));
                                                         }
-#line 1500 "y.tab.c" /* yacc.c:1646  */
+#line 1505 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 149 "eddl.y" /* yacc.c:1646  */
-    {
-                                                        if(doc_object->current_var->type == INVAL_TYPE_e)
-                                                            eddl_parser_set_variable_type_mask(doc_object->current_var, (yyvsp[-1].type));
-                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &(yyvsp[0].num));
-                                                        printf("def val %d\n", (yyvsp[0].num));
-                                                        }
-#line 1511 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 25:
-#line 155 "eddl.y" /* yacc.c:1646  */
-    {
-                                                        if(doc_object->current_var->type == INVAL_TYPE_e)
-                                                            eddl_parser_set_variable_type_mask(doc_object->current_var, (yyvsp[-1].type));
-                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &(yyvsp[0].num));
-                                                        printf("def val 0x%x\n", (yyvsp[0].num));
-                                                        }
-#line 1522 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 26:
-#line 161 "eddl.y" /* yacc.c:1646  */
+#line 158 "eddl.y" /* yacc.c:1646  */
     {eddl_parser_set_variable_type_mask(doc_object->current_var, (yyvsp[0].type));
                                                         //printf("2 type prop\n");
                                                         }
+#line 1513 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 25:
+#line 161 "eddl.y" /* yacc.c:1646  */
+    {eddl_parser_set_variable_handling(doc_object->current_var, (yyvsp[0].hand));
+                                                        //printf("2 hand prop\n");
+                                                        }
+#line 1521 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 26:
+#line 171 "eddl.y" /* yacc.c:1646  */
+    {
+                                                                (yyval.double_t) = (yyvsp[-1].double_t); 
+                                                                printf("var prop def %f\n", (yyval.double_t));
+                                                                }
 #line 1530 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 164 "eddl.y" /* yacc.c:1646  */
-    {eddl_parser_set_variable_handling(doc_object->current_var, (yyvsp[0].hand));
-                                                        //printf("2 hand prop\n");
-                                                        }
+#line 177 "eddl.y" /* yacc.c:1646  */
+    {
+                                                                (yyval.int_t)  = (yyvsp[-1].int_t);
+                                                                }
 #line 1538 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 174 "eddl.y" /* yacc.c:1646  */
+#line 183 "eddl.y" /* yacc.c:1646  */
     {
-                                                        (yyval.dec) = (yyvsp[-1].dec); 
-                                                        printf("var prop def %f\n", (yyval.dec));
+                                                        (yyval.int_t) = (yyvsp[0].int_t); 
+                                                        //printf("manufacturer: %d\n", $3);
                                                         }
 #line 1547 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 180 "eddl.y" /* yacc.c:1646  */
+#line 189 "eddl.y" /* yacc.c:1646  */
     {
-                                                        (yyval.num)  = (yyvsp[-1].num);
-                                                        printf("var prop def\n");
+                                                        (yyval.int_t) = (yyvsp[0].int_t); 
+                                                        //printf("device type: %d\n", $3);
                                                         }
 #line 1556 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 186 "eddl.y" /* yacc.c:1646  */
+#line 195 "eddl.y" /* yacc.c:1646  */
     {
-                                                        (yyval.num) = (yyvsp[-1].num);
-                                                        printf("var prop def\n");
+                                                        (yyval.int_t) = (yyvsp[0].int_t); 
+                                                        //printf("device revision: %d\n", $3);
                                                         }
 #line 1565 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 193 "eddl.y" /* yacc.c:1646  */
-    {(yyval.num) = (yyvsp[0].num); 
-                                                        //printf("manufacturer: %d\n", $3);
+#line 201 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        (yyval.int_t) = (yyvsp[0].int_t); 
+                                                        //printf("DD revision: %d\n", $3);
                                                         }
-#line 1573 "y.tab.c" /* yacc.c:1646  */
+#line 1574 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 198 "eddl.y" /* yacc.c:1646  */
-    {(yyval.num) = (yyvsp[0].num); 
-                                                        //printf("device type: %d\n", $3);
+#line 207 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        (yyval.string_t) = (yyvsp[0].string_t); 
+                                                        eddl_parser_create_variable_t(doc_object);
+                                                        printf("variable: %s\n", (yyvsp[0].string_t));
                                                         }
-#line 1581 "y.tab.c" /* yacc.c:1646  */
+#line 1584 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 203 "eddl.y" /* yacc.c:1646  */
-    {(yyval.num) = (yyvsp[0].num); 
-                                                        //printf("device revision: %d\n", $3);
+#line 214 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        (yyval.string_t) = (yyvsp[0].string_t); 
+                                                        //printf("label: %s\n", $3);
                                                         }
-#line 1589 "y.tab.c" /* yacc.c:1646  */
+#line 1593 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 208 "eddl.y" /* yacc.c:1646  */
-    {(yyval.num) = (yyvsp[0].num); 
-                                                        //printf("DD revision: %d\n", $3);
+#line 220 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        (yyval.string_t) = (yyvsp[0].string_t); 
+                                                        //printf("help: %s\n", $3);
                                                         }
-#line 1597 "y.tab.c" /* yacc.c:1646  */
+#line 1602 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 213 "eddl.y" /* yacc.c:1646  */
-    {(yyval.str) = (yyvsp[0].str); 
-                                                        eddl_parser_create_variable_t(doc_object);
-                                                        printf("variable: %s\n", (yyvsp[0].str));
+#line 226 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        (yyval.class) = eddl_parser_get_class_mask((yyvsp[0].string_t)); 
+                                                        //printf("class: %s\n", $3);
                                                         }
-#line 1606 "y.tab.c" /* yacc.c:1646  */
+#line 1611 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 219 "eddl.y" /* yacc.c:1646  */
-    {(yyval.str) = (yyvsp[0].str); 
-                                                        //printf("label: %s\n", $3);
+#line 232 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        (yyval.type) = eddl_parser_get_type_mask((yyvsp[0].string_t)); 
+                                                        //printf("type: %s\n", $3);
                                                         }
-#line 1614 "y.tab.c" /* yacc.c:1646  */
+#line 1620 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 224 "eddl.y" /* yacc.c:1646  */
-    {(yyval.str) = (yyvsp[0].str); 
-                                                        //printf("help: %s\n", $3);
+#line 238 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        (yyval.hand) = eddl_parser_get_handling_mask((yyvsp[0].string_t));
+                                                        //printf("Handling: %s\n", $3);
                                                         }
-#line 1622 "y.tab.c" /* yacc.c:1646  */
+#line 1629 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 229 "eddl.y" /* yacc.c:1646  */
-    {(yyval.class) = eddl_parser_get_class_mask((yyvsp[0].str)); 
-                                                        //printf("class: %s\n", $3);
-                                                        }
-#line 1630 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 39:
-#line 234 "eddl.y" /* yacc.c:1646  */
-    {(yyval.type) = eddl_parser_get_type_mask((yyvsp[0].str)); 
-                                                        //printf("type: %s\n", $3);
-                                                        }
+#line 244 "eddl.y" /* yacc.c:1646  */
+    {
+                                                                (yyval.double_t) = (yyvsp[0].double_t); 
+                                                                printf("def val f %f\n", (yyvsp[0].double_t));
+                                                                }
 #line 1638 "y.tab.c" /* yacc.c:1646  */
     break;
 
+  case 39:
+#line 250 "eddl.y" /* yacc.c:1646  */
+    {
+                                                                (yyval.int_t) = (yyvsp[0].int_t);
+                                                                printf("def val i\n");
+                                                                }
+#line 1647 "y.tab.c" /* yacc.c:1646  */
+    break;
+
   case 40:
-#line 239 "eddl.y" /* yacc.c:1646  */
-    {(yyval.hand) = eddl_parser_get_handling_mask((yyvsp[0].str));
-                                                        //printf("Handling: %s\n", $3);
-                                                        }
-#line 1646 "y.tab.c" /* yacc.c:1646  */
+#line 254 "eddl.y" /* yacc.c:1646  */
+    {
+                                                                (yyval.int_t) = (yyvsp[0].int_t);
+                                                                printf("def val h\n");
+                                                                }
+#line 1656 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 244 "eddl.y" /* yacc.c:1646  */
+#line 262 "eddl.y" /* yacc.c:1646  */
     {
-                                                        (yyval.dec) = (yyvsp[0].dec); 
-                                                        printf("def val f %f\n", (yyvsp[0].dec));
+                                                        (yyval.double_t) = (yyvsp[0].double_t); 
+                                                        printf("double: %lf\n", (yyval.double_t));
                                                         }
-#line 1655 "y.tab.c" /* yacc.c:1646  */
+#line 1665 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 250 "eddl.y" /* yacc.c:1646  */
+#line 268 "eddl.y" /* yacc.c:1646  */
     {
-                                                        (yyval.num) = (yyvsp[0].num);
-                                                        printf("def val i\n");}
-#line 1663 "y.tab.c" /* yacc.c:1646  */
+                                                        (yyval.int_t) = (yyvsp[0].int_t); 
+                                                        //printf("integer: %d\n", $1);
+                                                        }
+#line 1674 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 255 "eddl.y" /* yacc.c:1646  */
+#line 274 "eddl.y" /* yacc.c:1646  */
     {
-                                                        (yyval.num) = (yyvsp[0].num);
-                                                        printf("def val h\n");}
-#line 1671 "y.tab.c" /* yacc.c:1646  */
+                                                        (yyval.int_t) = (yyvsp[0].int_t); 
+                                                        //printf("hex: %d\n", $1);
+                                                        }
+#line 1683 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 262 "eddl.y" /* yacc.c:1646  */
-    {(yyval.dec) = (yyvsp[0].dec); 
-                                                        printf("float: %f\n", (yyval.dec));
-                                                        }
-#line 1679 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 45:
-#line 267 "eddl.y" /* yacc.c:1646  */
-    {(yyval.num) = (yyvsp[0].num); 
-                                                        printf("integer: %d\n", (yyvsp[0].num));
-                                                        }
-#line 1687 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 46:
-#line 272 "eddl.y" /* yacc.c:1646  */
-    {(yyval.num) = (yyvsp[0].num); 
-                                                        //printf("hex: %d\n", $1);
-                                                        }
-#line 1695 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 47:
-#line 277 "eddl.y" /* yacc.c:1646  */
-    {(yyval.str) = (yyvsp[0].str); 
+#line 280 "eddl.y" /* yacc.c:1646  */
+    {
+                                                        (yyval.string_t) = (yyvsp[0].string_t); 
                                                         //printf("string: %s\n", $1);
                                                         }
-#line 1703 "y.tab.c" /* yacc.c:1646  */
+#line 1692 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1707 "y.tab.c" /* yacc.c:1646  */
+#line 1696 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1931,7 +1920,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 282 "eddl.y" /* yacc.c:1906  */
+#line 286 "eddl.y" /* yacc.c:1906  */
       /* C code */
 #include <stdio.h>
 #include <string.h>

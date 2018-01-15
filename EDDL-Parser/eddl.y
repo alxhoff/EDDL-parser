@@ -1,5 +1,5 @@
 %{
-#include <stdio.h>     /* C declarations used in actions */
+#include <stdio.h>     /* C float_tlarations used in actions */
 #include <stdlib.h>
 #include <string.h>
 
@@ -12,48 +12,53 @@ void yyerror (char *s);
 %}
 
 %union {
-        float dec; 
-        char* str;
-        uint16_t uint;
-        int num; 
-        eddl_variable_t* var;
-        class_mask_t class;
-        type_mask_t type;
-        handling_mask_t hand;
+        float               float_t; 
+        double              double_t;
+        char*               string_t;
+        unsigned int        uint_t;
+        int                 int_t; 
+        eddl_variable_t*    var;
+        class_mask_t        class;
+        type_mask_t         type;
+        handling_mask_t     hand;
         }
+
 /*%start line*/
-%token <num> WHITESPACE
-%token <num> BRACKETS
-%token <num> END_BRACKETS
-%token <str> MANUFACTURER
-%token <str> DEVICE_TYPE
-%token <str> DEVICE_REVISION
-%token <str> DD_REVISION
-%token <str> VARIABLE
-%token <str> LABEL
-%token <str> HELP
-%token <str> CLASS
-%token <str> TYPE
-%token <str> HANDLING
-%token <str> DEFAULT_VALUE
-%token <str> STRING  
-%token <num> INTEGER
-%token <num> HEX
-%token <dec> FLOAT
-%type <num> line 
-%type <num> man_term dev_t_term dev_rev_term dd_rev_term 
-%type <str> var_term label_prop help_prop 
-%type <class> class_prop 
-%type <type> type_prop 
-%type <hand> hand_prop
-%type <dec> def_val_f 
-%type <num> def_val_i def_val_h 
-%type <dec> def_val_line_f 
-%type <num> def_val_line_i def_val_line_h
-%type <dec> float_term
-%type <num> int_term
-%type <num> hex_term
-%type <str> str_term
+%token <int_t>      WHITESPACE
+%token <int_t>      BRACKETS
+%token <int_t>      END_BRACKETS
+%token <string_t>   MANUFACTURER
+%token <string_t>   DEVICE_TYPE
+%token <string_t>   DEVICE_REVISION
+%token <string_t>   DD_REVISION
+%token <string_t>   VARIABLE
+%token <string_t>   LABEL
+%token <string_t>   HELP
+%token <string_t>   CLASS
+%token <string_t>   TYPE
+%token <string_t>   HANDLING
+%token <string_t>   DEFAULT_VALUE
+%token <string_t>   STRING  
+%token <int_t>      INTEGER
+%token <int_t>      HEX
+%token <double_t>    DOUBLE
+
+%type <int_t>       line 
+%type <int_t>       man_term dev_t_term dev_rev_term dd_rev_term 
+%type <string_t>    var_term label_prop help_prop 
+%type <class>       class_prop 
+%type <type>        type_prop 
+%type <hand>        hand_prop
+%type <double_t>    def_val_double 
+%type <int_t>       def_val_integer  
+%type <double_t>    def_val_line_double 
+%type <int_t>       def_val_line_integer
+/*%type <float_t>     float_term*/
+%type <double_t>    double_term
+%type <int_t>       int_term
+%type <int_t>       hex_term
+%type <string_t>    str_term
+
 %%
 
 line            : man_term                              {eddl_parser_set_manufacturer(doc_object, $1);
@@ -104,59 +109,51 @@ var_property    : label_prop                            {eddl_parser_set_variabl
                 | class_prop                            {eddl_parser_set_variable_class_mask(doc_object->current_var, $1);
                                                         //printf("class prop\n");
                                                         }
-                | type_prop def_val_f                   {
+                | type_prop def_val_double              {
                                                         if(doc_object->current_var->type == INVAL_TYPE_e)
                                                             eddl_parser_set_variable_type_mask(doc_object->current_var, $1);
                                                         eddl_parser_set_variable_default_value(doc_object->current_var, &$2);
                                                         printf("def val %f\n", $2);
                                                         //printf("3 type prop\n");
                                                         }
-                | type_prop def_val_i                   {
+                | type_prop def_val_integer             {
                                                         if(doc_object->current_var->type == INVAL_TYPE_e)
                                                             eddl_parser_set_variable_type_mask(doc_object->current_var, $1);
                                                         eddl_parser_set_variable_default_value(doc_object->current_var, &$2);
                                                         printf("def val %d\n", $2);
                                                         //printf("3 type prop\n");
                                                         }
-                | type_prop def_val_h                   {
-                                                        if(doc_object->current_var->type == INVAL_TYPE_e)
-                                                            eddl_parser_set_variable_type_mask(doc_object->current_var, $1);
-                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &$2);
-                                                        printf("def val 0x%x\n", $2);
-                                                        //printf("3 type prop\n");
-                                                        }
-                | type_prop                             {eddl_parser_set_variable_type_mask(doc_object->current_var, $1);
+                | type_prop                             {
+                                                        eddl_parser_set_variable_type_mask(doc_object->current_var, $1);
                                                         //printf("type prop\n");
                                                         }
-                | hand_prop                             {eddl_parser_set_variable_handling(doc_object->current_var, $1);
+                | hand_prop                             {
+                                                        eddl_parser_set_variable_handling(doc_object->current_var, $1);
                                                         //printf("hand prop\n");
                                                         }
-                | var_property label_prop               {eddl_parser_set_variable_label(doc_object->current_var, $2);
+                | var_property label_prop               {
+                                                        eddl_parser_set_variable_label(doc_object->current_var, $2);
                                                         //printf("2 label prop\n");
                                                         }
-                | var_property help_prop                {eddl_parser_set_variable_help(doc_object->current_var, $2);
+                | var_property help_prop                {
+                                                        eddl_parser_set_variable_help(doc_object->current_var, $2);
                                                         //printf("2 help prop\n");
                                                         }
-                | var_property class_prop               {eddl_parser_set_variable_class_mask(doc_object->current_var, $2);
+                | var_property class_prop               {
+                                                        eddl_parser_set_variable_class_mask(doc_object->current_var, $2);
                                                         //printf("2 class prop\n");
                                                         }
-                | var_property type_prop def_val_f      {
+                | var_property type_prop def_val_double {
                                                         if(doc_object->current_var->type == INVAL_TYPE_e)
                                                             eddl_parser_set_variable_type_mask(doc_object->current_var, $2);
                                                         eddl_parser_set_variable_default_value(doc_object->current_var, &$3);
                                                         printf("def val %f\n", $3);
                                                         }
-                | var_property type_prop def_val_i      {
+                | var_property type_prop def_val_integer{
                                                         if(doc_object->current_var->type == INVAL_TYPE_e)
                                                             eddl_parser_set_variable_type_mask(doc_object->current_var, $2);
                                                         eddl_parser_set_variable_default_value(doc_object->current_var, &$3);
                                                         printf("def val %d\n", $3);
-                                                        }
-                | var_property type_prop def_val_h      {
-                                                        if(doc_object->current_var->type == INVAL_TYPE_e)
-                                                            eddl_parser_set_variable_type_mask(doc_object->current_var, $2);
-                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &$3);
-                                                        printf("def val 0x%x\n", $3);
                                                         }
                 | var_property type_prop                {eddl_parser_set_variable_type_mask(doc_object->current_var, $2);
                                                         //printf("2 type prop\n");
@@ -171,110 +168,117 @@ var_property    : label_prop                            {eddl_parser_set_variabl
 /*process default*/
 
 
-def_val_f       : BRACKETS def_val_line_f END_BRACKETS  {
-                                                        $$ = $2; 
-                                                        printf("var prop def %f\n", $$);
-                                                        }
+def_val_double   : BRACKETS def_val_line_double END_BRACKETS      {
+                                                                $$ = $2; 
+                                                                printf("var prop def %f\n", $$);
+                                                                }
                 ;
 
-def_val_i       : BRACKETS def_val_line_i END_BRACKETS  {
-                                                        $$  = $2;
-                                                        printf("var prop def\n");
-                                                        }
-                ;
-
-def_val_h       : BRACKETS def_val_line_h END_BRACKETS  {
-                                                        $$ = $2;
-                                                        printf("var prop def\n");
-                                                        }
+def_val_integer : BRACKETS def_val_line_integer END_BRACKETS    {
+                                                                $$  = $2;
+                                                                }
                 ;
 
 /* Individual lines */
-man_term        : MANUFACTURER WHITESPACE int_term      {$$ = $3; 
+man_term        : MANUFACTURER WHITESPACE int_term      {
+                                                        $$ = $3; 
                                                         //printf("manufacturer: %d\n", $3);
                                                         }
                 ;
 
-dev_t_term      : DEVICE_TYPE WHITESPACE hex_term       {$$ = $3; 
+dev_t_term      : DEVICE_TYPE WHITESPACE hex_term       {
+                                                        $$ = $3; 
                                                         //printf("device type: %d\n", $3);
                                                         }
                 ;
 
-dev_rev_term    : DEVICE_REVISION WHITESPACE int_term   {$$ = $3; 
+dev_rev_term    : DEVICE_REVISION WHITESPACE int_term   {
+                                                        $$ = $3; 
                                                         //printf("device revision: %d\n", $3);
                                                         }
                 ;
 
-dd_rev_term     : DD_REVISION WHITESPACE int_term       {$$ = $3; 
+dd_rev_term     : DD_REVISION WHITESPACE int_term       {
+                                                        $$ = $3; 
                                                         //printf("DD revision: %d\n", $3);
                                                         }
                 ;
 
-var_term        : VARIABLE WHITESPACE str_term          {$$ = $3; 
+var_term        : VARIABLE WHITESPACE str_term          {
+                                                        $$ = $3; 
                                                         eddl_parser_create_variable_t(doc_object);
                                                         printf("variable: %s\n", $3);
                                                         }
                 ;
 
-label_prop      : LABEL WHITESPACE str_term             {$$ = $3; 
+label_prop      : LABEL WHITESPACE str_term             {
+                                                        $$ = $3; 
                                                         //printf("label: %s\n", $3);
                                                         }
                 ;
 
-help_prop       : HELP WHITESPACE str_term              {$$ = $3; 
+help_prop       : HELP WHITESPACE str_term              {
+                                                        $$ = $3; 
                                                         //printf("help: %s\n", $3);
                                                         }
                 ;
 
-class_prop      : CLASS WHITESPACE str_term             {$$ = eddl_parser_get_class_mask($3); 
+class_prop      : CLASS WHITESPACE str_term             {
+                                                        $$ = eddl_parser_get_class_mask($3); 
                                                         //printf("class: %s\n", $3);
                                                         }
                 ;
 
-type_prop       : TYPE WHITESPACE str_term              {$$ = eddl_parser_get_type_mask($3); 
+type_prop       : TYPE WHITESPACE str_term              {
+                                                        $$ = eddl_parser_get_type_mask($3); 
                                                         //printf("type: %s\n", $3);
                                                         }
                 ;
 
-hand_prop       : HANDLING WHITESPACE str_term          {$$ = eddl_parser_get_handling_mask($3);
+hand_prop       : HANDLING WHITESPACE str_term          {
+                                                        $$ = eddl_parser_get_handling_mask($3);
                                                         //printf("Handling: %s\n", $3);
                                                         }
                 ;
 
-def_val_line_f  : DEFAULT_VALUE WHITESPACE float_term   {
-                                                        $$ = $3; 
-                                                        printf("def val f %f\n", $3);
-                                                        }
-                ;
+def_val_line_double     : DEFAULT_VALUE WHITESPACE double_term  {
+                                                                $$ = $3; 
+                                                                printf("def val f %f\n", $3);
+                                                                }
+                        ;
 
-def_val_line_i  : DEFAULT_VALUE WHITESPACE int_term     {
-                                                        $$ = $3;
-                                                        printf("def val i\n");}
-                ;
-
-def_val_line_h  : DEFAULT_VALUE WHITESPACE hex_term     {
-                                                        $$ = $3;
-                                                        printf("def val h\n");}
-                ;
+def_val_line_integer    : DEFAULT_VALUE WHITESPACE int_term     {
+                                                                $$ = $3;
+                                                                printf("def val i\n");
+                                                                }
+                        | DEFAULT_VALUE WHITESPACE hex_term     {
+                                                                $$ = $3;
+                                                                printf("def val h\n");
+                                                                }
+                        ;
 
 /* Fundemental values */
 
-float_term      : FLOAT                                 {$$ = $1; 
-                                                        printf("float: %f\n", $$);
+double_term     : DOUBLE                                {
+                                                        $$ = $1; 
+                                                        printf("double: %lf\n", $$);
                                                         }
                 ;
 
-int_term        : INTEGER                               {$$ = $1; 
-                                                        printf("integer: %d\n", $1);
+int_term        : INTEGER                               {
+                                                        $$ = $1; 
+                                                        //printf("integer: %d\n", $1);
                                                         }
                 ;
 
-hex_term        : HEX                                   {$$ = $1; 
+hex_term        : HEX                                   {
+                                                        $$ = $1; 
                                                         //printf("hex: %d\n", $1);
                                                         }
                 ;
 
-str_term        : STRING                                {$$ = $1; 
+str_term        : STRING                                {
+                                                        $$ = $1; 
                                                         //printf("string: %s\n", $1);
                                                         }
                 ;

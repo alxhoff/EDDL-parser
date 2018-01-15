@@ -62,7 +62,7 @@ extern int yydebug;
     STRING = 272,
     INTEGER = 273,
     HEX = 274,
-    FLOAT = 275
+    DOUBLE = 275
   };
 #endif
 /* Tokens.  */
@@ -83,7 +83,7 @@ extern int yydebug;
 #define STRING 272
 #define INTEGER 273
 #define HEX 274
-#define FLOAT 275
+#define DOUBLE 275
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -92,17 +92,18 @@ union YYSTYPE
 {
 #line 14 "eddl.y" /* yacc.c:1909  */
 
-        float dec; 
-        char* str;
-        uint16_t uint;
-        int num; 
-        eddl_variable_t* var;
-        class_mask_t class;
-        type_mask_t type;
-        handling_mask_t hand;
+        float               float_t; 
+        double              double_t;
+        char*               string_t;
+        unsigned int        uint_t;
+        int                 int_t; 
+        eddl_variable_t*    var;
+        class_mask_t        class;
+        type_mask_t         type;
+        handling_mask_t     hand;
         
 
-#line 106 "y.tab.h" /* yacc.c:1909  */
+#line 107 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -960,46 +960,47 @@ YY_RULE_SETUP
 #line 67 "eddl.lex"
 {BEGIN(INITIAL); 
                                 //printf("Hex detected\n");
-                                yylval.uint = strtol(yytext + (2 * sizeof(char)), NULL, 16);
-                                //printf("Hex conversion of \"%s\" to decimal: %d\n", yytext+(2*sizeof(char)), yylval.num);
+                                yylval.uint_t = strtol(yytext + (2 * sizeof(char)), NULL, 16);
+                                //printf("Hex conversion of \"%s\" to decimal: %d\n", yytext+(2*sizeof(char)), yylval.int_t);
                                 return HEX;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 72 "eddl.lex"
 {BEGIN(INITIAL);
-                                //printf("Float detected\n");
-                                yylval.dec = atof(yytext);
-                                return FLOAT;}
+                                printf("Float detected\n");
+                                yylval.double_t = atof(yytext);
+                                printf("val: %lf\n", yylval.double_t);
+                                return DOUBLE;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 76 "eddl.lex"
+#line 77 "eddl.lex"
 {BEGIN(INITIAL); 
                                 //printf("Integer detected\n");
-                                yylval.num = atoi(yytext);
+                                yylval.int_t = atoi(yytext);
                                 return INTEGER;}                 
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 80 "eddl.lex"
+#line 81 "eddl.lex"
 {BEGIN(INITIAL);
-                                yylval.str = strdup(yytext);
-                                //printf("String detected: %s\n", yylval.str);
+                                yylval.string_t = strdup(yytext);
+                                //printf("String detected: %s\n", yylval.string_t);
                                 return STRING;} 
 	YY_BREAK
 case 23:
 /* rule 23 can match eol */
 YY_RULE_SETUP
-#line 84 "eddl.lex"
+#line 85 "eddl.lex"
 {BEGIN(INITIAL);}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 86 "eddl.lex"
+#line 87 "eddl.lex"
 ECHO;
 	YY_BREAK
-#line 1003 "lex.yy.c"
+#line 1004 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(WHITE):
 case YY_STATE_EOF(WORDS):
@@ -2002,7 +2003,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 86 "eddl.lex"
+#line 87 "eddl.lex"
 
 
 
