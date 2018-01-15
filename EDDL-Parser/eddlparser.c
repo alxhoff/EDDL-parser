@@ -295,6 +295,22 @@ char* eddl_parser_get_default_val_string(eddl_variable_t* var)
     return ret;
 }
 
+char* eddl_parser_get_initial_value_string(eddl_variable_t* var)
+{
+
+}
+
+char* eddl_parser_get_bool_string(bool val)
+{
+    if(val == true) {
+        static char true_str[] = "true";   
+        return true_str;
+    }else if(val == false) {
+        static char false_str[] = "false";
+        return false_str;
+    }else return NULL;
+}
+
 EDDL_PARSE_ERR_t eddl_parser_print_var(eddl_variable_t* var)
 {
     char* tmp = NULL;
