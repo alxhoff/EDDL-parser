@@ -161,11 +161,11 @@ char* remove_spaces(char* input)
 }
 
 #define GET_CLASS_MASK(foo) \
-            if(!strcmp(tmp, #foo)) ret |= foo##_CLASS_e;
+            if(!strcmp(tmp, #foo)) ret |= CLASS_e_##foo;
 
 class_mask_t eddl_parser_get_class_mask(char* class_string)
 {
-    class_mask_t ret = INVAL_CLASS_e;
+    class_mask_t ret = CLASS_e_INVAL;
 
     char* tmp;
     tmp = strtok(remove_spaces(class_string), "&");
@@ -238,7 +238,20 @@ EDDL_PARSE_ERR_t eddl_parser_print_doc(eddl_object_t* doc)
 
 char* eddl_parser_get_class_string(class_mask_t mask)
 {
-    char* ret = NULL;
+    char* ret = (char*)malloc(sizeof(char) * 1);
+    size_t ret_len = 0;
+    size_t tmp_len = 0;
+
+    for(int i = 1; i < 26; i++){
+        if((mask >> i) & 0x01){
+            ret_len = strlen(ret);
+            tmp_len = strlen(edd_class_strings[i]);
+            ret = (char*)realloc(ret, sizeof(char) * ret_len + tmp_len + 1);
+            if(ret_len > 1) strcat(ret, " & ");
+            strcat(ret, edd_class_strings[mask]);
+        }
+    }
+   /* 
     //contained
     if((uint8_t)mask & 0x01){
          ret = (char*)malloc(sizeof(char) * 5);
@@ -256,7 +269,7 @@ char* eddl_parser_get_class_string(class_mask_t mask)
             strcat(ret, " & DYNAMIC");
         }
     }
-    
+    */
     return ret;
 }
 
