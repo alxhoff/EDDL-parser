@@ -344,7 +344,10 @@ char* eddl_parser_get_bool_string(bool val)
     }else if(val == false) {
         static char false_str[] = "false";
         return false_str;
-    }else return NULL;
+    }else{
+        static char return_string[] = "";    
+       return return_string;
+    }
 }
 
 EDDL_PARSE_ERR_t eddl_parser_print_var(eddl_variable_t* var)
