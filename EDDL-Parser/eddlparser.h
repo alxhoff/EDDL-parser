@@ -16,7 +16,7 @@
 /**
  * @brief
  * */
-eddl_object_t* doc_object;
+extern eddl_object_t* doc_object;
 
 /**
  * @brief
@@ -160,8 +160,14 @@ handling_mask_t eddl_parser_get_handling_mask(char* handling_string);
  * @param
  * @return
  * */
+
+char* eddl_parser_get_class_string(class_mask_t mask);
+const char* eddl_parser_get_type_string(type_mask_t mask);
+char* eddl_parser_get_handling_string(handling_mask_t mask);
+char* eddl_parser_get_default_val_string(eddl_variable_t* var);
+char* eddl_parser_get_initial_value_string(eddl_variable_t* var);
+char* eddl_parser_get_bool_string(bool val);
 EDDL_PARSE_ERR_t eddl_parser_print_var(eddl_variable_t* var);
-
-
+int main (void);
 
 #endif

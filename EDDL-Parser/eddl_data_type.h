@@ -71,6 +71,15 @@ struct eddl_variable{
     eddl_variable_t* next;
 };
 
+typedef struct eddl_file_information eddl_file_information_t;
+
+struct eddl_file_information{
+    int manufacturer;
+    uint16_t device_type;
+    int device_revision;
+    int dd_revision;
+};
+
 /**
  * @typedef 
  * @brief
@@ -82,11 +91,7 @@ typedef struct eddl_object eddl_object_t;
  * @brief
  * */
 struct eddl_object{
-    int manufacturer;
-    uint16_t device_type;
-    int device_revision;
-    int dd_revision;
-
+    eddl_file_information_t* file_info;
     eddl_variable_t* current_var;
     eddl_variable_t* variable_head;
 };

@@ -7,6 +7,7 @@
 
 eddl_object_t* doc_object;
 
+extern FILE *yyin;
 int yylex(void);
 int yyparse(void);
 
@@ -28,6 +29,10 @@ eddl_object_t* eddl_parser_create_eddl_t(void)
 {
     eddl_object_t* ret = (eddl_object_t*)calloc(1, sizeof(eddl_object_t));
     if(ret == NULL) return NULL;
+
+    ret->file_info = (eddl_file_information_t*)calloc(1, sizeof(eddl_file_information_t));
+    if(ret->file_info == NULL) return NULL;
+
     return ret;
 }
 
@@ -54,28 +59,28 @@ EDDL_PARSE_ERR_t eddl_parser_create_variable_t(eddl_object_t* object)
 EDDL_PARSE_ERR_t eddl_parser_set_manufacturer(eddl_object_t* object,
         int val)
 {
-    object->manufacturer = val; 
+    object->file_info->manufacturer = val; 
     return EDDL_PARSE_OK;
 }
 
 EDDL_PARSE_ERR_t eddl_parser_set_device_type(eddl_object_t* object,
         long val)
 {
-    object->device_type = val;
+    object->file_info->device_type = val;
     return EDDL_PARSE_OK;
 }
 
 EDDL_PARSE_ERR_t eddl_parser_set_device_revision(eddl_object_t* object,
         int val)
 {
-    object->device_revision = val;
+    object->file_info->device_revision = val;
     return EDDL_PARSE_OK;
 }
 
 EDDL_PARSE_ERR_t eddl_parser_set_dd_revision(eddl_object_t* object,
         int val)
 {
-    object->dd_revision = val;
+    object->file_info->dd_revision = val;
     return EDDL_PARSE_OK;
 }
 
@@ -221,10 +226,10 @@ EDDL_PARSE_ERR_t eddl_parser_print_doc(eddl_object_t* doc)
 {
     //doc properties
     printf("!!=======EDDL DOC PROPERTIES=======!!\n");
-    printf("  Manufacturer: %d\n", doc->manufacturer);
-    printf("  Device type: %d\n", doc->device_type);
-    printf("  Device revision: %d\n", doc->device_revision);
-    printf("  DD revision: %d\n", doc->dd_revision);
+    printf("  Manufacturer: %d\n", doc->file_info->manufacturer);
+    printf("  Device type: %d\n", doc->file_info->device_type);
+    printf("  Device revision: %d\n", doc->file_info->device_revision);
+    printf("  DD revision: %d\n", doc->file_info->dd_revision);
     printf("!!=================================!!\n");
     printf(" \n");
 
@@ -252,7 +257,7 @@ char* eddl_parser_get_class_string(class_mask_t mask)
             tmp_len = strlen(edd_class_strings[i+1]);
             if(ret == NULL) ret = (char*)calloc(tmp_len + 1, sizeof(char));
             else ret = (char*)realloc(ret, sizeof(char) * (tmp_len + ret_len + 4));
-            if(ret == NULL) return EDDL_PARSE_MEM;
+            if(ret == NULL) return NULL;
             if(ret_len > 1) strcat(ret, " & ");
             strcat(ret, edd_class_strings[i+1]);
         }
@@ -260,7 +265,7 @@ char* eddl_parser_get_class_string(class_mask_t mask)
     return ret;
 }
 
-char* eddl_parser_get_type_string(type_mask_t mask)
+const char* eddl_parser_get_type_string(type_mask_t mask)
 {
     if(edd_type_strings[mask] != NULL)
         return edd_type_strings[mask];
@@ -294,10 +299,10 @@ char* eddl_parser_get_handling_string(handling_mask_t mask)
 char* eddl_parser_get_default_val_string(eddl_variable_t* var)
 {
     //TODO VOID POINTER DEF VARS
-    char buffer[12];
+    char buffer[12] = "";
     if(var->default_value != NULL)
         switch(var->type){
-        case INVAL_HANDLING_e:{
+        case INVAL_TYPE_e:{
             static char inval[] = "NULL";
             return inval;
             }
@@ -333,7 +338,8 @@ char* eddl_parser_get_default_val_string(eddl_variable_t* var)
 
 char* eddl_parser_get_initial_value_string(eddl_variable_t* var)
 {
-
+    static char return_string[] = "";
+    return return_string;
 }
 
 char* eddl_parser_get_bool_string(bool val)
@@ -345,8 +351,8 @@ char* eddl_parser_get_bool_string(bool val)
         static char false_str[] = "false";
         return false_str;
     }else{
-        static char return_string[] = "";    
-       return return_string;
+        static char return_string[] = "";
+        return return_string;
     }
 }
 
@@ -373,6 +379,8 @@ EDDL_PARSE_ERR_t eddl_parser_print_var(eddl_variable_t* var)
 
 int main (void) 
 {
+    printf("parser main\n");
+    yyin = fopen("test_edd.edd", "r");
     doc_object = eddl_parser_create_eddl_t();
     int ret = yyparse(); 
     eddl_parser_print_doc(doc_object);

@@ -35,8 +35,8 @@
 
 typedef enum {TYPE_MASKS(TYPE_ENUM)} type_mask_t;
 
-#define CLASS_MASKS_VAL(FUNC)                                       \
-            FUNC(INVAL              = 0b0)                          \
+#define CLASS_MASKS_VAL(FUNC)                                      \
+            FUNC(INVAL              = 0b0)                         \
             FUNC(ALARM              = 0b1)                         \
             FUNC(ANALOG_INPUT       = 0b10)                        \
             FUNC(ANALOG_OUTPUT      = 0b100)                       \
