@@ -41,7 +41,7 @@ void yyerror (char *s);
 %token <string_t>   STRING  
 %token <int_t>      NEG_INTEGER
 %token <uint_t>     INTEGER
-%token <int_t>      HEX
+%token <uint_t>     HEX
 %token <double_t>   DOUBLE
 
 %type <int_t>       line 
@@ -52,10 +52,13 @@ void yyerror (char *s);
 %type <hand>        hand_prop
 %type <double_t>    def_val_double 
 %type <int_t>       def_val_integer  
+%type <int_t>       def_val_neg_integer  
 %type <double_t>    def_val_line_double 
-%type <int_t>       def_val_line_integer
+%type <uint_t>      def_val_line_integer
+%type <int_t>       def_val_line_neg_integer
 /*%type <float_t>     float_term*/
 %type <double_t>    double_term
+%type <int_t>       int_term
 %type <uint_t>      uint_term
 %type <uint_t>      hex_term
 %type <string_t>    str_term
@@ -124,6 +127,13 @@ var_property    : label_prop                            {eddl_parser_set_variabl
                                                         printf("def val %d\n", $2);
                                                         //printf("3 type prop\n");
                                                         }
+                | type_prop def_val_neg_integer             {
+                                                        if(doc_object->current_var->type == INVAL_TYPE_e)
+                                                            eddl_parser_set_variable_type_mask(doc_object->current_var, $1);
+                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &$2);
+                                                        printf("def val %d\n", $2);
+                                                        //printf("3 type prop\n");
+                                                        }
                 | type_prop                             {
                                                         eddl_parser_set_variable_type_mask(doc_object->current_var, $1);
                                                         //printf("type prop\n");
@@ -156,6 +166,12 @@ var_property    : label_prop                            {eddl_parser_set_variabl
                                                         eddl_parser_set_variable_default_value(doc_object->current_var, &$3);
                                                         printf("def val %d\n", $3);
                                                         }
+                | var_property type_prop def_val_neg_integer{
+                                                        if(doc_object->current_var->type == INVAL_TYPE_e)
+                                                            eddl_parser_set_variable_type_mask(doc_object->current_var, $2);
+                                                        eddl_parser_set_variable_default_value(doc_object->current_var, &$3);
+                                                        printf("def val %d\n", $3);
+                                                        }
                 | var_property type_prop                {eddl_parser_set_variable_type_mask(doc_object->current_var, $2);
                                                         //printf("2 type prop\n");
                                                         }
@@ -169,7 +185,7 @@ var_property    : label_prop                            {eddl_parser_set_variabl
 /*process default*/
 
 
-def_val_double   : BRACKETS def_val_line_double END_BRACKETS      {
+def_val_double   : BRACKETS def_val_line_double END_BRACKETS    {
                                                                 $$ = $2; 
                                                                 printf("var prop def %f\n", $$);
                                                                 }
@@ -180,8 +196,13 @@ def_val_integer : BRACKETS def_val_line_integer END_BRACKETS    {
                                                                 }
                 ;
 
+def_val_neg_integer : BRACKETS def_val_line_neg_integer END_BRACKETS    {
+                                                                        $$  = $2;
+                                                                        }
+                ;
+
 /* Individual lines */
-man_term        : MANUFACTURER WHITESPACE uint_term      {
+man_term        : MANUFACTURER WHITESPACE uint_term     {
                                                         $$ = $3; 
                                                         //printf("manufacturer: %d\n", $3);
                                                         }
@@ -193,13 +214,13 @@ dev_t_term      : DEVICE_TYPE WHITESPACE hex_term       {
                                                         }
                 ;
 
-dev_rev_term    : DEVICE_REVISION WHITESPACE uint_term   {
+dev_rev_term    : DEVICE_REVISION WHITESPACE uint_term  {
                                                         $$ = $3; 
                                                         //printf("device revision: %d\n", $3);
                                                         }
                 ;
 
-dd_rev_term     : DD_REVISION WHITESPACE uint_term       {
+dd_rev_term     : DD_REVISION WHITESPACE uint_term      {
                                                         $$ = $3; 
                                                         //printf("DD revision: %d\n", $3);
                                                         }
@@ -248,13 +269,19 @@ def_val_line_double     : DEFAULT_VALUE WHITESPACE double_term  {
                                                                 }
                         ;
 
-def_val_line_integer    : DEFAULT_VALUE WHITESPACE uint_term     {
+def_val_line_integer    : DEFAULT_VALUE WHITESPACE uint_term    {
                                                                 $$ = $3;
                                                                 printf("def val i\n");
                                                                 }
                         | DEFAULT_VALUE WHITESPACE hex_term     {
                                                                 $$ = $3;
                                                                 printf("def val h\n");
+                                                                }
+                        ;
+
+def_val_line_neg_integer: DEFAULT_VALUE WHITESPACE int_term     {
+                                                                $$ = $3;
+                                                                printf("def val i\n");
                                                                 }
                         ;
 
@@ -268,6 +295,11 @@ double_term     : DOUBLE                                {
                                                         }
                 ;
 
+int_term        : NEG_INTEGER                           {
+                                                        $$ = $1; 
+                                                        printf("integer: %d\n", $1);
+                                                        }
+                ;
 uint_term       : INTEGER                               {
                                                         $$ = $1; 
                                                         //printf("integer: %d\n", $1);

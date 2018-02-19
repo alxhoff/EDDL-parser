@@ -74,6 +74,10 @@ int yydebug=1;
                                 yylval.double_t = atof(yytext);
                                 printf("val: %lf\n", yylval.double_t);
                                 return DOUBLE;}
+<WORDS>[-][1-9][0-9]*           {BEGIN(INITIAL); 
+                                printf("neg Integer detected\n");
+                                yylval.int_t = atoi(yytext);
+                                return NEG_INTEGER;}                 
 <WORDS>[1-9][0-9]*              {BEGIN(INITIAL); 
                                 //printf("Integer detected\n");
                                 yylval.uint_t = atoi(yytext);
