@@ -39,9 +39,10 @@ void yyerror (char *s);
 %token <string_t>   HANDLING
 %token <string_t>   DEFAULT_VALUE
 %token <string_t>   STRING  
-%token <int_t>      INTEGER
+%token <int_t>      NEG_INTEGER
+%token <uint_t>     INTEGER
 %token <int_t>      HEX
-%token <double_t>    DOUBLE
+%token <double_t>   DOUBLE
 
 %type <int_t>       line 
 %type <int_t>       man_term dev_t_term dev_rev_term dd_rev_term 
@@ -55,8 +56,8 @@ void yyerror (char *s);
 %type <int_t>       def_val_line_integer
 /*%type <float_t>     float_term*/
 %type <double_t>    double_term
-%type <int_t>       int_term
-%type <int_t>       hex_term
+%type <uint_t>      uint_term
+%type <uint_t>      hex_term
 %type <string_t>    str_term
 
 %%
@@ -180,7 +181,7 @@ def_val_integer : BRACKETS def_val_line_integer END_BRACKETS    {
                 ;
 
 /* Individual lines */
-man_term        : MANUFACTURER WHITESPACE int_term      {
+man_term        : MANUFACTURER WHITESPACE uint_term      {
                                                         $$ = $3; 
                                                         //printf("manufacturer: %d\n", $3);
                                                         }
@@ -192,13 +193,13 @@ dev_t_term      : DEVICE_TYPE WHITESPACE hex_term       {
                                                         }
                 ;
 
-dev_rev_term    : DEVICE_REVISION WHITESPACE int_term   {
+dev_rev_term    : DEVICE_REVISION WHITESPACE uint_term   {
                                                         $$ = $3; 
                                                         //printf("device revision: %d\n", $3);
                                                         }
                 ;
 
-dd_rev_term     : DD_REVISION WHITESPACE int_term       {
+dd_rev_term     : DD_REVISION WHITESPACE uint_term       {
                                                         $$ = $3; 
                                                         //printf("DD revision: %d\n", $3);
                                                         }
@@ -247,7 +248,7 @@ def_val_line_double     : DEFAULT_VALUE WHITESPACE double_term  {
                                                                 }
                         ;
 
-def_val_line_integer    : DEFAULT_VALUE WHITESPACE int_term     {
+def_val_line_integer    : DEFAULT_VALUE WHITESPACE uint_term     {
                                                                 $$ = $3;
                                                                 printf("def val i\n");
                                                                 }
@@ -259,13 +260,15 @@ def_val_line_integer    : DEFAULT_VALUE WHITESPACE int_term     {
 
 /* Fundemental values */
 
+
+
 double_term     : DOUBLE                                {
                                                         $$ = $1; 
                                                         printf("double: %lf\n", $$);
                                                         }
                 ;
 
-int_term        : INTEGER                               {
+uint_term       : INTEGER                               {
                                                         $$ = $1; 
                                                         //printf("integer: %d\n", $1);
                                                         }

@@ -978,7 +978,7 @@ YY_RULE_SETUP
 #line 77 "eddl.lex"
 {BEGIN(INITIAL); 
                                 //printf("Integer detected\n");
-                                yylval.int_t = atoi(yytext);
+                                yylval.uint_t = atoi(yytext);
                                 return INTEGER;}                 
 	YY_BREAK
 case 22:

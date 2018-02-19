@@ -76,7 +76,7 @@ int yydebug=1;
                                 return DOUBLE;}
 <WORDS>[1-9][0-9]*              {BEGIN(INITIAL); 
                                 //printf("Integer detected\n");
-                                yylval.int_t = atoi(yytext);
+                                yylval.uint_t = atoi(yytext);
                                 return INTEGER;}                 
 <WORDS>[a-zA-Z][ .&_a-zA-Z0-9]+ {BEGIN(INITIAL);
                                 yylval.string_t = strdup(yytext);

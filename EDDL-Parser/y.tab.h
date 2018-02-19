@@ -60,9 +60,10 @@ extern int yydebug;
     HANDLING = 270,
     DEFAULT_VALUE = 271,
     STRING = 272,
-    INTEGER = 273,
-    HEX = 274,
-    DOUBLE = 275
+    NEG_INTEGER = 273,
+    INTEGER = 274,
+    HEX = 275,
+    DOUBLE = 276
   };
 #endif
 /* Tokens.  */
@@ -81,9 +82,10 @@ extern int yydebug;
 #define HANDLING 270
 #define DEFAULT_VALUE 271
 #define STRING 272
-#define INTEGER 273
-#define HEX 274
-#define DOUBLE 275
+#define NEG_INTEGER 273
+#define INTEGER 274
+#define HEX 275
+#define DOUBLE 276
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -103,7 +105,7 @@ union YYSTYPE
         handling_mask_t     hand;
         
 
-#line 107 "y.tab.h" /* yacc.c:1909  */
+#line 109 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
