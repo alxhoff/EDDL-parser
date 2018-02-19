@@ -68,7 +68,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//#include "eddl_data_type.h"
+#include "eddl_data_type.h"
 #include "eddlparser.h"
 
 extern eddl_object_t* doc_object;

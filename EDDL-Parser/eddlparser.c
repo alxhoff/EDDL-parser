@@ -205,11 +205,11 @@ type_mask_t eddl_parser_get_type_mask(char* type_string)
 }
 
 #define GET_HANDLING_MASK(foo) \
-            if(!strcmp(tmp, #foo)) ret |= foo##_HANDLING_e;
+            if(!strcmp(tmp, #foo)) ret |= HANDLING_e_##foo;
 
 handling_mask_t eddl_parser_get_handling_mask(char* handling_string)
 {
-    handling_mask_t ret = INVAL_HANDLING_e;
+    handling_mask_t ret = HANDLING_e_INVAL;
     char* tmp;
 
     tmp = strtok(remove_spaces(handling_string), "&");

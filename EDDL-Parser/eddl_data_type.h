@@ -78,6 +78,9 @@ struct eddl_file_information{
     uint16_t device_type;
     int device_revision;
     int dd_revision;
+
+    int fileinfo_obj_id;
+    int name_space;
 };
 
 /**

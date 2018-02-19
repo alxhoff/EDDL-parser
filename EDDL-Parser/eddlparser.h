@@ -168,6 +168,6 @@ char* eddl_parser_get_default_val_string(eddl_variable_t* var);
 char* eddl_parser_get_initial_value_string(eddl_variable_t* var);
 char* eddl_parser_get_bool_string(bool val);
 EDDL_PARSE_ERR_t eddl_parser_print_var(eddl_variable_t* var);
-int main (void);
+int parser_main (void);
 
 #endif
