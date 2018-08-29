@@ -97,6 +97,7 @@ union YYSTYPE
         float               float_t; 
         double              double_t;
         char*               string_t;
+        int64_t             long_t;
         unsigned int        uint_t;
         int                 int_t; 
         eddl_variable_t*    var;
@@ -105,7 +106,7 @@ union YYSTYPE
         handling_mask_t     hand;
         
 
-#line 109 "y.tab.h" /* yacc.c:1910  */
+#line 110 "y.tab.h" /* yacc.c:1910  */
 };
 
 typedef union YYSTYPE YYSTYPE;
