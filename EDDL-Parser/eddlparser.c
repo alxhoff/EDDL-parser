@@ -15,7 +15,6 @@ const char* edd_type_strings[] = {TYPE_MASKS(TYPE_STRING)};
 const char* edd_handling_strings[] = {HANDLING_MASKS(HANDLING_STRING)};
 const char* edd_class_strings[] = {CLASS_MASKS(CLASS_STRING)};
 
-//LL
 eddl_variable_t* eddl_parser_get_last_ll_var(eddl_object_t* object)
 {
     if(object->variable_head == NULL) return NULL;
@@ -24,7 +23,6 @@ eddl_variable_t* eddl_parser_get_last_ll_var(eddl_object_t* object)
     return var_head;
 }
 
-//CREATION
 eddl_object_t* eddl_parser_create_eddl_t(void)
 {
     eddl_object_t* ret = (eddl_object_t*)calloc(1, sizeof(eddl_object_t));
@@ -55,7 +53,6 @@ EDDL_PARSE_ERR_t eddl_parser_create_variable_t(eddl_object_t* object)
     return EDDL_PARSE_OK;
 }
 
-//SET
 EDDL_PARSE_ERR_t eddl_parser_set_manufacturer(eddl_object_t* object,
         int val)
 {
@@ -220,11 +217,10 @@ handling_mask_t eddl_parser_get_handling_mask(char* handling_string)
     return ret;
 }
 
-//check
+//TODO check
 
 EDDL_PARSE_ERR_t eddl_parser_print_doc(eddl_object_t* doc)
 {
-    //doc properties
     printf("!!=======EDDL DOC PROPERTIES=======!!\n");
     printf("  Manufacturer: %d\n", doc->file_info->manufacturer);
     printf("  Device type: %d\n", doc->file_info->device_type);
@@ -265,10 +261,10 @@ char* eddl_parser_get_class_string(class_mask_t mask)
     return ret;
 }
 
-const char* eddl_parser_get_type_string(type_mask_t mask)
+char* eddl_parser_get_type_string(type_mask_t mask)
 {
     if(edd_type_strings[mask] != NULL)
-        return edd_type_strings[mask];
+        return (char*)edd_type_strings[mask];
     return NULL;
 }
 
@@ -365,7 +361,7 @@ EDDL_PARSE_ERR_t eddl_parser_print_var(eddl_variable_t* var)
     printf("  Help    : %s\n", (var->help != NULL) ? var->help : "NULL");
     tmp = eddl_parser_get_class_string(var->_class);
     printf("  Class   : %s\n", (tmp != NULL) ? tmp : "NULL");
-    tmp = eddl_parser_get_type_string(var->type);
+    tmp = (char*)eddl_parser_get_type_string(var->type);
     printf("  Type    : %s\n", (tmp != NULL) ? tmp : "NULL");
     tmp = eddl_parser_get_handling_string(var->handling);
     printf("  Handling: %s\n", (tmp != NULL) ? tmp : "NULL");
@@ -374,7 +370,7 @@ EDDL_PARSE_ERR_t eddl_parser_print_var(eddl_variable_t* var)
     printf("  value   : %s\n", (tmp != NULL) ? tmp : "NULL");
     printf("!!=================================!!\n");
     printf(" \n");
-
+    return EDDL_PARSE_OK;
 }
 
 int main (void) 
